@@ -36,16 +36,41 @@ async def clear(ctx, amount=5):
 @client.command()
 async def secret(*, message):   # Use bot to message other channel:
     channel = client.get_channel(int(os.getenv("RESPONSE_CHANNEL")))
-    embed_var = discord.Embed(title=f"{message}", color=0xff770f)
+    embed_var = discord.Embed(title=f"{message}", color=0x00ff00)
     await channel.send(embed=embed_var)
 
 
 @client.command()
 async def help(ctx):            # DON'T CHANGE THIS COMMAND!!!
-    embed_var = discord.Embed(title="Komendy:", description="przed komenda dodaj \"?\"", color=0x00ff00)
+    embed_var = discord.Embed(title="Komendy:", description="przed komenda dodaj \"?\"", color=0xff770f)
     help_json = "".join(read_file(f'{res_dir}/help'))
     for name, value in json.loads('{'+help_json+'}').items():
         embed_var.add_field(name=name, value=value, inline=False)
+    await ctx.send(embed=embed_var)
+
+
+@client.command()
+async def linki(ctx):
+    embed_var = discord.Embed(title="Linki pochodzą z:", description="https://tiny.cc/szukamlinku", color=0xff770f)
+    help_json = "".join(read_file(f'{res_dir}/linki'))
+    for name, value in json.loads('{'+help_json+'}').items():
+        embed_var.add_field(name=name, value=value, inline=False)
+    await ctx.send(embed=embed_var)
+
+
+@client.command()
+async def oflinki(ctx):
+    embed_var = discord.Embed(title="Oficjalne linki:", color=0xff770f)
+    help_json = "".join(read_file(f'{res_dir}/oflinki'))
+    for name, value in json.loads('{'+help_json+'}').items():
+        embed_var.add_field(name=name, value=value, inline=False)
+    await ctx.send(embed=embed_var)
+
+
+@client.command()
+async def link(ctx, *, subject):
+    help_json = "".join(read_file(f'{res_dir}/linki'))
+    embed_var = discord.Embed(title=subject, description=json.loads('{' + help_json + '}')[subject], color=0xff770f)
     await ctx.send(embed=embed_var)
 
 
