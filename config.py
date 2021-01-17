@@ -1,6 +1,6 @@
 prefix = '!'
-mp3_dir = 'music'
-pic_dir = 'co_memes'
+mp3_dir = 'yt_audio'
+pic_dir = 'pics'
 res_dir = 'resources'
 temp_mp3_name = 'song.mp3'
 ydl_opts = {
