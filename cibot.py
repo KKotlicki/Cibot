@@ -42,7 +42,7 @@ async def secret(*, message):   # Use bot to message other channel:
 
 @client.command()
 async def help(ctx):            # DON'T CHANGE THIS COMMAND!!!
-    embed_var = discord.Embed(title="Komendy:", description="przed komenda dodaj \"?\"", color=0xff770f)
+    embed_var = discord.Embed(title="Komendy:", description=f"przed komenda dodaj \"{prefix}\"", color=0xff770f)
     help_json = "".join(read_file(f'{res_dir}/help'))
     for name, value in json.loads('{'+help_json+'}').items():
         embed_var.add_field(name=name, value=value, inline=False)
