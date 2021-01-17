@@ -123,3 +123,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Own
+credentials.json
+ytaudio/audio.mp3
+.idea/
