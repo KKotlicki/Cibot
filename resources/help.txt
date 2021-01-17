@@ -1,0 +1,8 @@
+"co": "nie wiem",
+"clear {ilosc}": "wyczysc podana ilosc wiadomosci",
+"play {link}": "pusc film z youtube",
+"pause": "zapauzuj film",
+"stop": "zatrzymaj film",
+"leave": "opusc kanal glosowy",
+"???": "i inne sekretne...",
+"nie wiem": "w jaki sposob dac znaki specjalne:("
