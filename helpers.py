@@ -17,7 +17,7 @@ async def build_link_list(ctx, embed_var, fname):
     await ctx.send(embed=embed_var)
 
 
-async def fetch_sv_data(guild):
+def fetch_sv_data(guild):
     text_names = []
     voice_names = []
     for channel in guild.text_channels:
