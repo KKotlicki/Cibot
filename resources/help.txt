@@ -5,5 +5,4 @@
 "Pauzuj audio": "pause",
 "Zakoncz audio": "stop",
 "Opusc kanal glosowy": "leave",
-"Nie wiem": "co",
-"dalej nie wiem": "w jaki sposob dac znaki specjalne w help:("
+"Nie wiem": "co"
