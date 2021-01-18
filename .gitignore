@@ -128,4 +128,4 @@ dmypy.json
 credentials.json
 ytaudio/
 .idea
-.bat
+cibot.bat
