@@ -5,5 +5,7 @@
 "Pauzuj audio": "pause",
 "Zakoncz audio": "stop",
 "Opusc kanal glosowy": "leave",
+"Podaj ping bota": "ping",
+"Komendy dla adminow": "adm",
 "Nie wiem": "co",
 "Credits": "thx"
