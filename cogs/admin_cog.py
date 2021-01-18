@@ -26,7 +26,7 @@ class AdminCog(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
-    async def set_announcments_channel(self, ctx, *, message=''):
+    async def set_anns(self, ctx, *, message=''):
         with open(f'{sv_dir}/{ctx.message.guild.name}tempt.txt', 'w+') as wr:
             wr.write(message)
         await ctx.send(f"channel set to {message}")
