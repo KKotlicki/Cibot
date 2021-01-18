@@ -1,10 +1,10 @@
 "Oficjalne linki": "oflinki",
 "Nieoficjalne linki": "linki",
-"Znajdź link do nagrania na yt": "link *przedmiot*",
-"clear *ilosc*": "wyczysc podana ilosc wiadomosci",
-"play *link*": "pusc audio z youtube",
-"pause": "zapauzuj audio",
-"stop": "zatrzymaj audio",
-"leave": "opusc kanal glosowy",
-"co": "nie wiem",
-"nie wiem": "w jaki sposob dac znaki specjalne:("
+"Znajdz link do nagrania na yt": "link *przedmiot*",
+"Wyczysc podana ilosc wiadomosci": "clear *ilosc*",
+"Pusc audio z youtube": "play *link*",
+"Pauzuj audio": "pause",
+"Zakoncz audio": "stop",
+"Opusc kanal glosowy": "leave",
+"Nie wiem": "co",
+"dalej nie wiem": "w jaki sposob dac znaki specjalne w help:("
