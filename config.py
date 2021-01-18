@@ -1,7 +1,8 @@
-prefix = 'c!'
+prefix = '!'
 mp3_dir = 'ytaudio'
 pic_dir = 'pics'
 res_dir = 'resources'
+sv_dir = 'servers'
 temp_mp3_name = 'song.mp3'
 ydl_opts = {
     'format': 'bestaudio/best',
