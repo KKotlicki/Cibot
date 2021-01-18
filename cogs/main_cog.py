@@ -2,13 +2,19 @@ import discord
 from discord.ext import commands
 from config import *
 import json
-from helpers import read_lines
+from helpers import read_lines, build_link_list
 
 
 class MainCog(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.client.remove_command('help')
+
+    @commands.command()
+    async def thx(self, ctx):
+        embed_var = discord.Embed(title=":evergreen_tree: Contributed to Cibot:", description="https://github.com/KKotlicki/Cibot",
+                                  color=0xff770f)
+        await build_link_list(ctx, embed_var, "credits")
 
     @commands.command()
     async def ping(self, ctx):
