@@ -9,5 +9,5 @@
 "ALGT CW(gr. 5)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY3zR0uOqr99Rsxr8nGvcyiH",
 "PELP1 CW(gr. 5)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY2Nd3_XPS1ZWuT_mwtytMc9",
 "ALGT LAB(gr. 3)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY3KY43qH8V7E-8C93CXTPZ-",
-"ALGT Kolokwia": "https://drive.google.com/drive/folders/1FeccZaNG-Xg9-R8kMMFXwvRmJyQhj0Aj?fbclid=IwAR2q1tTZbT5lxQIIM064PY8QOnhVEhoiNmyZr4F4GjqRlwS8J6JG8CEEAyE"
+"ALGT Kolokwia": "https://drive.google.com/drive/folders/1FeccZaNG-Xg9-R8kMMFXwvRmJyQhj0Aj?fbclid=IwAR2q1tTZbT5lxQIIM064PY8QOnhVEhoiNmyZr4F4GjqRlwS8J6JG8CEEAyE",
 "DYSK": "https://drive.google.com/drive/folders/1utC-NpokgAVYZFe4gqqE4tzqWZ24byIg?fbclid=IwAR3rfwSGdShrTU7_34BSYw6kfCVgE5VtngUzJ5OPwFSI2zBIQVq4TXtEeUo"
