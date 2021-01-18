@@ -4,6 +4,8 @@ from config import *
 import glob
 import json
 
+
+
 def read_lines(file_name):
     with open(f"{file_name}.txt") as rs:
         return rs.read().splitlines()
@@ -45,3 +47,7 @@ async def send_pic_or_txt_on_choice(ctx, choice):
     else:
         responses = read_lines(f'{res_dir}/responses')
         await ctx.send(f'{random.choice(responses)}')
+
+
+
+
