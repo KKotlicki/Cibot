@@ -20,6 +20,11 @@ class AdminCog(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
+    async def clear(self, ctx, amount=5):
+        await ctx.channel.purge(limit=amount)
+
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)
     async def sv(self, ctx):
         guild = ctx.message.guild
         await fetch_sv_data(guild)
@@ -37,7 +42,7 @@ class AdminCog(commands.Cog):
         sv_text_channel_dict = {}
         keys = []
         values = []
-        with open(f'{sv_dir}/{ctx.message.guild.name}tempt.txt', "r") as rd:
+        with open(f'{sv_dir}/{ctx.message.guild.name}_config.txt', "r") as rd:
             self.message_channel = rd.read()
         with open(f"{sv_dir}/{ctx.message.guild.name}.json", "r") as rd:
             sv_data = json.loads(rd.read())["text"]
