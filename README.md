@@ -60,12 +60,10 @@ hidden files:
 servers/ - contains some server data and specific settings
 ytaudio/ - contains temporary music files (downloads music from youtube in there, then plays it)
 
-
-To add links, go to 'resources'
-Main bot script is cibot.py. Keep it tidy!
-In config.py save data, such as relative paths, server settings, etc.
-In 'cogs' directory, add your modules (class structure is preffered).
-In helpers.py, add your local methods.
+To add links go to 'resources' Main bot script is cibot.py. Keep it tidy!
+In config.py save data such as relative paths, server settings, etc.
+In 'cogs' directory add your modules (class structure is preffered).
+In helpers.py add your local methods.
 
 Data will be updated to 2nd semester soon.
 
@@ -79,6 +77,7 @@ Ground Rules:
 6.  if you want to create directory for something else than pictures, do so in main directory
 7.  unless you have a good reason, do not change cibot.py script
 8.  do not use <while True> or simmilar commands - they break script asynchronicity
+9.  do not use purge methods (or only for authenticated users)
 
 
 ToDo:
