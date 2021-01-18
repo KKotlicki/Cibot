@@ -1,0 +1,3 @@
+"Zaladuj kanaly serwera": "sv",
+"Ustaw kanal na ogloszenia bota": "set_anns <kanal>",
+"Przekaz ogloszenie przez bota": "say <wiadomosc>"
