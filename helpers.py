@@ -21,11 +21,11 @@ async def fetch_sv_data(guild):
     text_names = []
     voice_names = []
     for channel in guild.text_channels:
-        text_names.append(str(channel))
+        text_names.append(f'{str(channel)} => {channel.id}')
     for channel in guild.voice_channels:
-        voice_names.append(str(channel))
-    with open(f"{sv_dir}/{guild}.txt", "w+") as fn:
-        fn.write(f'"text": {text_names}, "voice": {voice_names}')
+        voice_names.append(f'{str(channel)} => {channel.id}')
+    with open(f"{sv_dir}/{guild}.json", "w+") as fn:
+        fn.write(json.dumps({"text": text_names, "voice": voice_names}))
 
 
 # Local functions:
