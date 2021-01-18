@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from helpers import fetch_sv_data
+from helpers import fetch_sv_data, open_help
 from config import sv_dir
 import json
 
@@ -17,6 +17,11 @@ class AdminCog(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         await fetch_sv_data(guild)
+
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)
+    async def adm(self, ctx):
+        await open_help(ctx, "adm_help")
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
