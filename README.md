@@ -88,4 +88,5 @@ ToDo:
 5. Points to grade converter (by subject)
 6. Youtube play by keyword
 7. !help and link cogs need to read polish characters
-8. Rewrite or format documentation - this one sucks!
+8. Youtube size limiter!!!!!
+9. Rewrite or format documentation - this one sucks!
