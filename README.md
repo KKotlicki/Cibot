@@ -86,4 +86,7 @@ ToDo:
 2. Calendar of exams
 3. Time to final exams (countdown)
 4. Send documents (such as subject statues)
-5. points to grade converter (by subject)
+5. Points to grade converter (by subject)
+6. Youtube play by keyword
+7. !help and link cogs need to read polish characters
+8. Rewrite or format documentation - this one sucks!
