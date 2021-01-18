@@ -126,7 +126,7 @@ dmypy.json
 
 # Own
 credentials.json
-ytaudio/
+ytaudio/song.mp3
 .idea
 cibot.bat
 servers/
