@@ -1,5 +1,5 @@
 prefix = '!'
-mp3_dir = 'yt_audio'
+mp3_dir = 'ytaudio'
 pic_dir = 'pics'
 res_dir = 'resources'
 temp_mp3_name = 'song.mp3'
