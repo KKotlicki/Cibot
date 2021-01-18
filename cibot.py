@@ -28,9 +28,9 @@ async def co(ctx, *, question=''):
     await send_pic_or_txt_on_choice(ctx, choice)
 
 
-@client.command()
-async def clear(ctx, amount=5):
-    await ctx.channel.purge(limit=amount + 1)
+# @client.command()
+# async def clear(ctx, amount=5):
+#     await ctx.channel.purge(limit=amount + 1)
 
 
 @client.command()
