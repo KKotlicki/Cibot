@@ -1,7 +1,7 @@
 prefix = '!'
 mp3_dir = 'ytaudio'
 pic_dir = 'pics'
-res_dir = 'resources'
+res_dir = 'res'
 sv_dir = 'servers'
 cogs_dir = 'cogs'
 temp_mp3_name = 'song.mp3'
