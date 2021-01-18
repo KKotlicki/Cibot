@@ -1,4 +1,4 @@
-prefix = '!'
+prefix = 'c!'
 mp3_dir = 'ytaudio'
 pic_dir = 'pics'
 res_dir = 'resources'
