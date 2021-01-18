@@ -1,7 +1,7 @@
 from discord.ext import commands
+from dotenv import load_dotenv
 import os
 import youtube_dl
-from dotenv import load_dotenv
 from helpers import *
 
 load_dotenv()
@@ -31,6 +31,16 @@ async def co(ctx, *, question=''):
     await send_pic_or_txt_on_choice(ctx, choice)
 
 
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'{cogs_dir}.{extension}')
+
+
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'{cogs_dir}.{extension}')
+
+
 # @client.command()
 # async def clear(ctx, amount=5):
 #     await ctx.channel.purge(limit=amount + 1)
@@ -46,110 +56,23 @@ async def sv(ctx):
 
 
 @client.command()
-async def secret(*, message):  # Use bot to message other channel:
+async def secret(*, message):
     channel = client.get_channel(int(os.getenv("GENERAL")))
     embed_var = discord.Embed(title=f"{message}", color=0x00ff00)
     await channel.send(embed=embed_var)
 
 
 @client.command()
-async def help(ctx):  # DON'T CHANGE THIS COMMAND!!!
+async def help(ctx):
     embed_var = discord.Embed(title=":ledger: Komendy:", description=f"przed komenda dodaj \"{prefix}\"",
                               color=0xff770f)
     await build_link_list(ctx, embed_var)
 
 
-# Link commands:
-
-@client.command()
-async def linki(ctx):
-    embed_var = discord.Embed(title=":shushing_face: Linki pochodzą z:", description="https://tiny.cc/szukamlinku",
-                              color=0xff770f)
-    await build_link_list(ctx, embed_var, "linki")
-
-@client.command()
-async def oflinki(ctx):
-    embed_var = discord.Embed(title=":mortar_board: Oficjalne linki:", color=0xff770f)
-    await build_link_list(ctx, embed_var, "oflinki")
-
-
-@client.command()
-async def link(ctx, *, subject):
-    help_json = "".join(read_lines(f'{res_dir}/linki'))
-    embed_var = discord.Embed(title=subject, description=json.loads('{' + help_json + '}')[subject], color=0xff770f)
-    await ctx.send(embed=embed_var)
-
-
-# Youtube commands:
-
-@client.command()  # Do not remove this command! (you can still change the call name)
-async def play(ctx, url: str):
-    channel = str(ctx.author.voice.channel)
-    if channel is None:
-        await ctx.send(":slight_frown: Nie jesteś w kanale głosowym")
-    elif 'list=' in url:
-        await ctx.send(":slight_frown: Nie można odtwarzać playlist")
-    else:
-        song_there = os.path.isfile(f"{mp3_dir}/{temp_mp3_name}")
-        try:
-            if song_there:
-                os.remove(f"{mp3_dir}/{temp_mp3_name}")
-        except PermissionError:
-            await ctx.send(":slight_frown: Zaczekaj aż skończy się aktualny utwór, lub zakończ go komendą \"stop\".")
-            return
-        await ctx.send(":satellite: Buforuję...")
-        await download_and_play_video(ctx, channel, url)
-
-
-@client.command()
-async def leave(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-    if voice.is_connected():
-        await voice.disconnect()
-    else:
-        await ctx.send(":slight_frown: Nie jestem podłączony do kanału głosowego.")
-
-
-@client.command()
-async def pause(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-    if voice.is_playing():
-        voice.pause()
-    else:
-        await ctx.send(":slight_frown: Na ten moment nie gra żadne audio.")
-
-
-@client.command()
-async def resume(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-    if voice.is_paused():
-        voice.resume()
-    else:
-        await ctx.send(":slight_frown: Audio jest zapauzowane.")
-
-
-@client.command()
-async def stop(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-    voice.stop()
-
-for filename in os.listdir(f'./{cogs_dir}'):
-    if filename.endswith('.py'):
-        client.load_extension(f'{cogs_dir}/{filename[:-3]}')
-
-
-# Don't change this methods!
-async def download_and_play_video(ctx, channel, url):
-    voice_channel = discord.utils.get(ctx.guild.voice_channels, name=channel)
-    await voice_channel.connect()
-    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
-    for file in os.listdir(f"./"):
-        if file.endswith(".mp3"):
-            os.rename(file, temp_mp3_name)
-    os.replace(temp_mp3_name, f"{mp3_dir}/{temp_mp3_name}")
-    voice.play(discord.FFmpegPCMAudio(f"{mp3_dir}/{temp_mp3_name}"))
+if __name__ == '__main__':
+    for filename in os.listdir(f'{cogs_dir}'):
+        if filename.endswith('.py'):
+            client.load_extension(f'{cogs_dir}.{filename[:-3]}')
 
 
 client.run(os.getenv("DSC_BOT_KEY"))
