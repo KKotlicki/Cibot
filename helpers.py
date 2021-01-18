@@ -10,6 +10,14 @@ def read_lines(file_name):
         return rs.read().splitlines()
 
 
+async def open_help(ctx, file_name):
+    embed_var = discord.Embed(title=":ledger: Komendy:", color=0xff770f)
+    help_json = "".join(read_lines(f'{res_dir}/{file_name}'))
+    for name, value in json.loads('{' + help_json + '}').items():
+        embed_var.add_field(name=f'**{name}**', value=f'```{prefix}{value}```', inline=False)
+    await ctx.send(embed=embed_var)
+
+
 async def build_link_list(ctx, embed_var, fname):
     help_json = "".join(read_lines(f'{res_dir}/{fname}'))
     for name, value in json.loads('{' + help_json + '}').items():
