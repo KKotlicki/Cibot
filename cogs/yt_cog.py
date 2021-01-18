@@ -1,10 +1,11 @@
 from discord.ext import commands
+import discord
 import youtube_dl
 import os
-from helpers import *
+from config import *
 
 
-class YtLinkAudio(commands.Cog):
+class YtLinkAudioCog(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -69,4 +70,4 @@ class YtLinkAudio(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(YtLinkAudio(client))
+    client.add_cog(YtLinkAudioCog(client))
