@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
-from config import *
-import json
-from helpers import read_lines, build_link_list
+from helpers import open_help, build_link_list
 
 
 class MainCog(commands.Cog):
@@ -12,7 +10,8 @@ class MainCog(commands.Cog):
 
     @commands.command()
     async def thx(self, ctx):
-        embed_var = discord.Embed(title=":evergreen_tree: Contributed to Cibot:", description="https://github.com/KKotlicki/Cibot",
+        embed_var = discord.Embed(title=":evergreen_tree: Contributed to Cibot:", description="https://github.com"
+                                                                                              "/KKotlicki/Cibot",
                                   color=0xff770f)
         await build_link_list(ctx, embed_var, "credits")
 
@@ -22,11 +21,7 @@ class MainCog(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
-        embed_var = discord.Embed(title=":ledger: Komendy:", color=0xff770f)
-        help_json = "".join(read_lines(f'{res_dir}/help'))
-        for name, value in json.loads('{' + help_json + '}').items():
-            embed_var.add_field(name=f'**{name}**', value=f'```{prefix}{value}```', inline=False)
-        await ctx.send(embed=embed_var)
+        await open_help(ctx, "help")
 
 
 def setup(client):
