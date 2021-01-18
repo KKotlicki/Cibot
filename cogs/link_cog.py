@@ -5,7 +5,7 @@ import json
 from helpers import build_link_list, read_lines
 
 
-class LinkShare(commands.Cog):
+class LinkCog(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -28,4 +28,4 @@ class LinkShare(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(LinkShare(client))
+    client.add_cog(LinkCog(client))
