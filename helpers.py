@@ -4,13 +4,13 @@ from config import *
 import glob
 import json
 
-def read_file(file_name):
+def read_lines(file_name):
     with open(f"{file_name}.txt") as rs:
         return rs.read().splitlines()
 
 
 async def build_link_list(ctx, embed_var, fname):
-    help_json = "".join(read_file(f'{res_dir}/{fname}'))
+    help_json = "".join(read_lines(f'{res_dir}/{fname}'))
     for name, value in json.loads('{' + help_json + '}').items():
         embed_var.add_field(name=f'**{name}**', value=value, inline=False)
     await ctx.send(embed=embed_var)
@@ -43,5 +43,5 @@ async def send_pic_or_txt_on_choice(ctx, choice):
     elif choice == '2':
         await ctx.send(file=discord.File(random.choice(glob.glob(f"{pic_dir}/*.png"))))
     else:
-        responses = read_file(f'{res_dir}/responses')
+        responses = read_lines(f'{res_dir}/responses')
         await ctx.send(f'{random.choice(responses)}')
