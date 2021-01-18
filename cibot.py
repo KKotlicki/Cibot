@@ -133,6 +133,10 @@ async def stop(ctx):
     voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
     voice.stop()
 
+for filename in os.listdir(f'./{cogs_dir}'):
+    if filename.endswith('.py'):
+        client.load_extension(f'{cogs_dir}/{filename[:-3]}')
+
 
 # Don't change this methods!
 async def download_and_play_video(ctx, channel, url):
