@@ -1,6 +1,6 @@
 "Oficjalne linki": "oflinki",
 "Nieoficjalne linki": "linki",
-"Znajdz link do nagrania na yt": "link <przedmiot>",
+"Znajdz link do przedmiotu na yt": "link <przedmiot>",
 "Pusc audio z youtube": "play <link>",
 "Pauzuj audio": "pause",
 "Zakoncz audio": "stop",
