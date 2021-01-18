@@ -9,7 +9,7 @@ load_dotenv()
 # Set command prefix:
 client = commands.Bot(command_prefix=prefix)
 
-co_alias = read_file(f'{res_dir}/co_aliases')
+co_alias = read_lines(f'{res_dir}/co_aliases')
 client.remove_command('help')
 players = {}
 
@@ -35,6 +35,9 @@ async def co(ctx, *, question=''):
 # async def clear(ctx, amount=5):
 #     await ctx.channel.purge(limit=amount + 1)
 
+@client.command()
+async def ping(ctx):
+    await ctx.send(f'{round(client.latency * 1000)}ms')
 
 @client.command()
 async def sv(ctx):
@@ -72,7 +75,7 @@ async def oflinki(ctx):
 
 @client.command()
 async def link(ctx, *, subject):
-    help_json = "".join(read_file(f'{res_dir}/linki'))
+    help_json = "".join(read_lines(f'{res_dir}/linki'))
     embed_var = discord.Embed(title=subject, description=json.loads('{' + help_json + '}')[subject], color=0xff770f)
     await ctx.send(embed=embed_var)
 
