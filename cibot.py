@@ -2,13 +2,12 @@ from discord.ext import commands
 import os
 import youtube_dl
 from dotenv import load_dotenv
-import json
 from helpers import *
+
 load_dotenv()
 
 # Set command prefix:
 client = commands.Bot(command_prefix=prefix)
-
 
 co_alias = read_file(f'{res_dir}/co_aliases')
 client.remove_command('help')
@@ -19,6 +18,10 @@ players = {}
 async def on_ready():
     print('Bot is ready.')
 
+
+@client.event
+async def on_guild_join(guild):
+    await fetch_sv_data(guild)
 
 # Commands:
 
@@ -34,39 +37,37 @@ async def co(ctx, *, question=''):
 
 
 @client.command()
-async def secret(*, message):   # Use bot to message other channel:
+async def sv(ctx):
+    guild = ctx.message.guild
+    await fetch_sv_data(guild)
+
+
+@client.command()
+async def secret(*, message):  # Use bot to message other channel:
     channel = client.get_channel(int(os.getenv("GENERAL")))
     embed_var = discord.Embed(title=f"{message}", color=0x00ff00)
     await channel.send(embed=embed_var)
 
 
 @client.command()
-async def help(ctx):            # DON'T CHANGE THIS COMMAND!!!
-    embed_var = discord.Embed(title=":ledger: Komendy:", description=f"przed komenda dodaj \"{prefix}\"", color=0xff770f)
-    help_json = "".join(read_file(f'{res_dir}/help'))
-    for name, value in json.loads('{'+help_json+'}').items():
-        embed_var.add_field(name=f'**{name}**', value=f'```{value}```', inline=False)
-    await ctx.send(embed=embed_var)
+async def help(ctx):  # DON'T CHANGE THIS COMMAND!!!
+    embed_var = discord.Embed(title=":ledger: Komendy:", description=f"przed komenda dodaj \"{prefix}\"",
+                              color=0xff770f)
+    await build_link_list(ctx, embed_var)
 
 
 # Link commands:
 
 @client.command()
 async def linki(ctx):
-    embed_var = discord.Embed(title=":shushing_face: Linki pochodzą z:", description="https://tiny.cc/szukamlinku", color=0xff770f)
-    help_json = "".join(read_file(f'{res_dir}/linki'))
-    for name, value in json.loads('{'+help_json+'}').items():
-        embed_var.add_field(name=f'**{name}**', value=value, inline=False)
-    await ctx.send(embed=embed_var)
-
+    embed_var = discord.Embed(title=":shushing_face: Linki pochodzą z:", description="https://tiny.cc/szukamlinku",
+                              color=0xff770f)
+    await build_link_list(ctx, embed_var, "linki")
 
 @client.command()
 async def oflinki(ctx):
     embed_var = discord.Embed(title=":mortar_board: Oficjalne linki:", color=0xff770f)
-    help_json = "".join(read_file(f'{res_dir}/oflinki'))
-    for name, value in json.loads('{'+help_json+'}').items():
-        embed_var.add_field(name=f'**{name}**', value=value, inline=False)
-    await ctx.send(embed=embed_var)
+    await build_link_list(ctx, embed_var, "oflinki")
 
 
 @client.command()
@@ -78,9 +79,12 @@ async def link(ctx, *, subject):
 
 # Youtube commands:
 
-@client.command()               # Do not remove this command! (you can still change the call name)
+@client.command()  # Do not remove this command! (you can still change the call name)
 async def play(ctx, url: str):
-    if 'list=' in url:
+    channel = str(ctx.author.voice.channel)
+    if channel is None:
+        await ctx.send(":slight_frown: Nie jesteś w kanale głosowym")
+    elif 'list=' in url:
         await ctx.send(":slight_frown: Nie można odtwarzać playlist")
     else:
         song_there = os.path.isfile(f"{mp3_dir}/{temp_mp3_name}")
@@ -90,8 +94,8 @@ async def play(ctx, url: str):
         except PermissionError:
             await ctx.send(":slight_frown: Zaczekaj aż skończy się aktualny utwór, lub zakończ go komendą \"stop\".")
             return
-        await ctx.send(":satellite: Buforuje...(zajmuje zwykle 7 sek)")
-        await download_and_play_video(ctx, url)
+        await ctx.send(":satellite: Buforuję...")
+        await download_and_play_video(ctx, channel, url)
 
 
 @client.command()
@@ -127,12 +131,11 @@ async def stop(ctx):
     voice.stop()
 
 
-# Don't change this method!
-async def download_and_play_video(ctx, url):
-    voice_channel = discord.utils.get(ctx.guild.voice_channels, name="Ogólne")
+# Don't change this methods!
+async def download_and_play_video(ctx, channel, url):
+    voice_channel = discord.utils.get(ctx.guild.voice_channels, name=channel)
     await voice_channel.connect()
     voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
     for file in os.listdir(f"./"):
