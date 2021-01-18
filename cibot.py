@@ -35,35 +35,37 @@ async def clear(ctx, amount=5):
 
 @client.command()
 async def secret(*, message):   # Use bot to message other channel:
-    channel = client.get_channel(int(os.getenv("RESPONSE_CHANNEL")))
+    channel = client.get_channel(int(os.getenv("GENERAL")))
     embed_var = discord.Embed(title=f"{message}", color=0x00ff00)
     await channel.send(embed=embed_var)
 
 
 @client.command()
 async def help(ctx):            # DON'T CHANGE THIS COMMAND!!!
-    embed_var = discord.Embed(title="Komendy:", description=f"przed komenda dodaj \"{prefix}\"", color=0xff770f)
+    embed_var = discord.Embed(title=":ledger: Komendy:", description=f"przed komenda dodaj \"{prefix}\"", color=0xff770f)
     help_json = "".join(read_file(f'{res_dir}/help'))
     for name, value in json.loads('{'+help_json+'}').items():
-        embed_var.add_field(name=name, value=value, inline=False)
+        embed_var.add_field(name=f'**{name}**', value=f'```{value}```', inline=False)
     await ctx.send(embed=embed_var)
 
 
+# Link commands:
+
 @client.command()
 async def linki(ctx):
-    embed_var = discord.Embed(title="Linki pochodzą z:", description="https://tiny.cc/szukamlinku", color=0xff770f)
+    embed_var = discord.Embed(title=":shushing_face: Linki pochodzą z:", description="https://tiny.cc/szukamlinku", color=0xff770f)
     help_json = "".join(read_file(f'{res_dir}/linki'))
     for name, value in json.loads('{'+help_json+'}').items():
-        embed_var.add_field(name=name, value=value, inline=False)
+        embed_var.add_field(name=f'**{name}**', value=value, inline=False)
     await ctx.send(embed=embed_var)
 
 
 @client.command()
 async def oflinki(ctx):
-    embed_var = discord.Embed(title="Oficjalne linki:", color=0xff770f)
+    embed_var = discord.Embed(title=":mortar_board: Oficjalne linki:", color=0xff770f)
     help_json = "".join(read_file(f'{res_dir}/oflinki'))
     for name, value in json.loads('{'+help_json+'}').items():
-        embed_var.add_field(name=name, value=value, inline=False)
+        embed_var.add_field(name=f'**{name}**', value=value, inline=False)
     await ctx.send(embed=embed_var)
 
 
@@ -78,14 +80,18 @@ async def link(ctx, *, subject):
 
 @client.command()               # Do not remove this command! (you can still change the call name)
 async def play(ctx, url: str):
-    song_there = os.path.isfile(f"{mp3_dir}/{temp_mp3_name}")
-    try:
-        if song_there:
-            os.remove(f"{mp3_dir}/{temp_mp3_name}")
-    except PermissionError:
-        await ctx.send("Zaczekaj aż skończy się aktualny utwór, lub zakończ go komendą \"stop\".")
-        return
-    await download_and_play_video(ctx, url)
+    if 'list=' in url:
+        await ctx.send(":slight_frown: Nie można odtwarzać playlist")
+    else:
+        song_there = os.path.isfile(f"{mp3_dir}/{temp_mp3_name}")
+        try:
+            if song_there:
+                os.remove(f"{mp3_dir}/{temp_mp3_name}")
+        except PermissionError:
+            await ctx.send(":slight_frown: Zaczekaj aż skończy się aktualny utwór, lub zakończ go komendą \"stop\".")
+            return
+        await ctx.send(":satellite: Buforuje...(zajmuje zwykle 7 sek)")
+        await download_and_play_video(ctx, url)
 
 
 @client.command()
@@ -94,7 +100,7 @@ async def leave(ctx):
     if voice.is_connected():
         await voice.disconnect()
     else:
-        await ctx.send("Nie jestem podłączony do kanału głosowego.")
+        await ctx.send(":slight_frown: Nie jestem podłączony do kanału głosowego.")
 
 
 @client.command()
@@ -103,7 +109,7 @@ async def pause(ctx):
     if voice.is_playing():
         voice.pause()
     else:
-        await ctx.send("Na ten moment nie gra żadne audio.")
+        await ctx.send(":slight_frown: Na ten moment nie gra żadne audio.")
 
 
 @client.command()
@@ -112,7 +118,7 @@ async def resume(ctx):
     if voice.is_paused():
         voice.resume()
     else:
-        await ctx.send("Audio jest zapauzowane.")
+        await ctx.send(":slight_frown: Audio jest zapauzowane.")
 
 
 @client.command()
