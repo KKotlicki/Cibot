@@ -1,0 +1,13 @@
+"ANL1T": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY3Huv6SWgfNIijmQfVhFIwt",
+"ALGT": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY3KBnfgmxrkoHhfeFH180GB",
+"PRM1T": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY1nprhWlT0C7gZkBqo0GEPX",
+"PELP1": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY0AT_l1H87j4bBnbDnzgQKb",
+"TECY": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY0iJV_sU58N5A22mp2lyRHH",
+"TECY LAB(gr. 5)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY15ONj3AXjDR9OswBEreMHs",
+"WDT": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY10tUvMc6s_TZ3TwgzuXl-J",
+"ANL1T CW(gr. 5)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY06XbsFHL-XFBcTXThK4oR3",
+"ALGT CW(gr. 5)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY3zR0uOqr99Rsxr8nGvcyiH",
+"PELP1 CW(gr. 5)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY2Nd3_XPS1ZWuT_mwtytMc9",
+"ALGT LAB(gr. 3)": "https://www.youtube.com/playlist?list=PLNZ8c28H5MY3KY43qH8V7E-8C93CXTPZ-",
+"ALGT Kolokwia": "https://drive.google.com/drive/folders/1FeccZaNG-Xg9-R8kMMFXwvRmJyQhj0Aj?fbclid=IwAR2q1tTZbT5lxQIIM064PY8QOnhVEhoiNmyZr4F4GjqRlwS8J6JG8CEEAyE",
+"DYSK": "https://drive.google.com/drive/folders/1utC-NpokgAVYZFe4gqqE4tzqWZ24byIg?fbclid=IwAR3rfwSGdShrTU7_34BSYw6kfCVgE5VtngUzJ5OPwFSI2zBIQVq4TXtEeUo"
