@@ -9,7 +9,13 @@ In helpers.py, add your local methods.
 Data will be updated to 2nd semester soon.
 
 
-How to create bot:
+
+
+
+
+
+
+How to create a bot:
 
 First, create a ".env" file and provide the data in the following format:
 DSC_BOT_KEY=#################################
