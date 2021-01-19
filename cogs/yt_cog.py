@@ -16,8 +16,6 @@ class YtLinkAudioCog(commands.Cog):
             await ctx.send(":slight_frown: Nie jesteś w kanale głosowym")
         elif 'list=' in url:
             await ctx.send(":slight_frown: Nie można odtwarzać playlist")
-        # elif ctx.guild.VoiceChannel.name == channel:
-        #     await ctx.send(":slight_frown: Najpierw usuń bota z kanału głosowego komendą: ```!leave```")
         else:
             song_there = os.path.isfile(f"{mp3_dir}/{temp_mp3_name}")
             try:
