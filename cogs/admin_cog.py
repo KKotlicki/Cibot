@@ -4,7 +4,6 @@ from helpers import fetch_sv_data, open_help
 from config import sv_dir
 import json
 import os
-from platform import system
 
 
 class AdminCog(commands.Cog):
