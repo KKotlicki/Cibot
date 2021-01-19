@@ -220,7 +220,7 @@ ToDo:
 3. Time to final exams (countdown)
 4. Send documents (such as subject statues)
 5. Points to grade converter (by subject)
-6. Youtube play by keyword
+6. yt_cog rewrite - play by keyword, play playlists
 7. !help and link cogs need to read polish characters
 8. Change everywhere __client__ object to __bot__
 9. Rewrite or format documentation - this one sucks!
