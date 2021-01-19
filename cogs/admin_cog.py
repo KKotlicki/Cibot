@@ -6,8 +6,8 @@ import json
 
 
 class AdminCog(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
         self.message_channel = ""
 
     @commands.Cog.listener()
@@ -56,10 +56,10 @@ class AdminCog(commands.Cog):
             values.append(elem.split(" => ")[1])
         for x in range(0, len(keys)):
             sv_text_channel_dict[keys[x]] = values[x]
-        channel = self.client.get_channel(int(sv_text_channel_dict[self.message_channel]))
+        channel = self.bot.get_channel(int(sv_text_channel_dict[self.message_channel]))
         embed_var = discord.Embed(title=f"{message}", color=0x00ff00)
         await channel.send(embed=embed_var)
 
 
-def setup(client):
-    client.add_cog(AdminCog(client))
+def setup(bot):
+    bot.add_cog(AdminCog(bot))

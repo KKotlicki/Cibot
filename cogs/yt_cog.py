@@ -6,8 +6,8 @@ from config import *
 
 
 class YtLinkAudioCog(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command()
     async def play(self, ctx, url: str):
@@ -30,7 +30,7 @@ class YtLinkAudioCog(commands.Cog):
 
     @commands.command()
     async def leave(self, ctx):
-        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
+        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_connected():
             await voice.disconnect()
         else:
@@ -38,7 +38,7 @@ class YtLinkAudioCog(commands.Cog):
 
     @commands.command()
     async def pause(self, ctx):
-        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
+        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_playing():
             voice.pause()
         else:
@@ -46,7 +46,7 @@ class YtLinkAudioCog(commands.Cog):
 
     @commands.command()
     async def resume(self, ctx):
-        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
+        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_paused():
             voice.resume()
         else:
@@ -55,17 +55,17 @@ class YtLinkAudioCog(commands.Cog):
     async def download_and_play_video(self, ctx, channel, url):
         voice_channel = discord.utils.get(ctx.guild.voice_channels, name=channel)
         await voice_channel.connect()
-        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
+        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
         for file in os.listdir(f"./"):
             if file.endswith(".mp3"):
                 os.rename(file, temp_mp3_name)
         os.replace(temp_mp3_name, f"{dump_dir}/{temp_mp3_name}")
-        print(discord.utils.get(self.client.voice_clients, guild=ctx.guild))
-        print(str(discord.utils.get(self.client.voice_clients, guild=ctx.guild)))
+        print(discord.utils.get(self.bot.voice_clients, guild=ctx.guild))
+        print(str(discord.utils.get(self.bot.voice_clients, guild=ctx.guild)))
         voice.play(discord.FFmpegPCMAudio(f"{dump_dir}/{temp_mp3_name}"))
 
 
-def setup(client):
-    client.add_cog(YtLinkAudioCog(client))
+def setup(bot):
+    bot.add_cog(YtLinkAudioCog(bot))
