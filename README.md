@@ -105,7 +105,7 @@ Here are some keywords concerning structure and code that used in this manual an
  - method                           # function inside class - general python lingua
  - global (data)                    # resources, configurations, variables, functions, that are used by bot in several unrelated functions
  - cogs                             # modules with special syntax containing one class with several bot command or behavior methods
- - asynchronic, asyn functions      # functions that are executed simultaneously; if a child function is asynchronic, then every parent must be as well
+      
 
 ### Structure
 
@@ -171,6 +171,19 @@ def setup(client):                         # necessary function, that allows cib
 
 
 ----------------------WiP------------------------
+
+## Support
+
+### Common Problems
+
+ - synchronicity        
+
+
+
+
+
+
+
 
 
 from config import *

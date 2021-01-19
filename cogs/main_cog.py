@@ -4,9 +4,9 @@ from helpers import open_help, build_link_list
 
 
 class MainCog(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.client.remove_command('help')
+    def __init__(self, bot):
+        self.bot = bot
+        self.bot.remove_command('help')
 
     @commands.command()
     async def thx(self, ctx):
@@ -17,12 +17,12 @@ class MainCog(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send(f'{round(self.client.latency * 1000)}ms')
+        await ctx.send(f'{round(self.bot.latency * 1000)}ms')
 
     @commands.command()
     async def help(self, ctx):
         await open_help(ctx, "help")
 
 
-def setup(client):
-    client.add_cog(MainCog(client))
+def setup(bot):
+    bot.add_cog(MainCog(bot))

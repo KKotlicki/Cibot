@@ -6,8 +6,8 @@ from helpers import build_link_list, read_lines
 
 
 class LinkCog(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command()
     async def linki(self, ctx):
@@ -33,5 +33,5 @@ class LinkCog(commands.Cog):
         await ctx.send(embed=embed_var)
 
 
-def setup(client):
-    client.add_cog(LinkCog(client))
+def setup(bot):
+    bot.add_cog(LinkCog(bot))

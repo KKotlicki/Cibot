@@ -3,9 +3,9 @@ from config import ai_dir, ai_receptors
 
 
 class AICog(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-        self.client.remove_command('help')
+    def __init__(self, bot):
+        self.bot = bot
+        self.bot.remove_command('help')
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -17,5 +17,5 @@ class AICog(commands.Cog):
                     wr.write(f"{temp}\n => \n{message.content}")
 
 
-def setup(client):
-    client.add_cog(AICog(client))
+def setup(bot):
+    bot.add_cog(AICog(bot))
