@@ -17,10 +17,10 @@ class YtLinkAudioCog(commands.Cog):
         elif 'list=' in url:
             await ctx.send(":slight_frown: Nie można odtwarzać playlist")
         else:
-            song_there = os.path.isfile(f"{mp3_dir}/{temp_mp3_name}")
+            song_there = os.path.isfile(f"{dump_dir}/{temp_mp3_name}")
             try:
                 if song_there:
-                    os.remove(f"{mp3_dir}/{temp_mp3_name}")
+                    os.remove(f"{dump_dir}/{temp_mp3_name}")
             except PermissionError:
                 await ctx.send(
                     ":slight_frown: Zaczekaj aż skończy się aktualny utwór, lub zakończ go komendą \"stop\".")
@@ -61,10 +61,10 @@ class YtLinkAudioCog(commands.Cog):
         for file in os.listdir(f"./"):
             if file.endswith(".mp3"):
                 os.rename(file, temp_mp3_name)
-        os.replace(temp_mp3_name, f"{mp3_dir}/{temp_mp3_name}")
+        os.replace(temp_mp3_name, f"{dump_dir}/{temp_mp3_name}")
         print(discord.utils.get(self.client.voice_clients, guild=ctx.guild))
         print(str(discord.utils.get(self.client.voice_clients, guild=ctx.guild)))
-        voice.play(discord.FFmpegPCMAudio(f"{mp3_dir}/{temp_mp3_name}"))
+        voice.play(discord.FFmpegPCMAudio(f"{dump_dir}/{temp_mp3_name}"))
 
 
 def setup(client):
