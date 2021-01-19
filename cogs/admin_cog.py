@@ -3,26 +3,35 @@ from discord.ext import commands
 from helpers import fetch_sv_data, open_help
 from config import sv_dir
 import json
+import os
 
 
 class AdminCog(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.message_channel = ""
-
+    
     @commands.Cog.listener()
     async def on_ready(self):
         print('Bot is ready.')
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        await fetch_sv_data(guild)
-
+        await fetch_sv_data(guild)  
+    
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)
+    async def update(self, ctx):
+        os.system('/home/pi/bot/cibot/updater.sh')
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
         await open_help(ctx, "adm_help")
-
+    
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)
+    async def shutdown(self, ctx):
+        await self.client.close()
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, amount=5):
