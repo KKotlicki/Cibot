@@ -22,13 +22,6 @@ class AdminCog(commands.Cog):
     
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
-    async def update(self, ctx):
-        updater='./updater_linux.sh'
-        if system()=='Windows':
-            updater='updater_windows.bat'
-        os.system(updater)
-    @commands.command(pass_context=True)
-    @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
         await open_help(ctx, "adm_help")
     
@@ -36,6 +29,7 @@ class AdminCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def shutdown(self, ctx):
         await self.bot.close()
+
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, amount=5):
