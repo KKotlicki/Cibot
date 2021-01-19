@@ -11,8 +11,6 @@ Next go to Bot section and under TOKEN section click button "Copy".
 (Optional) To obtain RESPONSE_CHANNEL, log in on your browser,
 go to the text channel and from the url copy the last number.
 
-(Optional) To use Youtube commands, create an empty directory and set it's path in config under mp3_config.
-
 Startup: The bot won't work, until it prints out the message on console.
 
 You can change every file in "resources" folder to personalize the bot.
