@@ -33,11 +33,8 @@ To install all the libraries and modules, run the following script in terminal:
 
 ```
 py -m pip install discord
-py -m pip install dotenv
-py -m pip install json
-py -m pip install glob
-py -m pip install random
-py -m pip install os
+py -m pip install python.dotenv
+py -m pip install youtube-dl
 
 ```
 
@@ -45,12 +42,9 @@ py -m pip install os
 #### Unix/macOS
 
 ```
-python -m pip install discord
-python -m pip install dotenv
-python -m pip install json
-python -m pip install glob
-python -m pip install random
-python -m pip install os
+python3 -m pip install discord
+python3 -m pip install python.dotenv
+python3 -m pip install youtube-dl
 
 ```
 
