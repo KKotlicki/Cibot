@@ -1,10 +1,9 @@
-
 # Cibot
 
 ## Description
 
 This repository contains a code of Official discord bot of WEITI Telekomunikacja 2020/2021-Z;
-The code is universal, so there's no need to tweak the code to run it as your own new bot.
+The code is universal, so there is no need to tweak the code to run it as your own new bot.
 (more on that in MANUAL.txt)
 
 
@@ -58,19 +57,19 @@ python -m pip install os
 
 ### Folder structure
 
-Here's current folder structure for Cibot:
+Here is current folder structure for Cibot:
 
 ```
 cogs/            # command scripts
 dumps/           # temporary and dump files
 pics/            # pictures and image type resources
-res/             # commands' .text, .json, .lua, .xml and .cms resources
+res/             # commands’. text, .json, .xml, Lua and CMS resources
 |- adm_help      # descriptions and call names of admin commands
 |- credits       # creators and contributors
 |- help          # descriptions and call names of user commands
 |- linki         # links for <"unofficial" links> command
 |- oflinki       # links for <"official" links> command
-.gitattributes   # git repo configuration
+.gitattributes   # Git repo configuration
 .gitignore       # ^
 MANUAL.txt       # instructions for creating and setting up new bot
 README.md        # Documentation
@@ -82,9 +81,9 @@ helpers.py       # custom methods bank
 
 ## Development
 
-Cibot is an open source project. Every contribution is welcome.
-To contribute, make your own branch and send git pull request.
-First, connect to your github account; then following git code can be used to create a new branch with your changes:
+Cibot is an open-source project. Every contribution is welcome.
+To contribute, make your own branch and send Git pull request.
+First, connect to your GitHub account; then following Git code can be used to create a new branch with your changes:
 
 ```
 git init
@@ -96,16 +95,16 @@ git push
 
 ```
 
-To commit changes to bot and publish your contribution, log in your github and send a branch pull request 
+To commit changes to bot and publish your contribution, log in your GitHub and send a branch pull request 
 
 
-### Lanugage
+### Language
 
 Here are some keywords concerning structure and code that used in this manual and in-script comments
 
  - method                           # function inside class - general python lingua
  - global (data)                    # resources, configurations, variables, functions, that are used by bot in several unrelated functions
- - cogs                             # modules with special syntax containing one class with several bot command or behaviour methods
+ - cogs                             # modules with special syntax containing one class with several bot command or behavior methods
  - asynchronic, asyn functions      # functions that are executed simultaneously; if a child function is asynchronic, then every parent must be as well
 
 ### Structure
@@ -117,28 +116,28 @@ Here are some keywords concerning structure and code that used in this manual an
 
 The main bot script. It has few only functions:
 
- - connects to bot's discord api
+ - connects to bot's discord API
  - loads config.py file
  - set some global settings
  - loads all the cogs from directory
 
-main script should't contain any commands
-keep code here as clear, tidy and minimal as possible
+main script shouldn’t contain any commands
+keep code here as clear, tidy, and minimal as possible
 
 
 #### module_name_cog.py
 
 The most important element of the bot.
 Every cog file is independent module, containing one class in special syntax with several closely related methods.
-They dictate bot behaviour, but bot should be able to work with or without any of them.
+They dictate bot behavior, but bot should be able to work with or without any of them.
 To add new commands or functionalities, create a cog or add to existing cog.
 
 ##### cog syntax
 
-For refference, look at the cogs/ directory to find examples of code.
-Here's one;
+For reference, look at the cogs/ directory to find examples of code.
+Here is one;
 It creates three methods:
- - 1st is automaticaly called when bot is going online
+ - 1st is automatically called when bot is going online
  - 2nd when user types in chat <!ping>
  - 3rd when user types in chat <!dice>
 
@@ -165,14 +164,13 @@ class ExampleCog(commands.Cog):            # the class containing cogs functions
         await ctx.send(f'The dice rolled: {random.randint(1, 6)}')
 
 
-def setup(client):                         # necessary function, that alows cibot.py to read it as cog
+def setup(client):                         # necessary function, that allows cibot.py to read it as cog
     client.add_cog(ExampleCog(client))
 
 ```
 
 
 ----------------------WiP------------------------
-
 
 
 from config import *
@@ -184,17 +182,14 @@ cibot.py - Bot's exec script. Do not edit the code, unless you know what you're 
 config.py - Script containing setup variables. It contains relative paths and general bot settings (you can add your own).
 helpers.py - Script stores local and global functions, that have either too big, too small scope or are too long to be used in cogs under @commands.command.
 cogs/ - Place here cogs with your own commands.
-res/ - Place here your text, json, xml, cms files or special images. Do not create any folders in this directory. Create in main instead.
+res/ - Place here your text, json, xml, CMS files or special images. Do not create any folders in this directory. Create in main instead.
 pics/ - Place here your pictures.
 README.md - this documentation.
 MANUAL.txt - instructions for creating new bot with this code.
 
 
 hidden files:
-.env - contains bot TOKEN. psst, it's secret...
-servers/ - contains some server data and specific settings
-ytaudio/ - contains temporary music files (downloads music from youtube in there, then plays it)
-
+.env - contains bot TOKEN. shhhh, it's s secret...
 Main bot script is cibot.py. Keep it tidy!
 In config.py save data such as relative paths, server settings, etc.
 In helpers.py add your local methods.
@@ -210,7 +205,7 @@ Ground Rules:
 5.  in cogs/ put ONLY cogs file with correct cogs syntax
 6.  if you want to create directory for something else than pictures, do so in main directory
 7.  unless you have a good reason, do not change cibot.py script
-8.  do not use <while True> or simmilar commands - they break script asynchronicity
+8.  do not use <while True> or similar commands - they break script asynchronicity
 9.  do not use purge methods (or only for authenticated users)
 
 
