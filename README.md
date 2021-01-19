@@ -136,7 +136,7 @@ To add new commands or functionalities, create a cog or add to existing cog.
 ##### cog syntax
 
 For refference, look at the cogs/ directory to find examples of code.
-Here's a cog example;
+Here's one;
 It creates three methods:
  - 1st is automaticaly called when bot is going online
  - 2nd when user types in chat <!ping>
