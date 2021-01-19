@@ -3,6 +3,7 @@ from discord.ext import commands
 from helpers import fetch_sv_data, open_help
 from config import sv_dir
 import json
+import os
 
 
 class AdminCog(commands.Cog):
@@ -16,8 +17,8 @@ class AdminCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        await fetch_sv_data(guild)
-
+        await fetch_sv_data(guild)  
+    
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
@@ -25,7 +26,7 @@ class AdminCog(commands.Cog):
     
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
-    async def shutdown(self):
+    async def shutdown(self, ctx):
         await self.bot.close()
 
     @commands.command(pass_context=True)
