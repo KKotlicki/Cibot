@@ -124,10 +124,15 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Own
+# Bot's hidden files
 credentials.json
-ytaudio/song.mp3
 .idea
 cibot.bat
-servers/
-ai/
+
+# Empty directories
+servers/*
+!servers/.gitkeep
+ai/*
+!ai/.gitkeep
+dumps/*
+!dumps/.gitkeep
