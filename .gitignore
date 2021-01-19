@@ -128,7 +128,7 @@ dmypy.json
 credentials.json
 .idea
 cibot.bat
-update_k.bat
+update_k.sh
 
 # Empty directories
 servers/*
