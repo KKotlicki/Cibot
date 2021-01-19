@@ -4,6 +4,7 @@ from helpers import fetch_sv_data, open_help
 from config import sv_dir
 import json
 import os
+from platform import system
 
 
 class AdminCog(commands.Cog):
@@ -22,7 +23,10 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def update(self, ctx):
-        os.system('./updater.sh')
+        updater='./updater_linux.sh'
+        if system()=='Windows':
+            updater='updater_windows.bat'
+        os.system(updater)
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
