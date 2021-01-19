@@ -31,7 +31,7 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def shutdown(self, ctx):
-        await self.client.close()
+        await self.bot.close()
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, amount=5):
