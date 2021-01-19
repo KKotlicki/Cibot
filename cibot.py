@@ -11,4 +11,5 @@ if __name__ == '__main__':
         if filename.endswith('.py'):
             bot.load_extension(f'{cogs_dir}.{filename[:-3]}')
 
+
 bot.run(os.getenv("DSC_BOT_KEY"))
