@@ -22,8 +22,12 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def update(self, ctx):
+<<<<<<< HEAD
         os.system('/home/pi/bot/cibot/updater.sh')
 
+=======
+        os.system('./updater.sh')
+>>>>>>> 9fd4572d3cc75ed27f6748b1c914abf9e3ff48d9
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
