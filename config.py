@@ -1,12 +1,11 @@
 prefix = '!'
-mp3_dir = 'ytaudio'
 pic_dir = 'pics'
 res_dir = 'res'
 dump_dir = 'dumps'
 sv_dir = 'servers'
 cogs_dir = 'cogs'
 ai_dir = 'ai'
-temp_mp3_name = 'song.mp3'
+temp_mp3_name = 'yt_audio.mp3'
 ydl_opts = {
     'format': 'bestaudio/best',
     'postprocessors': [{
