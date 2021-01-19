@@ -3,7 +3,6 @@ from discord.ext import commands
 from helpers import fetch_sv_data, open_help
 from config import sv_dir
 import json
-import os
 
 
 class AdminCog(commands.Cog):
@@ -17,17 +16,8 @@ class AdminCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        await fetch_sv_data(guild)  
-    
-    @commands.command(pass_context=True)
-    @commands.has_permissions(administrator=True)
-    async def update(self, ctx):
-<<<<<<< HEAD
-        os.system('/home/pi/bot/cibot/updater.sh')
+        await fetch_sv_data(guild)
 
-=======
-        os.system('./updater.sh')
->>>>>>> 9fd4572d3cc75ed27f6748b1c914abf9e3ff48d9
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
@@ -35,7 +25,7 @@ class AdminCog(commands.Cog):
     
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
-    async def shutdown(self, ctx):
+    async def shutdown(self):
         await self.bot.close()
 
     @commands.command(pass_context=True)
