@@ -1,19 +1,153 @@
-Official discord bot of WEITI Telekomunikacja 2020/2021-Z
 
-The code uses python, with heavy dependance on discord.py library.
-To quickstart, look at the cogs/ directory to find examples of code.
+# Cibot
 
-It is recomended to familiarize yourself with:
-async def function() - These functions can be used simultanously. Always end with <await> <some_code>.
-cogs - modules containing one class with several command functions
-commands - to create one, go to the cogs/ directory and create a .py script containing one class and cog syntax.
+## Description
 
-Minimal cog example: (creates one function, that is automaticaly called when bot is going online, and the other when user types in chat <!ping>)
-<
-from discord.ext import commands
+This repository contains a code of Official discord bot of WEITI Telekomunikacja 2020/2021-Z;
+The code is universal, so there's no need to tweak the code to run it as your own new bot.
+(more on that in MANUAL.txt)
 
 
-class SomeCog(commands.Cog):
+## Setup
+
+Bot uses exclusively python, with heavy dependence on [discord.py](https://discordpy.readthedocs.io/en/latest/api.html) library.
+
+
+### Installing
+
+In order to use this bot you only need [Python (3.5+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system;
+
+To download current version of bot, open destination directory, run terminal and run the following commands:
+
+```
+git clone https://github.com/KKotlicki/Cibot.git
+
+```
+
+
+### Required modules
+
+To install all the libraries and modules, run the following script in terminal:
+
+
+#### Windows OS
+
+```
+py -m pip install discord
+py -m pip install dotenv
+py -m pip install json
+py -m pip install glob
+py -m pip install random
+py -m pip install os
+
+```
+
+
+#### Unix/macOS
+
+```
+python -m pip install discord
+python -m pip install dotenv
+python -m pip install json
+python -m pip install glob
+python -m pip install random
+python -m pip install os
+
+```
+
+
+### Folder structure
+
+Here's current folder structure for Cibot:
+
+```
+cogs/            # command scripts
+dumps/           # temporary and dump files
+pics/            # pictures and image type resources
+res/             # commands' .text, .json, .lua, .xml and .cms resources
+|- adm_help      # descriptions and call names of admin commands
+|- credits       # creators and contributors
+|- help          # descriptions and call names of user commands
+|- linki         # links for <"unofficial" links> command
+|- oflinki       # links for <"official" links> command
+.gitattributes   # git repo configuration
+.gitignore       # ^
+MANUAL.txt       # instructions for creating and setting up new bot
+README.md        # Documentation
+cibot.py         # the main bot script
+config.py        # bot settings
+helpers.py       # custom methods bank
+```
+
+
+## Development
+
+Cibot is an open source project. Every contribution is welcome.
+To contribute, make your own branch and send git pull request.
+First, connect to your github account; then following git code can be used to create a new branch with your changes:
+
+```
+git init
+git remote https://github.com/KKotlicki/Cibot
+git checkout -b
+git add *
+git commit *
+git push
+
+```
+
+To commit changes to bot and publish your contribution, log in your github and send a branch pull request 
+
+
+### Lanugage
+
+Here are some keywords concerning structure and code that used in this manual and in-script comments
+
+ - method                           # function inside class - general python lingua
+ - global (data)                    # resources, configurations, variables, functions, that are used by bot in several unrelated functions
+ - cogs                             # modules with special syntax containing one class with several bot command or behaviour methods
+ - asynchronic, asyn functions      # functions that are executed simultaneously; if a child function is asynchronic, then every parent must be as well
+
+### Structure
+
+**Notice**  Commits that don't keep to the structure won't be accepted. The integrity and plurality is the key element of Cibot.
+
+
+#### cibot.py
+
+The main bot script. It has few only functions:
+
+ - connects to bot's discord api
+ - loads config.py file
+ - set some global settings
+ - loads all the cogs from directory
+
+main script should't contain any commands
+keep code here as clear, tidy and minimal as possible
+
+
+#### module_name_cog.py
+
+The most important element of the bot.
+Every cog file is independent module, containing one class in special syntax with several closely related methods.
+They dictate bot behaviour, but bot should be able to work with or without any of them.
+To add new commands or functionalities, create a cog or add to existing cog.
+
+##### cog syntax
+
+For refference, look at the cogs/ directory to find examples of code.
+Here's a cog example;
+It creates three methods:
+ - 1st is automaticaly called when bot is going online
+ - 2nd when user types in chat <!ping>
+ - 3rd when user types in chat <!dice>
+
+```
+from discord.ext import commands           # necessary function, that loads
+import random                              # the library used by internal method
+
+
+class ExampleCog(commands.Cog):            # the class containing cogs functions
     def __init__(self, client):
         self.client = client
         self.some_variable = 3
@@ -25,20 +159,21 @@ class SomeCog(commands.Cog):
     @commands.command()
     async def ping(self, ctx):
         await ctx.send(f'{round(self.client.latency * 1000)}ms')
+    
+        @commands.command()
+    async def dice(self, ctx):
+        await ctx.send(f'The dice rolled: {random.randint(1, 6)}')
 
 
-def setup(client):
-    client.add_cog(SomeCog(client))
+def setup(client):                         # necessary function, that alows cibot.py to read it as cog
+    client.add_cog(ExampleCog(client))
 
->
+```
 
-main libraries and iside modules used:
 
-import discord
-from discord.ext import commands
-import os
-import json
-import random
+----------------------WiP------------------------
+
+
 
 from config import *
 from helpers import *
@@ -60,9 +195,8 @@ hidden files:
 servers/ - contains some server data and specific settings
 ytaudio/ - contains temporary music files (downloads music from youtube in there, then plays it)
 
-To add links go to 'resources' Main bot script is cibot.py. Keep it tidy!
+Main bot script is cibot.py. Keep it tidy!
 In config.py save data such as relative paths, server settings, etc.
-In 'cogs' directory add your modules (class structure is preffered).
 In helpers.py add your local methods.
 
 Data will be updated to 2nd semester soon.
