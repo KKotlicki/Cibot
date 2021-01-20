@@ -17,19 +17,24 @@ async def update(ctx):
     print(os_system)
     if os_system == 'Windows':
         with open(f'{res_dir}/update_ms.txt', 'r') as rd:
-            updater = rd.read().replace('<python>', py_prefix)
+            updater = rd.read().replace('<python>', py_prefix).replace('<path>',os.getcwd().replace('\\', '/'))
         print(updater)
         print(f'{res_dir}/update_ms.txt')
-#.replace('<path>', os.getcwd().replace('\\', '/'))
-        with open(os.getcwd().replace('\\', '/')+'update.bat', 'w') as wr:
+        with open(os.getcwd().replace('\\', '/')+'/update.bat', 'w') as wr:
             wr.write(updater)
-        print(os.getcwd().replace('\\', '/')+'update.bat')
-        os.system(update.bat)
+        print(os.getcwd().replace('\\', '/')+'/update.bat')
+        os.system('update.bat')
+    elif os_system == 'Linux':
+        with open(f'{res_dir}/update_linux.txt', 'r') as rd:
+            updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd().replace('\\', '/'))
+        print(updater)
+        print(f'{res_dir}/update_unx.txt')
+        with open(os.getcwd().replace('\\', '/')+'/update.sh', 'w') as wr:
+            wr.write(updater)
+        print(os.getcwd().replace('\\', '/')+'/update.sh')
+        os.system('update.sh')
 
-    # updater='./updater_linux.sh'
-    # if system() == 'Windows':
-    #     updater = 'updater_windows.bat'
-    # os.system(updater)
+
 
 
 if __name__ == '__main__':
