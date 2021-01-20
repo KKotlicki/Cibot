@@ -1,0 +1,4 @@
+#cd <path>
+pkill '<python> cibot.py'
+git pull cibot main
+<python> cibot.py
