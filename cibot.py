@@ -13,8 +13,8 @@ bot = commands.Bot(command_prefix=prefix)
 @commands.has_permissions(administrator=True)
 async def update(ctx):
     updater='./updater_linux.sh'
-    if system()=='Windows':
-        updater='updater_windows.bat'
+    if system() == 'Windows':
+        updater = 'updater_windows.bat'
     os.system(updater)
 
 
