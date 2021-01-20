@@ -129,6 +129,8 @@ credentials.json
 .idea
 cibot.bat
 updater_k.sh
+update.bat
+update.sh
 
 # Empty directories
 servers/*
