@@ -40,10 +40,10 @@ and replace ####### with your standard python3 call command in your OS (standard
 To install all the libraries and modules, run the following script in terminal:
 
 ```
-python 3 -m pip install discord
-python 3 -m pip install python.dotenv
-python 3 -m pip install youtube-dl
-python 3 -m pip install loguru
+python3 -m pip install discord
+python3 -m pip install python.dotenv
+python3 -m pip install youtube-dl
+python3 -m pip install loguru
 ```
 
 ### Folder structure
