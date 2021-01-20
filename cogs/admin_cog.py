@@ -14,6 +14,10 @@ class AdminCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
+        if os.path.exists("update.sh"):
+            os.remove("update.sh")
+        if os.path.exists("update.bat"):
+            os.remove("update.bat")
         print(f"Logged in as {self.bot.user}")
         logger.info(f"Logged in as {self.bot.user}")
 
