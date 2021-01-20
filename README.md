@@ -23,31 +23,28 @@ git clone https://github.com/KKotlicki/Cibot.git
 
 ```
 
+### Bot settup
+
+**Before you run Cibot, add an enviroment file ".env" in main directory and add following lines:**
+
+```
+DSC_BOT_KEY=###########################################################
+OS_PYTHON_PREFIX=#######
+```
+
+Then replace ########################################################### with your bot Token (if you don't have one, go to MANUAL.txt);
+and replace ####### with your standard python3 call command in your OS (standard python edition uses "python3", anaconda edition uses "py")
 
 ### Required modules
 
 To install all the libraries and modules, run the following script in terminal:
 
-
-#### Windows OS
-
 ```
-py -m pip install discord
-py -m pip install python.dotenv
-py -m pip install youtube-dl
-
+python 3 -m pip install discord
+python 3 -m pip install python.dotenv
+python 3 -m pip install youtube-dl
+python 3 -m pip install loguru
 ```
-
-
-#### Unix/macOS
-
-```
-python3 -m pip install discord
-python3 -m pip install python.dotenv
-python3 -m pip install youtube-dl
-
-```
-
 
 ### Folder structure
 
