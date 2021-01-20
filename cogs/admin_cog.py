@@ -3,6 +3,7 @@ from discord.ext import commands
 from helpers import fetch_sv_data, open_help
 from config import sv_dir
 import json
+from loguru import logger
 import os
 
 
@@ -13,7 +14,9 @@ class AdminCog(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Bot is ready.')
+        print(f"Logged in as {self.bot.user}")
+        logger.info(f"Logged in as {self.bot.user}")
+
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
