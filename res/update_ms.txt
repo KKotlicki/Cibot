@@ -1,0 +1,3 @@
+Taskkill /IM "<python> cibot.py" /F
+git pull
+<python> cibot.py
