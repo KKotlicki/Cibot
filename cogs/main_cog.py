@@ -23,6 +23,12 @@ class MainCog(commands.Cog):
     async def help(self, ctx):
         await open_help(ctx, "help")
 
+    @commands.command()
+    async def bug(self, ctx, message):
+        user = ctx.get_user(516640010129375234)
+        author = message.author
+        await user.send(message + '\n\n<' + author + '>')
+
 
 def setup(bot):
     bot.add_cog(MainCog(bot))
