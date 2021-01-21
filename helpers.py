@@ -18,9 +18,8 @@ async def open_help(ctx, file_name):
     await ctx.send(embed=embed_var)
 
 
-async def build_link_list(ctx, embed_var, fname):
-    help_json = "".join(read_lines(f'{res_dir}/{fname}'))
-    for name, value in json.loads('{' + help_json + '}').items():
+async def build_link_list(ctx, embed_var, linki_dict):
+    for name, value in linki_dict:
         embed_var.add_field(name=f'**{name}**', value=value, inline=False)
     await ctx.send(embed=embed_var)
 
