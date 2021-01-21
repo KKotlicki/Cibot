@@ -26,7 +26,9 @@ class LinkCog(commands.Cog):
         print(message)
         with open(f"{res_dir}/subject_aliases.txt", "r") as rd:
             subject_alias_dict = json.loads(rd.read())[sem]
+        print(subject_alias_dict)
         for key in subject_alias_dict:
+            print(key)
             if message in subject_alias_dict[key] or message == key:
                 subject = key
                 break
