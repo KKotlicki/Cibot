@@ -26,6 +26,7 @@ class YtLinkAudioCog(commands.Cog):
                     ":slight_frown: Zaczekaj aż skończy się aktualny utwór, lub zakończ go komendą \"stop\".")
                 return
             await ctx.send(":satellite: Buforuję...")
+            await self.bot.change_presence(status=discord.Status.online, activity=discord.Game('podłsuchuje telekomune'))
             await self.download_and_play_video(ctx, channel, url)
 
     @commands.command()
@@ -33,6 +34,7 @@ class YtLinkAudioCog(commands.Cog):
         voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_connected():
             await voice.disconnect()
+            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje discorda'))
         else:
             await ctx.send(":slight_frown: Nie jestem podłączony do kanału głosowego.")
 
