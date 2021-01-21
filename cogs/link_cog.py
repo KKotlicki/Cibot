@@ -25,10 +25,15 @@ class LinkCog(commands.Cog):
         subject = ""
         with open(f"{res_dir}/subject_aliases.txt", "r") as rd:
             subject_alias_dict = json.loads('{' + rd.read() + '}')
+        print(subject_alias_dict)
+        print(subject_alias)
         for key in subject_alias_dict:
             if subject_alias in subject_alias_dict[key] or subject_alias == key:
                 subject = key
+                break
+        print(subject)
         help_json = "".join(read_lines(f'{res_dir}/linki'))
+        print(help_json)
         embed_var = discord.Embed(title=subject, description=json.loads('{' + help_json + '}')[subject], color=0xff770f)
         await ctx.send(embed=embed_var)
 
