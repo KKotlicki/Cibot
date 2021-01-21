@@ -23,8 +23,8 @@ class UtilityCog(commands.Cog):
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('udaje studenta...'))
 
     @commands.Cog.listener()
-    async def on_guild_join(self, guild):
-        await fetch_sv_data(guild)
+    async def on_guild_join(self, ctx, guild):
+        await fetch_sv_data(ctx, guild)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, err):
