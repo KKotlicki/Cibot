@@ -14,15 +14,11 @@ bot = commands.Bot(command_prefix=prefix)
 async def update(ctx):
     py_prefix = os.getenv("OS_PYTHON_PREFIX")
     os_system = system()
-    print(os_system)
     if os_system == 'Windows':
         with open(f'{res_dir}/update_ms.txt', 'r') as rd:
-            updater = rd.read().replace('<python>', py_prefix).replace('<path>',os.getcwd().replace('\\', '/'))
-        print(updater)
-        print(f'{res_dir}/update_ms.txt')
-        with open(os.getcwd().replace('\\', '/')+'/update.bat', 'w') as wr:
+            updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd())
+        with open(os.getcwd()+'/update.bat', 'w') as wr:
             wr.write(updater)
-        print(os.getcwd().replace('\\', '/')+'/update.bat')
         os.system('update.bat')
     elif os_system == 'Linux':
         os.system(f"sudo pkill '{py_prefix} cibot.py'\ngit pull\n{py_prefix} cibot.py\n")
