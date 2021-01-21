@@ -11,13 +11,14 @@ class UtilityCog(commands.Cog):
         self.message_channel = ""
 
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_ready(self, ctx):
         if os.path.exists("update.sh"):
             os.remove("update.sh")
         if os.path.exists("update.bat"):
             os.remove("update.bat")
         print(f"Logged in as {self.bot.user}")
         logger.info(f"Logged in as {self.bot.user}")
+        await ctx.invoke(self.bot.rasp_temp())
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('Infiltruje studentów...'))
 
     @commands.Cog.listener()
