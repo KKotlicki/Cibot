@@ -23,7 +23,7 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, amount=5):
-        await ctx.channel.purge(limit=amount)
+        await ctx.channel.purge(limit=amount+1)
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
