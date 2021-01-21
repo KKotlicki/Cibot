@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
@@ -12,6 +13,7 @@ bot = commands.Bot(command_prefix=prefix)
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def update(ctx):
+    await bot.change_presence(status=discord.Status.offline, activity=discord.Game('aktualizuje'))
     py_prefix = os.getenv("OS_PYTHON_PREFIX")
     os_system = system()
     if os_system == 'Windows':
