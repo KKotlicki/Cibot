@@ -1,5 +1,7 @@
 # Cibot
 
+--------------------WIP--------------------
+
 ## Description
 
 This repository contains a code of Official discord bot of WEITI Telekomunikacja 2020/2021-Z;
