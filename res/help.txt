@@ -1,5 +1,5 @@
-"Oficjalne linki": "oflinki",
-"Nieoficjalne linki": "linki",
+"Oficjalne linki": "oflinki <nr. semestru>",
+"Nieoficjalne linki": "linki <nr. semestru",
 "Znajdz link do przedmiotu na yt": "link <przedmiot>",
 "Pusc audio z youtube": "play <link>",
 "Pauzuj audio": "pause",
