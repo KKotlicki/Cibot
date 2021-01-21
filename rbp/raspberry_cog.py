@@ -15,12 +15,12 @@ class RaspberryCog(commands.Cog):
     async def raspberry_temp(self):
         if discord.Client.is_ready(self.bot):
             temp = os.popen("vcgencmd measure_temp").readline()
-            print(temp)
             if float(temp.replace("temp=", "").replace("'C", "")) > temperature_limit:
                 logger.exception("Server overheated.")
                 await self.bot.close()
 
-    @commands.command()
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)
     async def temp(self, ctx):
         await ctx.send(os.popen("vcgencmd measure_temp").readline().replace("temp=", "").replace("'C", ""))
 
