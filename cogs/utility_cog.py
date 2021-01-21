@@ -23,7 +23,7 @@ class UtilityCog(commands.Cog):
         if not os.path.exists('dumps/errors.log'):
             logger.add('dumps/errors.log', rotation="10 MB")
         self.check_discord_connection.start()
-        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje studentów...'))
+        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje discorda'))
 
     @commands.Cog.listener()
     async def on_guild_join(self, ctx, guild):
