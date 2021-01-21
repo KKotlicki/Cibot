@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
-from config import *
-import json
-from helpers import build_link_list, read_lines
+from helpers import build_link_list
 
 
 class LinkCog(commands.Cog):
@@ -13,16 +11,12 @@ class LinkCog(commands.Cog):
     async def linki(self, ctx, message):
         embed_var = discord.Embed(title=":shushing_face: Nieoficjalne linki:", description="semestr "+message,
                                   color=0xff770f)
-        with open(f'{res_dir}/linki.json', 'r') as rd:
-            linki_dict = json.loads(rd.read())[message]
-        await build_link_list(ctx, embed_var, linki_dict)
+        await build_link_list(ctx, embed_var, "linki", message)
 
     @commands.command()
-    async def oflinki(self, ctx):
+    async def oflinki(self, ctx, message="all"):
         embed_var = discord.Embed(title=":mortar_board: Oficjalne linki:", color=0xff770f)
-        with open(f'{res_dir}/linki.json', 'r') as rd:
-            linki_dict = json.loads(rd.read())
-        await build_link_list(ctx, embed_var, linki_dict)
+        await build_link_list(ctx, embed_var, "oflinki", message)
 
     # @commands.command()
     # async def link(self, ctx, *, comb):
