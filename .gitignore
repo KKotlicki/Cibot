@@ -131,6 +131,7 @@ cibot.bat
 cibot.sh
 updater_k.sh
 update.bat
+rbp/rb_config.txt
 
 # Empty directories
 servers/*
