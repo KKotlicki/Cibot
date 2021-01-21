@@ -20,7 +20,9 @@ class LinkCog(commands.Cog):
     @commands.command()
     async def oflinki(self, ctx):
         embed_var = discord.Embed(title=":mortar_board: Oficjalne linki:", color=0xff770f)
-        await build_link_list(ctx, embed_var, "oflinki")
+        with open(f'{res_dir}/linki.json', 'r') as rd:
+            linki_dict = json.loads(rd.read())
+        await build_link_list(ctx, embed_var, linki_dict)
 
     # @commands.command()
     # async def link(self, ctx, *, comb):
