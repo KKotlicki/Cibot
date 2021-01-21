@@ -8,4 +8,5 @@
 "Podaj ping bota": "ping",
 "Komendy dla adminow": "adm",
 "Nie wiem": "co",
+"Zglos buga": "bug"
 "Credits": "thx"
