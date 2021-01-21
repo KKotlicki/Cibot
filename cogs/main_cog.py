@@ -32,7 +32,7 @@ class MainCog(commands.Cog):
 
     @commands.command()
     async def bug(self, ctx, message):
-        logger.debug("<" + ctx.author + "> said:\n<" + message + ">")
+        logger.debug("<" + str(ctx.author) + "> said:\n<" + message + ">")
         logger.add(f'{dump_dir}/bugs.log', rotation="5 MB")
 
 
