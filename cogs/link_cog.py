@@ -17,6 +17,9 @@ class LinkCog(commands.Cog):
         with open(f'{res_dir}/linki.json', 'r') as rd:
             linki_dict = json.loads(rd.read())[message]
         print(linki_dict)
+        print(type(linki_dict))
+        print(linki_dict.keys())
+        print(linki_dict.values())
         await build_link_list(ctx, embed_var, linki_dict)
 
     @commands.command()
