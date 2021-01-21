@@ -21,25 +21,16 @@ class LinkCog(commands.Cog):
         await build_link_list(ctx, embed_var, "oflinki", message)
 
     @commands.command()
-    async def link(self, ctx, *, comb):
-        print(comb)
-        subject = ""
-        if len(comb.split(" ")) < 2:
-            subject_alias = "".join(comb.split(" ")[1:])
-            print(subject_alias)
-            sem = comb.split(" ")[0]
-            print(sem)
-            with open(f"{res_dir}/subject_aliases.txt", "r") as rd:
-                subject_alias_dict = json.loads(rd.read())[sem]
-            for key in subject_alias_dict:
-                if subject_alias in subject_alias_dict[key] or subject_alias == key:
-                    subject = key
-                    break
-            print(subject_alias_dict[sem][subject])
-            embed_var = discord.Embed(title=subject, description=subject_alias_dict[sem][subject], color=0xff770f)
-            await ctx.send(embed=embed_var)
-        else:
-            await ctx.send("Za mało argumentów. Podaj komendę w postaci: !link <nr. semestru> <przedmiot>")
+    async def link(self, ctx, *, sem, message):
+        with open(f"{res_dir}/subject_aliases.txt", "r") as rd:
+            subject_alias_dict = json.loads(rd.read())[sem]
+        for key in subject_alias_dict:
+            if message in subject_alias_dict[key] or message == key:
+                subject = key
+                break
+        print(subject_alias_dict[sem][subject])
+        embed_var = discord.Embed(title=subject, description=subject_alias_dict[sem][subject], color=0xff770f)
+        await ctx.send(embed=embed_var)
 
 
 def setup(bot):
