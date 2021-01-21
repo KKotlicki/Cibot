@@ -44,6 +44,8 @@ python3 -m pip install discord
 python3 -m pip install python.dotenv
 python3 -m pip install youtube-dl
 python3 -m pip install loguru
+python3 -m pip install -U discord.py[voice]
+
 ```
 
 ### Folder structure

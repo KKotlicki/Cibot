@@ -5,7 +5,7 @@ from config import ai_dir, ai_receptors
 class AICog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.remove_command('help')
+
 
     @commands.Cog.listener()
     async def on_message(self, message):

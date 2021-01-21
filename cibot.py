@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 import os
 from config import *
 from platform import system
-
 load_dotenv()
+
 
 bot = commands.Bot(command_prefix=prefix)
 
@@ -25,16 +25,14 @@ async def update(ctx):
         print(os.getcwd().replace('\\', '/')+'/update.bat')
         os.system('update.bat')
     elif os_system == 'Linux':
-        with open(f'{res_dir}/update_linux.txt', 'r') as rd:
+        with open(res_dir + r'\update_linux.txt', 'r') as rd:
             updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd().replace('\\', '/'))
         print(updater)
-        print(f'{res_dir}/update_unx.txt')
+        print(res_dir + r'\update_linux.txt')
         with open(os.getcwd().replace('\\', '/')+'/update.sh', 'w') as wr:
             wr.write(updater)
         print(os.getcwd().replace('\\', '/')+'/update.sh')
         os.system('update.sh')
-
-
 
 
 if __name__ == '__main__':
