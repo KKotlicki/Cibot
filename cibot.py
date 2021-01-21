@@ -26,10 +26,10 @@ async def update(ctx):
 
 if __name__ == '__main__':
     for filename in os.listdir(f'{cogs_dir}'):
-        if filename.endswith('.py') and filename != "raspberry_cog.py":
+        if filename.endswith('.py'):
             bot.load_extension(f'{cogs_dir}.{filename[:-3]}')
     if is_raspberry_pi is True:
-        bot.load_extension(f'{cogs_dir}.raspberry_cog.py')
+        bot.load_extension(f'{rasp_dir}.raspberry_cog.py')
 
 
 bot.run(os.getenv("DSC_BOT_KEY"))
