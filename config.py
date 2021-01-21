@@ -6,9 +6,7 @@ sv_dir = 'servers'
 cogs_dir = 'cogs'
 ai_dir = 'ai'
 temp_mp3_name = 'yt_audio.mp3'
-os_python_prefix = 'python3'
 rasp_dir = 'rbp'
-is_raspberry_pi = True
 ydl_opts = {
     'format': 'bestaudio/best',
     'postprocessors': [{
