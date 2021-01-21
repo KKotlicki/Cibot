@@ -18,7 +18,7 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def shutdown(self, ctx):
-        await self.bot.close()
+            await self.bot.close()
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
@@ -54,7 +54,7 @@ class AdminCog(commands.Cog):
         for x in range(0, len(keys)):
             sv_text_channel_dict[keys[x]] = values[x]
         channel = self.bot.get_channel(int(sv_text_channel_dict[self.message_channel]))
-        embed_var = discord.Embed(title=f"{message}", color=0x00ff00)
+        embed_var = discord.Embed(title=f"**{message}**", color=0x00ff00)
         await channel.send(embed=embed_var)
 
 

@@ -18,7 +18,7 @@ class MainCog(commands.Cog):
                                   color=0xff770f)
         with open(f'{res_dir}/credits.json', 'r') as rd:
             link_dict = json.loads(rd.read())
-        for name, cont in link_dict:
+        for name, cont in link_dict.items():
             embed_var.add_field(name=f'**{name}**', value=cont, inline=False)
         await ctx.send(embed=embed_var)
 
