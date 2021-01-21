@@ -3,4 +3,5 @@
 "Przekaz ogloszenie przez bota": "say <wiadomosc>",
 "Usun <ilosc> wiadomosci (domyslnie 5)": "clear <ilosc>",
 "Updatuj bota": "update",
-"Wylacz bota": "Shutdown"
+"Wylacz bota": "shutdown",
+"(Raspberry) podaj temperature serwera": "temp"
