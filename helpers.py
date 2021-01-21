@@ -28,6 +28,7 @@ async def build_link_list(ctx, embed_var, fname):
 def fetch_sv_data(guild):
     text_names = []
     voice_names = []
+    print("Y")
     for channel in guild.text_channels:
         text_names.append(f'{str(channel)} => {channel.id}')
     for channel in guild.voice_channels:
