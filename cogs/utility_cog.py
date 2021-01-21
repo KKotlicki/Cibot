@@ -20,7 +20,7 @@ class UtilityCog(commands.Cog):
             os.remove("update.bat")
         print(f"Logged in as {self.bot.user}")
         logger.info(f"Logged in as {self.bot.user}")
-        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(':shushing_face: Infiltruje studentów'))
+        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('Infiltruje studentów...'))
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
