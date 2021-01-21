@@ -10,7 +10,7 @@ class LinkCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def linki(self, ctx, message):
+    async def linki(self, ctx, message="all"):
         embed_var = discord.Embed(title=":shushing_face: Nieoficjalne linki:", description="semestr "+message,
                                   color=0xff770f)
         await build_link_list(ctx, embed_var, "linki", message)
@@ -39,7 +39,7 @@ class LinkCog(commands.Cog):
             embed_var = discord.Embed(title=subject, description=subject_alias_dict[sem][subject], color=0xff770f)
             await ctx.send(embed=embed_var)
         else:
-            ctx.send("Za mało argumentów. Podaj komendę w postaci: !link <nr. semestru> <przedmiot>")
+            await ctx.send("Za mało argumentów. Podaj komendę w postaci: !link <nr. semestru> <przedmiot>")
 
 
 def setup(bot):
