@@ -29,6 +29,7 @@ git clone https://github.com/KKotlicki/Cibot.git
 
 ```
 DSC_BOT_KEY=###########################################################
+RASPBERRY_PI=           #NO/YES
 OS_PYTHON_PREFIX=#######
 ```
 
