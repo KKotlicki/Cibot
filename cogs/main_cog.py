@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
-from helpers import open_help, build_link_list
+from helpers import open_help
+from config import res_dir, dump_dir
+import json
+from loguru import logger
 
 
 class MainCog(commands.Cog):
@@ -13,7 +16,11 @@ class MainCog(commands.Cog):
         embed_var = discord.Embed(title=":evergreen_tree: Contributed to Cibot:", description="https://github.com"
                                                                                               "/KKotlicki/Cibot",
                                   color=0xff770f)
-        await build_link_list(ctx, embed_var, "credits")
+        with open(f'{res_dir}/credits.json', 'r') as rd:
+            link_dict = json.loads(rd.read())
+        for name, cont in link_dict:
+            embed_var.add_field(name=f'**{name}**', value=cont, inline=False)
+        await ctx.send(embed=embed_var)
 
     @commands.command()
     async def ping(self, ctx):
@@ -25,9 +32,8 @@ class MainCog(commands.Cog):
 
     @commands.command()
     async def bug(self, ctx, message):
-        user = self.bot.get_user(516640010129375234)
-        print(user)
-        await user.send(message + '\n\n<' + ctx.author + '>')
+        logger.debug("<" + ctx.author + "> said:\n<" + message + ">")
+        logger.add(f'{dump_dir}/bugs.log', rotation="5 MB")
 
 
 def setup(bot):
