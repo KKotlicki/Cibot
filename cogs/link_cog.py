@@ -22,6 +22,8 @@ class LinkCog(commands.Cog):
 
     @commands.command()
     async def link(self, ctx, sem, message):
+        print(sem)
+        print(message)
         with open(f"{res_dir}/subject_aliases.txt", "r") as rd:
             subject_alias_dict = json.loads(rd.read())[sem]
         for key in subject_alias_dict:
