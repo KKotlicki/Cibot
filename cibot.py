@@ -25,14 +25,7 @@ async def update(ctx):
         print(os.getcwd().replace('\\', '/')+'/update.bat')
         os.system('update.bat')
     elif os_system == 'Linux':
-        with open(res_dir + r'\update_linux.txt', 'r') as rd:
-            updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd().replace('\\', '/'))
-        print(updater)
-        print(res_dir + r'\update_linux.txt')
-        with open(os.getcwd().replace('\\', '/')+'/update.sh', 'w') as wr:
-            wr.write(updater)
-        print(os.getcwd().replace('\\', '/')+'/update.sh')
-        os.system('update.sh')
+        os.system(f"sudo pkill '{py_prefix} cibot.py'\ngit pull\n{py_prefix} cibot.py\n")
 
 
 if __name__ == '__main__':
