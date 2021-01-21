@@ -21,7 +21,6 @@ class AdminCog(commands.Cog):
         print(f"Logged in as {self.bot.user}")
         logger.info(f"Logged in as {self.bot.user}")
 
-
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         await fetch_sv_data(guild)  
