@@ -18,10 +18,8 @@ async def open_help(ctx, file_name):
     await ctx.send(embed=embed_var)
 
 
-async def build_link_list(ctx, embed_var, linki_dict):
-    print(".\n\n\n\n.\n")
-    print(linki_dict)
-    for name, value in linki_dict.items():
+async def build_link_list(ctx, embed_var, link_dict):
+    for name, value in link_dict.items():
         embed_var.add_field(name=f'**{name}**', value=value, inline=False)
     await ctx.send(embed=embed_var)
 
