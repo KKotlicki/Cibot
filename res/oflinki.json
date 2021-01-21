@@ -1,10 +1,44 @@
 {
-    "USOS": "https://usosweb.usos.pw.edu.pl/",
-    "ELKA": "https://studia.elka.pw.edu.pl/pl/20Z/",
-    "Gabrys": "http://pages.mini.pw.edu.pl/~pietrzkowskig/www/dydaktyka/20z/anl1t-wyklad/",
-    "PELP Lab": "http://pelp.ise.pw.edu.pl/",
-    "MATLAB": "https://drive.matlab.com/sharing/",
-    "GITLAB": "https://gitlab-stud.elka.pw.edu.pl/",
-    "COLAB": "https://colab.research.google.com/",
-    "Bot": "https://github.com/KKotlicki/Cibot"
+    "all": {
+        "USOS": "https://usosweb.usos.pw.edu.pl/",
+        "ELKA": "https://studia.elka.pw.edu.pl/pl/20Z/",
+        "GITLAB": "https://gitlab-stud.elka.pw.edu.pl/",
+        "COLAB": "https://colab.research.google.com/",
+        "Bot": "https://github.com/KKotlicki/Cibot"
+    },
+    
+    "1": {
+        "USOS": "https://usosweb.usos.pw.edu.pl/",
+        "ELKA": "https://studia.elka.pw.edu.pl/pl/20Z/",
+        "Gabrys": "http://pages.mini.pw.edu.pl/~pietrzkowskig/www/dydaktyka/20z/anl1t-wyklad/",
+        "PELP Lab": "http://pelp.ise.pw.edu.pl/",
+        "MATLAB": "https://drive.matlab.com/sharing/",
+        "GITLAB": "https://gitlab-stud.elka.pw.edu.pl/",
+        "COLAB": "https://colab.research.google.com/",
+        "Bot": "https://github.com/KKotlicki/Cibot"
+    },
+
+    "2": {
+        "USOS": "https://usosweb.usos.pw.edu.pl/",
+        "ELKA": "https://studia.elka.pw.edu.pl/pl/20Z/",
+        "GITLAB": "https://gitlab-stud.elka.pw.edu.pl/",
+        "COLAB": "https://colab.research.google.com/",
+        "Bot": "https://github.com/KKotlicki/Cibot"
+    },
+
+    "3": {
+        "USOS": "https://usosweb.usos.pw.edu.pl/",
+        "ELKA": "https://studia.elka.pw.edu.pl/pl/20Z/",
+        "GITLAB": "https://gitlab-stud.elka.pw.edu.pl/",
+        "COLAB": "https://colab.research.google.com/",
+        "Bot": "https://github.com/KKotlicki/Cibot"
+    },
+
+    "4": {
+        "USOS": "https://usosweb.usos.pw.edu.pl/",
+        "ELKA": "https://studia.elka.pw.edu.pl/pl/20Z/",
+        "GITLAB": "https://gitlab-stud.elka.pw.edu.pl/",
+        "COLAB": "https://colab.research.google.com/",
+        "Bot": "https://github.com/KKotlicki/Cibot"
+    }
 }
