@@ -35,7 +35,7 @@ async def fetch_sv_data(ctx, guild):
 async def build_link_list(ctx, embed_var, fname, message):
     with open(f'{res_dir}/{fname}.json', 'r') as rd:
         link_dict = json.loads(rd.read())
-    for name, value in {**link_dict[message], **link_dict["all"]}:
+    for name, value in {**link_dict[message].items(), **link_dict["all"].items()}:
         embed_var.add_field(name=f'**{name}**', value=value, inline=False)
     await ctx.send(embed=embed_var)
 
