@@ -33,6 +33,7 @@ class UtilityCog(commands.Cog):
     async def on_command_error(self, ctx, err):
         if isinstance(err, commands.CommandNotFound):
             logger.exception("Invalid command used.")
+            logger.add('dumps/errors.log', rotation="10 MB")
             await ctx.send("Niepoprawna komenda.")
         else:
             logger.error(err)
@@ -43,6 +44,7 @@ class UtilityCog(commands.Cog):
             urlopen('http://216.58.192.142', timeout=1)
         except URLError:
             logger.exception("Disconnected")
+            logger.add('dumps/errors.log', rotation="10 MB")
             await self.bot.close()
 
 
