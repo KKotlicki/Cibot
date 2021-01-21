@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
-from helpers import fetch_sv_data, open_help
-from config import sv_dir
-import json
+from helpers import fetch_sv_data
 from loguru import logger
 import os
 
