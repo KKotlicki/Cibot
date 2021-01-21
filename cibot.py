@@ -28,7 +28,7 @@ if __name__ == '__main__':
     for filename in os.listdir(f'{cogs_dir}'):
         if filename.endswith('.py'):
             bot.load_extension(f'{cogs_dir}.{filename[:-3]}')
-    if is_raspberry_pi is True:
+    if os.getenv("RASPBERRY_PI") == "YES":
         bot.load_extension(f'{rasp_dir}.raspberry_cog')
 
 
