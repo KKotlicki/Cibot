@@ -25,16 +25,17 @@ git clone https://github.com/KKotlicki/Cibot.git
 
 ### Bot settup
 
-**Before you run Cibot, add an enviroment file ".env" in main directory and add following lines:**
+**Before you run Cibot, open enviroment file ".env" in main directory and change settings:**
 
 ```
 DSC_BOT_KEY=###########################################################
-RASPBERRY_PI=           #NO/YES
+RASPBERRY_PI=NO         #NO/YES
 OS_PYTHON_PREFIX=#######
 ```
 
-Then replace ########################################################### with your bot Token (if you don't have one, go to MANUAL.txt);
-and replace ####### with your standard python3 call command in your OS (standard python edition uses "python3", anaconda edition uses "py")
+Replace ########################################################### with your bot Token (if you don't have one, go to MANUAL.txt);
+Replace ####### with your standard python3 call command in your OS (standard python edition uses "python3", anaconda edition uses "py");
+Choose RASPBERRY_PI, if you want your bot to have access to raspberry pi exclusive features.
 
 ### Required modules
 
