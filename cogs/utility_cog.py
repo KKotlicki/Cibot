@@ -3,6 +3,8 @@ from discord.ext import commands, tasks
 from helpers import fetch_sv_data
 from loguru import logger
 import os
+from urllib.request import urlopen
+from urllib.error import URLError
 
 
 class UtilityCog(commands.Cog):
@@ -37,8 +39,9 @@ class UtilityCog(commands.Cog):
 
     @tasks.loop(minutes=1.0)
     async def check_discord_connection(self):
-        print(self.bot.guilds)
-        if not list(self.bot.guilds):
+        try:
+            urlopen('http://216.58.192.142', timeout=1)
+        except URLError:
             logger.exception("Disconnected")
             await self.bot.close()
 
