@@ -34,7 +34,7 @@ async def fetch_sv_data(ctx, guild):
         voice_names.append(f'{str(channel)} => {channel.id}')
     with open(f"{sv_dir}/{guild}.json", "w+") as fn:
         fn.write(json.dumps({"text": text_names, "voice": voice_names}))
-    await ctx.send('c')
+    await ctx.asyncio.sleep(60)
 
 
 # Local functions:
