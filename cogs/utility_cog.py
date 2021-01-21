@@ -38,14 +38,14 @@ class UtilityCog(commands.Cog):
         else:
             logger.error(err)
 
-    # @tasks.loop(minutes=1.0)
-    # async def check_discord_connection(self):
-    #     try:
-    #         urlopen('http://216.58.192.142', timeout=20)
-    #     except URLError:
-    #         logger.exception("Disconnected")
-    #         logger.add('dumps/errors.log', rotation="10 MB")
-    #         await self.bot.close()
+    @tasks.loop(minutes=1.0)
+    async def check_discord_connection(self):
+        try:
+            urlopen('http://216.58.192.142', timeout=20)
+        except URLError:
+            logger.exception("Disconnected")
+            logger.add('dumps/errors.log', rotation="10 MB")
+            await self.bot.close()
 
 
 def setup(bot):

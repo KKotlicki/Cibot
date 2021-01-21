@@ -2,8 +2,14 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
+import os.path
 from config import *
+from helpers import env_config
 from platform import system
+
+
+if not os.path.exists(f'.env'):
+    env_config()
 load_dotenv()
 
 
@@ -30,8 +36,8 @@ if __name__ == '__main__':
     for filename in os.listdir(f'{cogs_dir}'):
         if filename.endswith('.py'):
             bot.load_extension(f'{cogs_dir}.{filename[:-3]}')
-    if os.getenv("RASPBERRY_PI") == "YES":
+    if os.getenv("RASPBERRY_PI") == "Y":
         bot.load_extension(f'{rasp_dir}.raspberry_cog')
 
 
-bot.run(os.getenv("DSC_BOT_KEY"))
+bot.run(os.getenv("TOKEN"))

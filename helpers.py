@@ -3,6 +3,7 @@ import discord
 from config import *
 import glob
 import json
+import os
 
 
 def read_lines(fname):
@@ -56,3 +57,11 @@ async def send_pic_or_txt_on_choice(ctx, choice):
     else:
         responses = read_lines(f'{res_dir}/responses')
         await ctx.send(f'{random.choice(responses)}')
+
+
+def env_config():
+    token = input("Bot Token:\n")
+    raspberry_pi_check = input("Is host raspberry pi:\n(Y/N): ")
+    python_prefix_check = input("OS python 3 call command (usually is python3):\n")
+    with open(f'.env', 'w') as wr:
+        wr.write(f"TOKEN={token}\nRASPBERRY_PI={raspberry_pi_check}\nOS_PYTHON_PREFIX={python_prefix_check}")
