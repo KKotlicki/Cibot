@@ -10,7 +10,7 @@ class UtilityCog(commands.Cog):
         self.bot = bot
         self.message_channel = ""
 
-    @commands.Cog.listener()
+    @commands.Cog.listener(pass_context=True)
     async def on_ready(self, ctx):
         if os.path.exists("update.sh"):
             os.remove("update.sh")
