@@ -5,8 +5,8 @@ import glob
 import json
 
 
-def read_lines(file_name):
-    with open(f"{file_name}.txt") as rs:
+def read_lines(fname):
+    with open(f"{fname}.txt") as rs:
         return rs.read().splitlines()
 
 
