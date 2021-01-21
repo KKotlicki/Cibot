@@ -29,7 +29,7 @@ if __name__ == '__main__':
         if filename.endswith('.py'):
             bot.load_extension(f'{cogs_dir}.{filename[:-3]}')
     if is_raspberry_pi is True:
-        bot.load_extension(f'{rasp_dir}.raspberry_cog.py')
+        bot.load_extension(f'{rasp_dir}.raspberry_cog')
 
 
 bot.run(os.getenv("DSC_BOT_KEY"))
