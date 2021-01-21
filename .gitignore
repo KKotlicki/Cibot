@@ -140,4 +140,3 @@ ai/*
 !ai/.gitkeep
 dumps/*
 !dumps/.gitkeep
-.env
