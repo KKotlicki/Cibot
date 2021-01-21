@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 import os
+from loguru import logger
 
 
 class RaspberryCog(commands.Cog):
@@ -14,7 +15,12 @@ class RaspberryCog(commands.Cog):
             temp = os.popen("vcgencmd measure_temp").readline()
             print(temp)
             if float(temp.replace("temp=", "").replace("'C", "")) > 59.0:
+                logger.exception("Server overheated.")
                 await self.bot.close()
+
+    @commands.command()
+    async def temp(self, ctx):
+        await ctx.send(os.popen("vcgencmd measure_temp").readline().replace("temp=", "").replace("'C", ""))
 
 
 def setup(bot):
