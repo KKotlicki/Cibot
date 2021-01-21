@@ -18,7 +18,9 @@ async def open_help(ctx, file_name):
     await ctx.send(embed=embed_var)
 
 
-async def build_link_list(ctx, embed_var, link_dict):
+async def build_link_list(ctx, embed_var, fname, message):
+    with open(f'{res_dir}/{fname}.json', 'r') as rd:
+        link_dict = json.loads(rd.read())[message]
     for name, value in link_dict.items():
         embed_var.add_field(name=f'**{name}**', value=value, inline=False)
     await ctx.send(embed=embed_var)
