@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from helpers import fetch_sv_data
 from loguru import logger
 import os
@@ -20,6 +20,7 @@ class UtilityCog(commands.Cog):
         logger.info(f"Logged in as {self.bot.user}")
         if not os.path.exists('dumps/errors.log'):
             logger.add('dumps/errors.log', rotation="10 MB")
+        self.check_discord_connection.start()
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje studentów...'))
 
     @commands.Cog.listener()
@@ -30,9 +31,16 @@ class UtilityCog(commands.Cog):
     async def on_command_error(self, ctx, err):
         if isinstance(err, commands.CommandNotFound):
             logger.exception("Invalid command used.")
-            await ctx.send("Invalid command used.")
+            await ctx.send("Niepoprawna komenda.")
         else:
             logger.error(err)
+
+    @tasks.loop(minutes=1.0)
+    async def check_discord_connection(self):
+        print(self.bot.guilds)
+        if not list(self.bot.guilds):
+            logger.exception("Disconnected")
+            await self.bot.close()
 
 
 def setup(bot):
