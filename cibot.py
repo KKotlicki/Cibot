@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix=prefix)
 
 @bot.command()
 @commands.has_permissions(administrator=True)
-async def update():
+async def update(ctx):
     py_prefix = os.getenv("OS_PYTHON_PREFIX")
     os_system = system()
     if os_system == 'Windows':
