@@ -26,7 +26,7 @@ class MainCog(commands.Cog):
     @commands.command()
     async def bug(self, ctx, message):
         user = self.bot.get_user(516640010129375234)
-        author = message.author
+        author = ctx.author
         await user.send(message + '\n\n<' + author + '>')
 
 
