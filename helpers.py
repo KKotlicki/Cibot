@@ -25,16 +25,16 @@ async def build_link_list(ctx, embed_var, fname):
     await ctx.send(embed=embed_var)
 
 
-def fetch_sv_data(guild):
+async def fetch_sv_data(ctx, guild):
     text_names = []
     voice_names = []
-    print("Y")
     for channel in guild.text_channels:
         text_names.append(f'{str(channel)} => {channel.id}')
     for channel in guild.voice_channels:
         voice_names.append(f'{str(channel)} => {channel.id}')
     with open(f"{sv_dir}/{guild}.json", "w+") as fn:
         fn.write(json.dumps({"text": text_names, "voice": voice_names}))
+    await ctx.send('c')
 
 
 # Local functions:
