@@ -34,7 +34,7 @@ async def fetch_sv_data(ctx, guild):
         voice_names.append(f'{str(channel)} => {channel.id}')
     with open(f"{sv_dir}/{guild}.json", "w+") as fn:
         fn.write(json.dumps({"text": text_names, "voice": voice_names}))
-    await ctx.send("Dane serwera zostaly zapisane pomyślnie")
+    await ctx.send("Zapisałem pomyślnie")
 
 
 # Local functions:
