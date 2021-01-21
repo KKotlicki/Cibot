@@ -9,12 +9,12 @@ class AdminCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.message_channel = ""
-    
+
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
         await open_help(ctx, "adm_help")
-    
+
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def shutdown(self, ctx):
@@ -24,7 +24,7 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, amount=5):
-        await ctx.channel.purge(limit=amount+1)
+        await ctx.channel.purge(limit=amount + 1)
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
