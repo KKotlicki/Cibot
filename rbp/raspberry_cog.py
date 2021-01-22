@@ -18,7 +18,7 @@ class RaspberryCog(commands.Cog):
             if float(temp.replace("temp=", "").replace("'C", "")) > temperature_limit:
                 logger.exception("Server overheated.")
                 logger.add('dumps/errors.log', rotation="10 MB")
-                exit()
+                self.bot.destroy()
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
