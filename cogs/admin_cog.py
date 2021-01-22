@@ -19,7 +19,7 @@ class AdminCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def shutdown(self, ctx):
         print("tak")
-        await self.bot.close()
+        self.bot.close()
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
