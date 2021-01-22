@@ -1,7 +1,8 @@
 import discord
 import youtube_dl
 from discord.ext import commands
-# from helpers import YTDLSource
+from helpers import YTDLSource
+from youtubesearchpython import VideosSearch
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -40,9 +41,10 @@ class Music(commands.Cog):
     #     await ctx.send('Now playing: {}'.format(player.title))
 
     @commands.command()
-    async def p(self, ctx, *, url):
+    async def p(self, ctx, *, title):
         """Streams from a url (same as yt, but doesn't predownload)"""
 
+        url = VideosSearch(title, limit=1).result()['result'][0]['link']
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
