@@ -4,7 +4,6 @@ from config import *
 import glob
 import json
 import youtube_dl
-# import os
 import asyncio
 
 
@@ -68,20 +67,6 @@ def env_config():
     with open(f'.env', 'w') as wr:
         wr.write(f"TOKEN={token}\nRASPBERRY_PI={raspberry_pi_check}\nOS_PYTHON_PREFIX={python_prefix_check}")
 
-
-# async def download_and_play_video(self, ctx, channel, url):
-#     voice_channel = discord.utils.get(ctx.guild.voice_channels, name=channel)
-#     await voice_channel.connect()
-#     voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-#     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-#         ydl.download([url])
-#     for file in os.listdir(f"./"):
-#         if file.endswith(".mp3"):
-#             os.rename(file, temp_mp3_name)
-#     os.replace(temp_mp3_name, f"{dump_dir}/{temp_mp3_name}")
-#     print(discord.utils.get(self.bot.voice_clients, guild=ctx.guild))
-#     print(str(discord.utils.get(self.bot.voice_clients, guild=ctx.guild)))
-#     voice.play(discord.FFmpegPCMAudio(f"{dump_dir}/{temp_mp3_name}"))
 
 class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
