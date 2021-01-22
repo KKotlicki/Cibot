@@ -68,7 +68,7 @@ class Music(commands.Cog):
 
     # @load.before_invoke
     # @yt.before_invoke
-    @play.before_invoke
+    @p.before_invoke
     async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
