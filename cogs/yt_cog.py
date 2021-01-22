@@ -3,6 +3,9 @@ import youtube_dl
 from discord.ext import commands
 from helpers import YTDLSource
 from youtubesearchpython import VideosSearch
+from loguru import logger
+from config import dump_dir
+import os
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -34,6 +37,12 @@ class Music(commands.Cog):
     async def qp(self, ctx, *, title):
         """Plays from a url (almost anything youtube_dl supports)"""
 
+        for fname in os.listdir('.'):
+            if fname.endswith('.mp3'):
+                os.remove(fname)
+                break
+        logger.info("\n<" + str(ctx.author) + "> said:\n<" + title + ">")
+        logger.add(f'{dump_dir}/yt_history.log', rotation="5 MB")
         url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
@@ -45,6 +54,8 @@ class Music(commands.Cog):
     async def p(self, ctx, *, title):
         """Streams from a url (same as yt, but doesn't predownload)"""
 
+        logger.info("\n<" + str(ctx.author) + "> said:\n<" + title + ">")
+        logger.add(f'{dump_dir}/yt_history.log', rotation="5 MB")
         url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
