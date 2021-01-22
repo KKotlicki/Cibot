@@ -38,7 +38,7 @@ class Music(commands.Cog):
         """Plays from a url (almost anything youtube_dl supports)"""
 
         for fname in os.listdir('.'):
-            if fname.endswith('.mp3'):
+            if fname.endswith('.webm'):
                 os.remove(fname)
                 break
         logger.info("\n<" + str(ctx.author) + "> said:\n<" + title + ">")
