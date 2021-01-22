@@ -30,15 +30,16 @@ class Music(commands.Cog):
     #
     #     await ctx.send('Now playing: {}'.format(query))
 
-    # @commands.command()
-    # async def yt(self, ctx, *, url):
-    #     """Plays from a url (almost anything youtube_dl supports)"""
-    #
-    #     async with ctx.typing():
-    #         player = await YTDLSource.from_url(url, loop=self.bot.loop)
-    #         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-    #
-    #     await ctx.send('Now playing: {}'.format(player.title))
+    @commands.command()
+    async def qp(self, ctx, *, title):
+        """Plays from a url (almost anything youtube_dl supports)"""
+
+        url = VideosSearch(title, limit=1).result()['result'][0]['link']
+        async with ctx.typing():
+            player = await YTDLSource.from_url(url, loop=self.bot.loop)
+            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+
+        await ctx.send('Now playing: {}'.format(player.title))
 
     @commands.command()
     async def p(self, ctx, *, title):
