@@ -49,7 +49,6 @@ class UtilityCog(commands.Cog):
             logger.add('dumps/errors.log', rotation="10 MB")
             os.system(f'{os.getenv("OS_PYTHON_PREFIX")} cibot.py')
             await self.bot.close()
-            await self.bot.close()
 
 
 def setup(bot):
