@@ -1,8 +1,7 @@
 import discord
 import youtube_dl
-# from youtubesearchpython import VideosSearch
 from discord.ext import commands
-from helpers import YTDLSource
+# from helpers import YTDLSource
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -82,21 +81,3 @@ class Music(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Music(bot))
-
-
-
-# try:
-#     yt_id = str(json.loads(YoutubeSearch(search, max_results=1).to_json())['videos'][0]['id'])
-#     yt_url = 'https://www.youtube.com/watch?v='+yt_id
-#     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-#         ydl.download([yt_url])
-#         info = ydl.extract_info(yt_url)
-#         songname = info.get('title', None) + "-" + yt_id + ".mp3"
-#         if os.path.isfile(songname):
-#             print("Song Downloaded: " + songname)
-#         else:
-#             print("Error: " + songname)
-# except:
-#     pass
-#     print(traceback.print_exc())
-#     print("no results")
