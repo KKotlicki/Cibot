@@ -68,7 +68,7 @@ class Music(commands.Cog):
         await ctx.voice_client.disconnect()
 
     # @load.before_invoke
-    # @yt.before_invoke
+    @yt.before_invoke
     @p.before_invoke
     async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
