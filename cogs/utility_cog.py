@@ -47,7 +47,8 @@ class UtilityCog(commands.Cog):
         except URLError:
             logger.exception("Disconnected")
             logger.add('dumps/errors.log', rotation="10 MB")
-            os.system(f'{os.getenv("OS_PYTHON_PREFIX")} cibot.py')
+            os.system(f'cd utility\n{os.getenv("OS_PYTHON_PREFIX")} server_down.py\n')
+            print('shutting down')
             await self.bot.close()
 
 
