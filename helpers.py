@@ -60,7 +60,7 @@ async def send_pic_or_txt_on_choice(ctx, choice):
 
 def env_config():
     token = input("Bot Token:\n\n")
-    raspberry_pi_check = input("Is host raspberry pi:\n\n(Y/N): ")
-    python_prefix_check = input("OS python 3 call command (usually is python3):\n\n")
+    raspberry_pi_check = input("\n\nIs host raspberry pi:\n\n(Y/N): ")
+    python_prefix_check = input("\n\nOS python 3 call command (usually is python3):\n\n")
     with open(f'.env', 'w') as wr:
         wr.write(f"TOKEN={token}\nRASPBERRY_PI={raspberry_pi_check}\nOS_PYTHON_PREFIX={python_prefix_check}")
