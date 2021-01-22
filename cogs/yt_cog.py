@@ -34,7 +34,7 @@ class Music(commands.Cog):
     async def qp(self, ctx, *, title):
         """Plays from a url (almost anything youtube_dl supports)"""
 
-        url = VideosSearch(title, limit=1).result()['result'][0]['link']
+        url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
@@ -45,7 +45,7 @@ class Music(commands.Cog):
     async def p(self, ctx, *, title):
         """Streams from a url (same as yt, but doesn't predownload)"""
 
-        url = VideosSearch(title, limit=1).result()['result'][0]['link']
+        url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
@@ -67,6 +67,7 @@ class Music(commands.Cog):
         """Stops and disconnects the bot from voice"""
 
         await ctx.voice_client.disconnect()
+        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje discorda'))
 
     # @load.before_invoke
     @qp.before_invoke
@@ -75,6 +76,8 @@ class Music(commands.Cog):
         if ctx.voice_client is None:
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect()
+                await self.bot.change_presence(
+                    status=discord.Status.online, activity=discord.Game('podsłuchuje studentów'))
             else:
                 await ctx.send("Nie jesteś podłączony do kanału głosowego.")
                 raise commands.CommandError("Author not connected to a voice channel.")
