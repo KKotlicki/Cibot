@@ -3,6 +3,9 @@ import discord
 from config import *
 import glob
 import json
+import youtube_dl
+# import os
+import asyncio
 
 
 def read_lines(fname):
@@ -64,3 +67,40 @@ def env_config():
     python_prefix_check = input("\n\nOS python 3 call command (usually is python3):\n\n")
     with open(f'.env', 'w') as wr:
         wr.write(f"TOKEN={token}\nRASPBERRY_PI={raspberry_pi_check}\nOS_PYTHON_PREFIX={python_prefix_check}")
+
+
+# async def download_and_play_video(self, ctx, channel, url):
+#     voice_channel = discord.utils.get(ctx.guild.voice_channels, name=channel)
+#     await voice_channel.connect()
+#     voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+#     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+#         ydl.download([url])
+#     for file in os.listdir(f"./"):
+#         if file.endswith(".mp3"):
+#             os.rename(file, temp_mp3_name)
+#     os.replace(temp_mp3_name, f"{dump_dir}/{temp_mp3_name}")
+#     print(discord.utils.get(self.bot.voice_clients, guild=ctx.guild))
+#     print(str(discord.utils.get(self.bot.voice_clients, guild=ctx.guild)))
+#     voice.play(discord.FFmpegPCMAudio(f"{dump_dir}/{temp_mp3_name}"))
+
+class YTDLSource(discord.PCMVolumeTransformer):
+    def __init__(self, source, *, data, volume=0.5):
+        super().__init__(source, volume)
+
+        self.data = data
+
+        self.title = data.get('title')
+        self.url = data.get('url')
+        self.ytdl = youtube_dl.YoutubeDL(ytdl_options)
+
+    @classmethod
+    async def from_url(cls, url, *, loop=None, stream=False):
+        loop = loop or asyncio.get_event_loop()
+        data = await loop.run_in_executor(None, lambda: cls.ytdl.extract_info(url, download=not stream))
+
+        if 'entries' in data:
+            # take first item from a playlist
+            data = data['entries'][0]
+
+        filename = data['url'] if stream else cls.ytdl.prepare_filename(data)
+        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)

@@ -101,7 +101,7 @@ Here are some keywords concerning structure and code that used in this manual an
 
 ### Structure
 
-**Notice**  Commits that don't keep to the structure won't be accepted. The integrity and plurality is the key element of Cibot.
+**Notice**:	Commits that don't keep to the structure won't be accepted. The integrity and plurality is the key element of Cibot.
 
 
 #### cibot.py

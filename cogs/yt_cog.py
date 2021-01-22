@@ -1,74 +1,84 @@
-from discord.ext import commands
 import discord
 import youtube_dl
-import os
-from config import *
+
+from discord.ext import commands
+from helpers import YTDLSource
+
+# Suppress noise about console usage from errors
+youtube_dl.utils.bug_reports_message = lambda: ''
 
 
-class YtLinkAudioCog(commands.Cog):
+class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
-    async def play(self, ctx, url: str):
-        channel = str(ctx.author.voice.channel)
-        if channel is None:
-            await ctx.send(":slight_frown: Nie jesteś w kanale głosowym")
-        elif 'list=' in url:
-            await ctx.send(":slight_frown: Nie można odtwarzać playlist")
-        else:
-            song_there = os.path.isfile(f"{dump_dir}/{temp_mp3_name}")
-            try:
-                if song_there:
-                    os.remove(f"{dump_dir}/{temp_mp3_name}")
-            except PermissionError:
-                await ctx.send(
-                    ":slight_frown: Zaczekaj aż skończy się aktualny utwór, lub zakończ go komendą \"stop\".")
-                return
-            await ctx.send(":satellite: Buforuję...")
-            await self.bot.change_presence(
-                status=discord.Status.online, activity=discord.Game('podłsuchuje telekomune'))
-            await self.download_and_play_video(ctx, channel, url)
+    async def join(self, ctx, *, channel: discord.VoiceChannel):
+        """Joins a voice channel"""
+
+        if ctx.voice_client is not None:
+            return await ctx.voice_client.move_to(channel)
+
+        await channel.connect()
 
     @commands.command()
-    async def leave(self, ctx):
-        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        if voice.is_connected():
-            await voice.disconnect()
-            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje discorda'))
-        else:
-            await ctx.send(":slight_frown: Nie jestem podłączony do kanału głosowego.")
+    async def play(self, ctx, *, query):
+        """Plays a file from the local filesystem"""
+
+        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
+        ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
+
+        await ctx.send('Now playing: {}'.format(query))
 
     @commands.command()
-    async def pause(self, ctx):
-        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        if voice.is_playing():
-            voice.pause()
-        else:
-            await ctx.send(":slight_frown: Na ten moment nie gra żadne audio.")
+    async def yt(self, ctx, *, url):
+        """Plays from a url (almost anything youtube_dl supports)"""
+
+        async with ctx.typing():
+            player = await YTDLSource.from_url(url, loop=self.bot.loop)
+            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+
+        await ctx.send('Now playing: {}'.format(player.title))
 
     @commands.command()
-    async def resume(self, ctx):
-        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        if voice.is_paused():
-            voice.resume()
-        else:
-            await ctx.send(":slight_frown: Na ten moment nie gra żadne audio.")
+    async def stream(self, ctx, *, url):
+        """Streams from a url (same as yt, but doesn't predownload)"""
 
-    async def download_and_play_video(self, ctx, channel, url):
-        voice_channel = discord.utils.get(ctx.guild.voice_channels, name=channel)
-        await voice_channel.connect()
-        voice = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([url])
-        for file in os.listdir(f"./"):
-            if file.endswith(".mp3"):
-                os.rename(file, temp_mp3_name)
-        os.replace(temp_mp3_name, f"{dump_dir}/{temp_mp3_name}")
-        print(discord.utils.get(self.bot.voice_clients, guild=ctx.guild))
-        print(str(discord.utils.get(self.bot.voice_clients, guild=ctx.guild)))
-        voice.play(discord.FFmpegPCMAudio(f"{dump_dir}/{temp_mp3_name}"))
+        async with ctx.typing():
+            player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
+            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+
+        await ctx.send('Now playing: {}'.format(player.title))
+
+    @commands.command()
+    async def volume(self, ctx, volume: int):
+        """Changes the player's volume"""
+
+        if ctx.voice_client is None:
+            return await ctx.send("Not connected to a voice channel.")
+
+        ctx.voice_client.source.volume = volume / 100
+        await ctx.send("Changed volume to {}%".format(volume))
+
+    @commands.command()
+    async def stop(self, ctx):
+        """Stops and disconnects the bot from voice"""
+
+        await ctx.voice_client.disconnect()
+
+    @play.before_invoke
+    @yt.before_invoke
+    @stream.before_invoke
+    async def ensure_voice(self, ctx):
+        if ctx.voice_client is None:
+            if ctx.author.voice:
+                await ctx.author.voice.channel.connect()
+            else:
+                await ctx.send("You are not connected to a voice channel.")
+                raise commands.CommandError("Author not connected to a voice channel.")
+        elif ctx.voice_client.is_playing():
+            ctx.voice_client.stop()
 
 
 def setup(bot):
-    bot.add_cog(YtLinkAudioCog(bot))
+    bot.add_cog(Music(bot))

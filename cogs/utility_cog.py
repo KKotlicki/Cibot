@@ -5,6 +5,8 @@ from loguru import logger
 import os
 from urllib.request import urlopen
 from urllib.error import URLError
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class UtilityCog(commands.Cog):
@@ -45,6 +47,7 @@ class UtilityCog(commands.Cog):
         except URLError:
             logger.exception("Disconnected")
             logger.add('dumps/errors.log', rotation="10 MB")
+            os.system(f'{os.getenv("OS_PYTHON_PREFIX")} cibot.py')
             await self.bot.close()
             await self.bot.close()
 
