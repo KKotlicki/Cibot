@@ -24,7 +24,7 @@ class UtilityCog(commands.Cog):
         logger.info(f"Logged in as {self.bot.user}")
         if not os.path.exists('dumps/errors.log'):
             logger.add('dumps/errors.log', rotation="10 MB")
-        # self.check_discord_connection.start()
+        self.connection_timeout.start()
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje discorda'))
 
     @commands.Cog.listener()
@@ -41,7 +41,7 @@ class UtilityCog(commands.Cog):
             logger.error(err)
 
     @tasks.loop(minutes=1.0)
-    async def check_discord_connection(self):
+    async def connection_timeout(self):
         try:
             urlopen('http://216.58.192.142', timeout=20)
         except URLError:
