@@ -1,7 +1,5 @@
 # Cibot
 
---------------------WiP--------------------
-
 ## Description
 
 This repository contains a code of Official discord bot of WEITI Telekomunikacja 2020/2021-Z;
@@ -35,11 +33,12 @@ git clone https://github.com/KKotlicki/Cibot.git
 To install all the libraries and modules, run the following script in terminal:
 
 ```
-python3 -m pip install discord
-python3 -m pip install python.dotenv
-python3 -m pip install youtube-dl
-python3 -m pip install loguru
-python3 -m pip install -U discord.py[voice]
+python3 -m pip3 install discord
+python3 -m pip3 install python.dotenv
+python3 -m pip3 install youtube-dl
+python3 -m pip3 install loguru
+python3 -m pip3 install -U discord.py[voice]
+python3 -m pip3 install youtube-search-python
 
 ```
 
@@ -136,7 +135,7 @@ Here is one, that defines three methods:
 
 ```
 from discord.ext import commands           # necessary function, that loads cog stucture commands
-import random                              # the library used by example method
+import random                              # the library used by an example method
 
 
 class ExampleCog(commands.Cog):            # the class containing cogs functions
@@ -203,26 +202,25 @@ In helpers.py add your local methods.
 Data will be updated to 2nd semester soon.
 
 
-Ground Rules:
+**Ground Rules:**
 1.  name variables clearly and by this standard: variable_name
 2.  name classes clearly and by this standard: ClassName
 3.  name files clearly and by this standard: fname_sname.foo
-4.  do not create subfolders in resources/ and cogs/
+4.  do not create subfolders or add any non cog file in cogs/
 5.  in cogs/ put ONLY cogs file with correct cogs structure
 6.  if you want to create directory for something entirely else, do so in main directory
 7.  unless you have a good reason, do not change cibot.py script
-8.  do not use <while True> or similar commands - they break script asynchronicity
-9.  do not use purge methods (or only for authenticated users)
+8.  do not use __while True__ or similar commands in cogs - they break script asynchronicity
 
 
-ToDo:
-1.  restart bot after regaining internet connection
+**ToDo:**
+1.  Chat chess game (with elo rating)
 2.  Calendar of exams
 3.  Time to final exams (countdown)
 4.  Send documents (such as subject statues)
 5.  Points to grade converter (by subject)
-6.  yt_cog rewrite - play by search keyword, play playlists
+6.  yt_cog - play playlists, query, save query, load query
 7.  !help and link cogs need to read Polish characters
 8.  Finish documentation and setup manual
-9.  Chat chess game
-10. AI chatbot
+9.  AI chatbot
+10. Move __helpers.py__ to utils directory (requires major rewrite - most cogs have dependency on it set by path)
