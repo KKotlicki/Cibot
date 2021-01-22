@@ -1,11 +1,12 @@
 # Cibot
 
---------------------WIP--------------------
+--------------------WiP--------------------
 
 ## Description
 
 This repository contains a code of Official discord bot of WEITI Telekomunikacja 2020/2021-Z;
-The code is universal, so there is no need to tweak the code to run it as your own new bot.
+The code is universal and cross platform **(not tested on macOS!)** with extra features on Raspberry Pi 4;
+There is no need to tweak the code to run it as your own new bot.
 (more on that in MANUAL.txt)
 
 
@@ -16,7 +17,7 @@ Bot uses exclusively python, with heavy dependence on [discord.py](https://disco
 
 ### Installing
 
-In order to use this bot you only need [Python (3.5+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system;
+In order to use this bot you only need [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system;
 
 To download current version of bot, open destination directory, run terminal and run the following commands:
 
@@ -27,17 +28,7 @@ git clone https://github.com/KKotlicki/Cibot.git
 
 ### Bot settup
 
-**Before you run Cibot, open enviroment file ".env" in main directory and change settings:**
-
-```
-DSC_BOT_KEY=###########################################################
-RASPBERRY_PI=NO         #NO/YES
-OS_PYTHON_PREFIX=#######
-```
-
-Replace ########################################################### with your bot Token (if you don't have one, go to MANUAL.txt);
-Replace ####### with your standard python3 call command in your OS (standard python edition uses "python3", anaconda edition uses "py");
-Choose RASPBERRY_PI, if you want your bot to have access to raspberry pi exclusive features.
+**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and os python 3 call command (usually python3 or py - you can check which is it by running it in cmd)**
 
 ### Required modules
 
@@ -57,22 +48,26 @@ python3 -m pip install -U discord.py[voice]
 Here is current folder structure for Cibot:
 
 ```
-cogs/            # command scripts
-dumps/           # temporary and dump files
-pics/            # pictures and image type resources
-res/             # commands’. text, .json, .xml, Lua and CMS resources
-|- adm_help      # descriptions and call names of admin commands
-|- credits       # creators and contributors
-|- help          # descriptions and call names of user commands
-|- linki         # links for <"unofficial" links> command
-|- oflinki       # links for <"official" links> command
-.gitattributes   # Git repo configuration
-.gitignore       # ^
-MANUAL.txt       # instructions for creating and setting up new bot
-README.md        # Documentation
-cibot.py         # the main bot script
-config.py        # bot settings
-helpers.py       # custom methods bank
+ai/                 # (future) ai module resources
+cogs/               # command scripts
+dumps/              # logs and temporary/dump files
+pics/               # pictures and image type resources
+rbp/                # resources for raspberry pi module
+res/                # commands’. text, .json, .xml, Lua and CMS resources
+|- adm_help         # descriptions and call names of admin commands
+|- credits          # creators and contributors
+|- help             # descriptions and call names of user commands
+|- linki            # links for <"unofficial" links> command
+|- oflinki          # links for <"official" links> command
+|- subject_aliases  # alternative call names for <"unofficial" links> command
+servers/            # servers data and logs
+.gitattributes      # Git repo configuration
+.gitignore          # ^
+cibot.py            # ! - the main bot script
+config.py           # bot settings
+helpers.py          # custom methods bank
+MANUAL.txt          # instructions for creating and setting up new bot
+README.md           # documentation
 ```
 
 
@@ -80,7 +75,7 @@ helpers.py       # custom methods bank
 
 Cibot is an open-source project. Every contribution is welcome.
 To contribute, make your own branch and send Git pull request.
-First, connect to your GitHub account; then following Git code can be used to create a new branch with your changes:
+First, connect to your GitHub account; then use the following Git code to create a new branch with your changes:
 
 ```
 git init
@@ -92,7 +87,7 @@ git push
 
 ```
 
-To commit changes to bot and publish your contribution, log in your GitHub and send a branch pull request 
+To commit changes to main branch and publish your contribution, log in your GitHub account and send a branch pull request 
 
 
 ### Language
@@ -113,13 +108,15 @@ Here are some keywords concerning structure and code that used in this manual an
 
 The main bot script. It has few only functions:
 
+ - creates personal enviroment file
  - connects to bot's discord API
  - loads config.py file
  - set some global settings
  - loads all the cogs from directory
+ - defines <update> command
 
-main script shouldn’t contain any commands
-keep code here as clear, tidy, and minimal as possible
+main script shouldn’t define any other commands
+keep code here as clear, and minimal as possible
 
 
 #### module_name_cog.py
@@ -132,31 +129,30 @@ To add new commands or functionalities, create a cog or add to existing cog.
 ##### cog syntax
 
 For reference, look at the cogs/ directory to find examples of code.
-Here is one;
-It creates three methods:
+Here is one, that defines three methods:
  - 1st is automatically called when bot is going online
  - 2nd when user types in chat <!ping>
  - 3rd when user types in chat <!dice>
 
 ```
-from discord.ext import commands           # necessary function, that loads
-import random                              # the library used by internal method
+from discord.ext import commands           # necessary function, that loads cog stucture commands
+import random                              # the library used by example method
 
 
 class ExampleCog(commands.Cog):            # the class containing cogs functions
     def __init__(self, client):
         self.client = client
-        self.some_variable = 3
+        self.some_variable = "ready"
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Bot is ready.')
+        print(f'Bot is {self.some_variable}.')
 
     @commands.command()
     async def ping(self, ctx):
         await ctx.send(f'{round(self.client.latency * 1000)}ms')
     
-        @commands.command()
+    @commands.command()
     async def dice(self, ctx):
         await ctx.send(f'The dice rolled: {random.randint(1, 6)}')
 
@@ -208,24 +204,25 @@ Data will be updated to 2nd semester soon.
 
 
 Ground Rules:
-1.  call variables clearly and by this standard: variable_name
-2.  call classes clearly and by this standard: ClassName
-3.  call files clearly and by this standard: fname_sname.foo
+1.  name variables clearly and by this standard: variable_name
+2.  name classes clearly and by this standard: ClassName
+3.  name files clearly and by this standard: fname_sname.foo
 4.  do not create subfolders in resources/ and cogs/
-5.  in cogs/ put ONLY cogs file with correct cogs syntax
-6.  if you want to create directory for something else than pictures, do so in main directory
+5.  in cogs/ put ONLY cogs file with correct cogs structure
+6.  if you want to create directory for something entirely else, do so in main directory
 7.  unless you have a good reason, do not change cibot.py script
 8.  do not use <while True> or similar commands - they break script asynchronicity
 9.  do not use purge methods (or only for authenticated users)
 
 
 ToDo:
-1. Bot Status (WiP)
-2. Calendar of exams
-3. Time to final exams (countdown)
-4. Send documents (such as subject statues)
-5. Points to grade converter (by subject)
-6. yt_cog rewrite - play by keyword, play playlists
-7. !help and link cogs need to read polish characters
-8. Change everywhere __client__ object to __bot__
-9. Rewrite or format documentation - this one sucks!
+1.  restart bot after regaining internet connection
+2.  Calendar of exams
+3.  Time to final exams (countdown)
+4.  Send documents (such as subject statues)
+5.  Points to grade converter (by subject)
+6.  yt_cog rewrite - play by search keyword, play playlists
+7.  !help and link cogs need to read Polish characters
+8.  Finish documentation and setup manual
+9.  Chat chess game
+10. AI chatbot
