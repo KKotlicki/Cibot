@@ -31,7 +31,7 @@ class MainCog(commands.Cog):
         await open_help(ctx, "help")
 
     @commands.command()
-    async def bug(self, ctx, message):
+    async def bug(self, ctx, *, message):
         logger.info("\n<" + str(ctx.author) + "> said:\n<" + message + ">")
         logger.add(f'{dump_dir}/bugs.log', rotation="5 MB")
 
