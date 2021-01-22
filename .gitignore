@@ -129,7 +129,7 @@ credentials.json
 .idea
 cibot.bat
 cibot.sh
-updater_k.sh
+updater.sh
 update.bat
 rbp/rb_config.txt
 
