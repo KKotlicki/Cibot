@@ -48,7 +48,7 @@ class UtilityCog(commands.Cog):
             logger.exception("Disconnected")
             logger.add('dumps/errors.log', rotation="10 MB")
             os.system(f'{os.getenv("OS_PYTHON_PREFIX")} cibot.py')
-            self.bot.destroy()
+            self.bot.close()
 
 
 def setup(bot):
