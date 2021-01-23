@@ -49,7 +49,7 @@ Here is current folder structure for Cibot:
 ```
 ai/                 # (future) ai module resources
 cogs/               # command scripts
-dumps/              # logs and temporary/dump files
+logs/              # log files
 pics/               # pictures and image type resources
 rbp/                # resources for raspberry pi module
 res/                # commands’. text, .json, .xml, Lua and CMS resources
@@ -225,7 +225,7 @@ Data will be updated to 2nd semester soon.
 8.  Finish documentation and setup manual [Rewrite]
 9.  AI chatbot **[Major Feature]**
 10. Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path!) **[Major Rewrite]**
-11. Fix shutdown and raspberry temp shutdwon bug (currently restarts after first use, closes after second) [Fix]
+11. Fix shutdown and raspberry temperature shutdwon bug (currently restarts after first use, closes after second) [Fix]
 12. Disconnect from voice channel after period of inactivity [Rewrite]
 13. Unit test script **[Major Feature]**
 14. Error and exception handling **[Major Rewrite]**
