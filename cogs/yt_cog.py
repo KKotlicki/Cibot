@@ -38,9 +38,9 @@ class Music(commands.Cog):
         """Plays from a url (almost anything youtube_dl supports)"""
 
         for fname in os.listdir('.'):
-            if fname.endswith('.webm'):
+            if fname.endswith('.webm') or fname.endswith('.zip'):
                 os.remove(fname)
-                break
+
         logger.info("\n<" + str(ctx.author) + "> said:\n<" + title + ">")
         logger.add(f'{dump_dir}/yt_history.log', rotation="5 MB")
         url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
@@ -53,7 +53,7 @@ class Music(commands.Cog):
     @commands.command()
     async def p(self, ctx, *, title):
         """Streams from a url (same as yt, but doesn't predownload)"""
-
+        logger.add(f'{dump_dir}/errors.log', rotation="10 MB")
         logger.info("\n<" + str(ctx.author) + "> said:\n<" + title + ">")
         logger.add(f'{dump_dir}/yt_history.log', rotation="5 MB")
         url = VideosSearch(str(title), limit=1).result()['result'][0]['link']

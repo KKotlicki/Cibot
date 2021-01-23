@@ -3,7 +3,7 @@
 ## Description
 
 This repository contains a code of Official discord bot of WEITI Telekomunikacja 2020/2021-Z;
-The code is universal and cross platform **(not tested on macOS!)** with extra features on Raspberry Pi 4;
+The code is universal and cross platform **(not tested on macOS!)** with extra features exclusive to Raspberry Pi 4;
 There is no need to tweak the code to run it as your own new bot.
 (more on that in MANUAL.txt)
 
