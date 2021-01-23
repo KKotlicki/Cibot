@@ -229,6 +229,7 @@ Data will be updated to 2nd semester soon.
 12. Disconnect from voice channel after period of inactivity [Rewrite]
 13. Unit test script **[Major Feature]**
 14. Error and exception handling **[Major Rewrite]**
+15. Fix logging systems [Fix]
 
 
 ```
