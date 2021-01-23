@@ -3,8 +3,8 @@
 ## Description
 
 This repository contains a code of Official discord bot of WEITI Telekomunikacja 2020/2021-Z;
-The code is universal and cross platform **(not tested on macOS!)** with extra features exclusive to Raspberry Pi 4;
-There is no need to tweak the code to run it as your own new bot.
+The code is universal and cross-platform compatible **(not tested on macOS!)** with a few extra features on Raspberry Pi 4;
+The code is ready to be used as your own bot and no changes need to be applied (more on that in MANUAL.txt)
 (more on that in MANUAL.txt)
 
 
@@ -15,18 +15,20 @@ Bot uses exclusively python, with heavy dependence on [discord.py](https://disco
 
 ### Installing
 
-In order to use this bot you only need [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system;
+To use our bot you only need [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system;
 
-To download current version of bot, open destination directory, run terminal and run the following commands:
+To download current version of bot, open destination directory, then run terminal and enter following commands:
 
 ```
 git clone https://github.com/KKotlicki/Cibot.git
 
 ```
 
+
 ### Bot settup
 
-**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and os python 3 call command (usually python3 or py - you can check which is it by running it in cmd)**
+**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 call command (usually python3 or py - you can check which one is it by running it in cmd)**
+
 
 ### Required modules
 
@@ -49,10 +51,10 @@ Here is current folder structure for Cibot:
 ```
 ai/                 # (future) ai module resources
 cogs/               # command scripts
-logs/              # log files
+logs/               # log files
 pics/               # pictures and image type resources
 rbp/                # resources for raspberry pi module
-res/                # commands’. text, .json, .xml, Lua and CMS resources
+res/                # text, .json, .xml, Lua and CMS resources
 |- adm_help         # descriptions and call names of admin commands
 |- credits          # creators and contributors
 |- help             # descriptions and call names of user commands
@@ -72,9 +74,10 @@ README.md           # documentation
 
 ## Development
 
-Cibot is an open-source project. Every contribution is welcome.
-To contribute, make your own branch and send Git pull request.
-First, connect to your GitHub account; then use the following Git code to create a new branch with your changes:
+Cibot is an open-source project. Every contribution is welcome;
+To contribute, make your own branch and send Git pull request;
+First, connect to your GitHub account, then use the following Git code to create a new branch with your changes:
+
 
 ```
 git init
@@ -86,12 +89,12 @@ git push
 
 ```
 
-To commit changes to main branch and publish your contribution, log in your GitHub account and send a branch pull request 
+To commit changes to the main branch and publish your contribution, log in your GitHub account and send a branch pull request
 
 
 ### Language
 
-Here are some keywords concerning structure and code that used in this manual and in-script comments
+Here are some keywords concerning structure and code that are used in this manual and in-script comments
 
  - method                           # function inside class - general python lingua
  - global (data)                    # resources, configurations, variables, functions, that are used by bot in several unrelated functions
@@ -100,36 +103,37 @@ Here are some keywords concerning structure and code that used in this manual an
 
 ### Structure
 
-**Notice**:	Commits that don't keep to the structure won't be accepted.
+**Notice**:	Commits that do not keep to the structure will not be accepted.
 
 
 #### cibot.py
 
-The main bot script. It has few only functions:
+The main bot script. It has only few functions:
 
- - creates personal enviroment file
+ - creates personal environment file
  - connects to bot's discord API
  - loads config.py file
- - set some global settings
+ - set few of the global settings
  - loads all the cogs from directory
  - defines __update__ command
 
-main script shouldn’t define any other commands
-keep code here as clear, and minimal as possible
+Main script should not define any other commands;
+Keep this code as clear and minimal as possible.
 
 
 #### module_name_cog.py
 
 The most important element of the bot.
-Every cog file is independent module, containing one class in special syntax with several closely related methods.
-They dictate bot behavior, but bot should be able to work with or without any of them.
+Every cog file is an independent module containing one class in special syntax with several closely related methods.
+They dictate bot's behavior, although bot should be able to work with or without any of them.
 To add new commands or functionalities, create a cog or add to existing cog.
+
 
 ##### cog syntax
 
-For reference, look at the cogs/ directory to find examples of code.
-Here is one, that defines three methods:
- - 1st is automatically called when bot is going online
+For reference, look at the cogs/ directory to find examples of a code.
+Here is one that defines three methods:
+ - 1st is being automatically called when bot is going online
  - 2nd when user types in chat <!ping>
  - 3rd when user types in chat <!dice>
 
@@ -171,19 +175,12 @@ def setup(client):                         # necessary function - allows cibot.p
  - synchronicity        
 
 
-
-
-
-
-
-
-
 from config import *
 from helpers import *
 
 
 Contents:
-cibot.py - Bot's exec script. Do not edit the code, unless you know what you're doing. Anyway, keep the code here minimal.
+cibot.py - Bot's exec script. Do not edit the code unless you know what you're doing. Anyway, keep the code here minimal.
 config.py - Script containing setup variables. It contains relative paths and general bot settings (you can add your own).
 helpers.py - Script stores local and global functions, that have either too big, too small scope or are too long to be used in cogs under @commands.command.
 cogs/ - Place here cogs with your own commands.
@@ -194,7 +191,7 @@ MANUAL.txt - instructions for creating new bot with this code.
 
 
 hidden files:
- - .env - contains bot TOKEN, OS python 3 prefix and information, wheather machine is raspberry pi. this information is hidden and won't be shared.
+ - .env - contains bot TOKEN, OS python 3 prefix and information if your machine is raspberry pi. this information is hidden and won't be shared.
 
 Main bot script is cibot.py. Keep it tidy!
 In config.py save data such as relative paths, server settings, etc.
@@ -209,7 +206,7 @@ Data will be updated to 2nd semester soon.
 3.  name files clearly and by this standard: fname_sname.foo
 4.  do not create subfolders or add any non cog file in cogs/
 5.  in cogs/ put ONLY cogs file with correct cogs structure
-6.  if you want to create directory for something entirely else, do so in main directory
+6.  if you want to create directory for something entirely different, do so in the main directory
 7.  unless you have a good reason, do not change cibot.py script
 8.  do not use __while True__ or similar commands in cogs - they break script asynchronicity
 
