@@ -23,7 +23,7 @@ async def update(ctx):
     # await bot.change_presence(status=discord.Status.offline, activity=discord.Game('aktualizuje'))
     with open(f'{res_dir}/status.json', 'r') as rd:
         statuses = json.loads(rd.read())
-    await bot.change_presence(status=discord.Status.offline, activity=discord.Game(statuses['update']))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(statuses['update']))
 
     py_prefix = os.getenv("OS_PYTHON_PREFIX")
     os_system = system()

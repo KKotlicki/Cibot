@@ -89,7 +89,7 @@ class Music(commands.Cog):
                 #     status=discord.Status.online, activity=discord.Game('podsłuchuje studentów'))
                 with open(f'{res_dir}/status.json', 'r') as rd:
                     statuses = json.loads(rd.read())
-                await self.bot.change_presence(status=discord.Status.offline, activity=discord.Game(statuses['voice']))
+                await self.bot.change_presence(status=discord.Status.online, activity=discord.Game(statuses['voice']))
             else:
                 await ctx.send("Nie jesteś podłączony do kanału głosowego.")
                 raise commands.CommandError("Author not connected to a voice channel.")
