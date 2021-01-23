@@ -95,7 +95,7 @@ Here are some keywords concerning structure and code that used in this manual an
 
  - method                           # function inside class - general python lingua
  - global (data)                    # resources, configurations, variables, functions, that are used by bot in several unrelated functions
- - cogs                             # modules with special syntax containing one class with several bot command or behavior methods
+ - cogs                             # modules with special syntax containing one class with several bot commands or behavior methods
       
 
 ### Structure
@@ -112,7 +112,7 @@ The main bot script. It has few only functions:
  - loads config.py file
  - set some global settings
  - loads all the cogs from directory
- - defines <update> command
+ - defines __update__ command
 
 main script shouldn’t define any other commands
 keep code here as clear, and minimal as possible
@@ -134,11 +134,11 @@ Here is one, that defines three methods:
  - 3rd when user types in chat <!dice>
 
 ```
-from discord.ext import commands           # necessary function, that loads cog stucture commands
+from discord.ext import commands           # necessary function - loads cog stucture commands
 import random                              # the library used by an example method
 
 
-class ExampleCog(commands.Cog):            # the class containing cogs functions
+class ExampleCog(commands.Cog):            # the class containing cogs functions; inherits from commands.Cog class
     def __init__(self, client):
         self.client = client
         self.some_variable = "ready"
@@ -156,7 +156,7 @@ class ExampleCog(commands.Cog):            # the class containing cogs functions
         await ctx.send(f'The dice rolled: {random.randint(1, 6)}')
 
 
-def setup(client):                         # necessary function, that allows cibot.py to read it as cog
+def setup(client):                         # necessary function - allows cibot.py to recognize it as cog
     client.add_cog(ExampleCog(client))
 
 ```
@@ -194,7 +194,8 @@ MANUAL.txt - instructions for creating new bot with this code.
 
 
 hidden files:
-.env - contains bot TOKEN. shhhh, it's s secret...
+ - .env - contains bot TOKEN, OS python 3 prefix and information, wheather machine is raspberry pi. this information is hidden and won't be shared.
+
 Main bot script is cibot.py. Keep it tidy!
 In config.py save data such as relative paths, server settings, etc.
 In helpers.py add your local methods.
@@ -202,7 +203,7 @@ In helpers.py add your local methods.
 Data will be updated to 2nd semester soon.
 
 
-**Ground Rules:**
+**Development Rules:**
 1.  name variables clearly and by this standard: variable_name
 2.  name classes clearly and by this standard: ClassName
 3.  name files clearly and by this standard: fname_sname.foo
@@ -214,15 +215,27 @@ Data will be updated to 2nd semester soon.
 
 
 **ToDo:**
-1.  Chat chess game (with elo rating)
-2.  Calendar of exams
-3.  Time to final exams (countdown)
-4.  Send documents (such as subject statues)
-5.  Points to grade converter (by subject)
-6.  yt_cog - play playlists, query, save query, load query
-7.  !help and link cogs need to read Polish characters
-8.  Finish documentation and setup manual
-9.  AI chatbot
-10. Move __helpers.py__ to utils directory (requires major rewrite - most cogs have dependency on it set by path)
-11. Fix shutdown, raspberry temp and  method (currently it onl)
-12. Disconnect from voice channel after period of inactivity
+1.  Chat chess game (with elo rating) **[Major Feature]**
+2.  Calendar of exams [Feature]
+3.  Countdown to final exams [Feature]
+4.  Send documents (such as subject statues, PW anthem) [Feature]
+5.  Points to grade converter by subject [Feature]
+6.  yt_cog - play playlists, query, save query, load query [Rewrite]
+7.  !help and link cogs need to read Polish characters [Rewrite]
+8.  Finish documentation and setup manual [Rewrite]
+9.  AI chatbot **[Major Feature]**
+10. Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path!) **[Major Rewrite]**
+11. Fix shutdown and raspberry temp shutdwon bug (currently restarts after first use, closes after second) [Fix]
+12. Disconnect from voice channel after period of inactivity [Rewrite]
+13. Unit test script **[Major Feature]**
+14. Error and exception handling **[Major Rewrite]**
+
+
+```
+[Major Rewrite] - Changes in dependencies or in code of several different scripts
+[Rewrite] - Changes in singular scipt
+[Major Feature] - Entirely new feature requiring a new large srcipt and possibly new cog
+[Feature] - A small new feature
+[Fix] - A small bug fix
+```
+**DO NOT COMMIT CHANGES CONTAINING MAJOR BUGS!**
