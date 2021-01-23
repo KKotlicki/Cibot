@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands, tasks
 from helpers import fetch_sv_data
 from loguru import logger
-from config import dump_dir
+from config import logs_dir
 import os
 from urllib.request import urlopen
 from urllib.error import URLError
@@ -23,8 +23,8 @@ class UtilityCog(commands.Cog):
             os.remove("update.bat")
         print(f"Logged in as {self.bot.user}")
         logger.info(f"Logged in as {self.bot.user}")
-        if not os.path.exists(f'{dump_dir}/errors.log'):
-            logger.add(f'{dump_dir}/errors.log', rotation="10 MB")
+        if not os.path.exists(f'{logs_dir}/errors.log'):
+            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
         self.connection_timeout.start()
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje discorda'))
 
@@ -36,7 +36,7 @@ class UtilityCog(commands.Cog):
     async def on_command_error(self, ctx, err):
         if isinstance(err, commands.CommandNotFound):
             logger.exception("Invalid command used.")
-            logger.add(f'{dump_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
             await ctx.send("Niepoprawna komenda.")
         else:
             logger.error(err)
@@ -47,7 +47,7 @@ class UtilityCog(commands.Cog):
             urlopen('http://216.58.192.142', timeout=20)
         except URLError:
             logger.exception("Disconnected")
-            logger.add(f'{dump_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
             os.system(f'cd utility\n{os.getenv("OS_PYTHON_PREFIX")} server_down.py\n')
             print('shutting down')
             await self.bot.close()

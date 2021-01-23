@@ -4,7 +4,7 @@ from discord.ext import commands
 from helpers import YTDLSource
 from youtubesearchpython import VideosSearch
 from loguru import logger
-from config import dump_dir
+from config import logs_dir
 import os
 
 # Suppress noise about console usage from errors
@@ -41,8 +41,7 @@ class Music(commands.Cog):
             if fname.endswith('.webm') or fname.endswith('.zip'):
                 os.remove(fname)
 
-        logger.info("\n<" + str(ctx.author) + "> said:\n<" + title + ">")
-        logger.add(f'{dump_dir}/yt_history.log', rotation="5 MB")
+        logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
         url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop)
@@ -53,9 +52,7 @@ class Music(commands.Cog):
     @commands.command()
     async def p(self, ctx, *, title):
         """Streams from a url (same as yt, but doesn't predownload)"""
-        logger.add(f'{dump_dir}/errors.log', rotation="10 MB")
-        logger.info("\n<" + str(ctx.author) + "> said:\n<" + title + ">")
-        logger.add(f'{dump_dir}/yt_history.log', rotation="5 MB")
+        logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
         url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
         async with ctx.typing():
             player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)

@@ -1,7 +1,7 @@
 prefix = '!'
 pic_dir = 'pics'
 res_dir = 'res'
-dump_dir = 'logs'
+logs_dir = 'logs'
 sv_dir = 'servers'
 cogs_dir = 'cogs'
 ai_dir = 'ai'

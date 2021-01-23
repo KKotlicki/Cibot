@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from helpers import open_help
-from config import res_dir, dump_dir
+from config import res_dir, logs_dir
 import json
 from loguru import logger
 
@@ -33,7 +33,7 @@ class MainCog(commands.Cog):
     @commands.command()
     async def bug(self, ctx, *, message):
         logger.info("\n<" + str(ctx.author) + "> said:\n<" + message + ">")
-        logger.add(f'{dump_dir}/bugs.log', rotation="5 MB")
+        logger.add(f'{logs_dir}/bugs.log', rotation="5 MB")
 
 
 def setup(bot):
