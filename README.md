@@ -225,3 +225,4 @@ Data will be updated to 2nd semester soon.
 9.  AI chatbot
 10. Move __helpers.py__ to utils directory (requires major rewrite - most cogs have dependency on it set by path)
 11. Fix shutdown, raspberry temp and  method (currently it onl)
+12. Disconnect from voice channel after period of inactivity
