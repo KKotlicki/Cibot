@@ -4,8 +4,9 @@ from discord.ext import commands
 from helpers import YTDLSource
 from youtubesearchpython import VideosSearch
 from loguru import logger
-from config import logs_dir
+from config import logs_dir, res_dir
 import os
+import json
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -84,8 +85,11 @@ class Music(commands.Cog):
         if ctx.voice_client is None:
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect()
-                await self.bot.change_presence(
-                    status=discord.Status.online, activity=discord.Game('podsłuchuje studentów'))
+                # await self.bot.change_presence(
+                #     status=discord.Status.online, activity=discord.Game('podsłuchuje studentów'))
+                with open(f'{res_dir}/status.json', 'r') as rd:
+                    statuses = json.loads(rd.read())
+                await self.bot.change_presence(status=discord.Status.offline, activity=discord.Game(statuses['voice']))
             else:
                 await ctx.send("Nie jesteś podłączony do kanału głosowego.")
                 raise commands.CommandError("Author not connected to a voice channel.")

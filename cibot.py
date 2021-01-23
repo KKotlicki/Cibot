@@ -6,6 +6,7 @@ import os.path
 from config import *
 from helpers import env_config
 from platform import system
+import json
 
 
 if not os.path.exists(f'.env'):
@@ -19,15 +20,21 @@ bot = commands.Bot(command_prefix=prefix)
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def update(ctx):
-    await bot.change_presence(status=discord.Status.offline, activity=discord.Game('aktualizuje'))
+    # await bot.change_presence(status=discord.Status.offline, activity=discord.Game('aktualizuje'))
+    with open(f'{res_dir}/status.json', 'r') as rd:
+        statuses = json.loads(rd.read())
+    await bot.change_presence(status=discord.Status.offline, activity=discord.Game(statuses['update']))
+
     py_prefix = os.getenv("OS_PYTHON_PREFIX")
     os_system = system()
+
     if os_system == 'Windows':
         with open(f'{res_dir}/update_ms.txt', 'r') as rd:
             updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd())
         with open(os.getcwd()+'/update.bat', 'w') as wr:
             wr.write(updater)
         os.system('update.bat')
+
     elif os_system == 'Linux':
         os.system(f"sudo pkill '{py_prefix} cibot.py'\ngit pull\n{py_prefix} cibot.py\n")
 
