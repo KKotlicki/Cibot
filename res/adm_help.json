@@ -1,9 +1,9 @@
 {
-    "Zaladuj kanaly serwera": "sv",
-    "Ustaw kanal na ogloszenia bota": "set_anns <kanal>",
-    "Przekaz ogloszenie przez bota": "say <wiadomosc>",
-    "Usun <ilosc> wiadomosci (domyslnie 5)": "clear <ilosc>",
-    "Updatuj bota": "update",
-    "Wylacz bota": "shutdown",
-    "(Raspberry) podaj temperature serwera": "temp"
+    "Załaduj kanały serwera": "sv",
+    "Ustaw kanał na ogłoszenia bota": "set_anns <kanał>",
+    "Przekaż ogłoszenie przez bota": "say <wiadomosc>",
+    "Usuń <ilość> wiadomości (domyślnie 5)": "clear <ilość>",
+    "Aktualizuj bota": "update",
+    "Wyłącz bota": "shutdown",
+    "(Raspberry Pi) podaj temperaturę serwera": "temp"
 }

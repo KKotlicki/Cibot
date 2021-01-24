@@ -23,13 +23,13 @@ class LinkCog(commands.Cog):
     @commands.command()
     async def link(self, ctx, sem, message):
         subject = ""
-        with open(f"{res_dir}/subject_aliases.json", "r") as rd:
+        with open(f"{res_dir}/subject_aliases.json", encoding='utf-8') as rd:
             subject_alias_dict = json.loads(rd.read())[sem]
         for key in subject_alias_dict:
             if message in subject_alias_dict[key] or message == key:
                 subject = key
                 break
-        with open(f'{res_dir}/linki.json', 'r') as rd:
+        with open(f'{res_dir}/linki.json', encoding='utf-8') as rd:
             link = json.loads(rd.read())[sem][subject]
         embed_var = discord.Embed(title=subject, description=link, color=0xff770f)
         await ctx.send(embed=embed_var)

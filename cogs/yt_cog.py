@@ -76,7 +76,7 @@ class Music(commands.Cog):
         """Stops and disconnects the bot from voice"""
 
         await ctx.voice_client.disconnect()
-        with open(f'{res_dir}/status.json', 'r') as rd:
+        with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
             statuses = json.loads(rd.read())
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 
@@ -87,7 +87,7 @@ class Music(commands.Cog):
         if ctx.voice_client is None:
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect()
-                with open(f'{res_dir}/status.json', 'r') as rd:
+                with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
                     statuses = json.loads(rd.read())
                 await self.bot.change_presence(status=discord.Status.online, activity=discord.Game(statuses['voice']))
             else:

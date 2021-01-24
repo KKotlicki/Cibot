@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix=prefix)
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def update(ctx):
-    with open(f'{res_dir}/status.json', 'r') as rd:
+    with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
         statuses = json.loads(rd.read())
     await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(statuses['update']))
 

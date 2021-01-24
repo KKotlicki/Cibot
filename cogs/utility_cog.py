@@ -27,7 +27,7 @@ class UtilityCog(commands.Cog):
         if not os.path.exists(f'{logs_dir}/errors.log'):
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
         self.connection_timeout.start()
-        with open(f'{res_dir}/status.json', 'r') as rd:
+        with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
             statuses = json.loads(rd.read())
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 

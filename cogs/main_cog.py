@@ -16,7 +16,7 @@ class MainCog(commands.Cog):
         embed_var = discord.Embed(title=":evergreen_tree: Contributed to Cibot:", description="https://github.com"
                                                                                               "/KKotlicki/Cibot",
                                   color=0xff770f)
-        with open(f'{res_dir}/credits.json', 'r') as rd:
+        with open(f'{res_dir}/credits.json', encoding='utf-8') as rd:
             link_dict = json.loads(rd.read())
         for name, cont in link_dict.items():
             embed_var.add_field(name=f'**{name}**', value=cont, inline=False)

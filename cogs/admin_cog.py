@@ -44,9 +44,9 @@ class AdminCog(commands.Cog):
         sv_text_channel_dict = {}
         keys = []
         values = []
-        with open(f'{sv_dir}/{ctx.message.guild.name}_config.txt', "r") as rd:
+        with open(f'{sv_dir}/{ctx.message.guild.name}_config.txt', encoding='utf-8') as rd:
             self.message_channel = rd.read()
-        with open(f"{sv_dir}/{ctx.message.guild.name}.json", "r") as rd:
+        with open(f"{sv_dir}/{ctx.message.guild.name}.json", encoding='utf-8') as rd:
             sv_data = json.loads(rd.read())["text"]
         for elem in sv_data:
             keys.append(elem.split(" => ")[0])
