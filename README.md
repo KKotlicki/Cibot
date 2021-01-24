@@ -215,32 +215,42 @@ Data will be updated to 2nd semester soon.
 
  - **[Major Rewrite]**
 
+```
 1.  Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path) 
 2. Error and exception handling
+```
 
  - [Rewrites]
 
+```
 1. yt_cog - play playlists, query, save query, load query
 2. Disconnect from voice channel after period of inactivity
 3. Finish documentation and setup manual 
+```
 
  - **[Major Features]**
 
+```
 1. Chat chess game (with ELO rating)
 2. AI chatbot
 3. Unit test script
+```
 
  - [Features]
 
+```
 1. Calendar of exams
 2. Countdown to final exams
 3. Send documents (such as subject statues, PW anthem)
 4. Points to grade converter by subject
+```
 
  - [Fixes]
 
+```
 1. Logging systems
 2. Fix shutdown and raspberry temperature shutdown bug (currently restarts after first use, closes after second use)
+```
 
 
 ```
