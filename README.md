@@ -212,20 +212,20 @@ Data will be updated to 2nd semester soon.
 
 
 **ToDo:**
-1.  Chat chess game (with ELO rating) **[Major Feature]**
-2.  Calendar of exams [Feature]
-3.  Countdown to final exams [Feature]
-4.  Send documents (such as subject statues, PW anthem) [Feature]
-5.  Points to grade converter by subject [Feature]
-6.  yt_cog - play playlists, query, save query, load query [Rewrite]
-7.  Fix logging systems [Fix]
-8.  Finish documentation and setup manual [Rewrite]
-9.  AI chatbot **[Major Feature]**
-10. Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path!) **[Major Rewrite]**
-11. Fix shutdown and raspberry temperature shutdown bug (currently restarts after first use, closes after second) [Fix]
-12. Disconnect from voice channel after period of inactivity [Rewrite]
-13. Unit test script **[Major Feature]**
-14. Error and exception handling **[Major Rewrite]**
+1.  Chat chess game (with ELO rating)                                                                               **[Major Feature]**
+2.  Calendar of exams                                                                                               [Feature]
+3.  Countdown to final exams                                                                                        [Feature]
+4.  Send documents (such as subject statues, PW anthem)                                                             [Feature]
+5.  Points to grade converter by subject                                                                            [Feature]
+6.  yt_cog - play playlists, query, save query, load query                                                          [Rewrite]
+7.  Fix logging systems                                                                                             [Fix]
+8.  Finish documentation and setup manual                                                                           [Rewrite]
+9.  AI chatbot                                                                                                      **[Major Feature]**
+10. Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path!)                  **[Major Rewrite]**
+11. Fix shutdown and raspberry temperature shutdown bug (currently restarts after first use, closes after second)   [Fix]
+12. Disconnect from voice channel after period of inactivity                                                        [Rewrite]
+13. Unit test script                                                                                                **[Major Feature]**
+14. Error and exception handling                                                                                    **[Major Rewrite]**
 
 
 ```
