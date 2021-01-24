@@ -216,7 +216,7 @@ Data will be updated to 2nd semester soon.
  - **[Major Rewrites]**
 
 ```
-1.  Move helpers.py to utils directory (most cogs have dependency on it set by relative path) 
+1. Move helpers.py to utils directory (most cogs have dependency on it set by relative path) 
 2. Error and exception handling
 ```
 
