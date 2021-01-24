@@ -132,11 +132,14 @@ cibot.sh
 updater.sh
 update.bat
 rbp/rb_config.txt
+/*.zip
+/*.webm
+
 
 # Empty directories
 servers/*
 !servers/.gitkeep
 ai/*
 !ai/.gitkeep
-dumps/*
-!dumps/.gitkeep
+logs/*
+!logs/.gitkeep
