@@ -254,9 +254,13 @@ Data will be updated to 2nd semester soon.
 
 
 [Major Rewrites] - Changes in dependencies or in code of several different scripts
+
 [Rewrites] - Changes in singular script
+
 [Major Features] - Entirely new feature requiring a new large script and possibly new cog
+
 [Features] - A small new feature
+
 [Fixes] - A small bug fix
 
 **DO NOT COMMIT CHANGES CONTAINING MAJOR BUGS!**
