@@ -218,7 +218,7 @@ Data will be updated to 2nd semester soon.
 4.  Send documents (such as subject statues, PW anthem) [Feature]
 5.  Points to grade converter by subject [Feature]
 6.  yt_cog - play playlists, query, save query, load query [Rewrite]
-7.  !help and link cogs need to read Polish characters [Rewrite]
+7.  Fix logging systems [Fix]
 8.  Finish documentation and setup manual [Rewrite]
 9.  AI chatbot **[Major Feature]**
 10. Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path!) **[Major Rewrite]**
@@ -226,7 +226,6 @@ Data will be updated to 2nd semester soon.
 12. Disconnect from voice channel after period of inactivity [Rewrite]
 13. Unit test script **[Major Feature]**
 14. Error and exception handling **[Major Rewrite]**
-15. Fix logging systems [Fix]
 
 
 ```
