@@ -14,8 +14,8 @@ def read_lines(fname):
 
 async def open_help(ctx, file_name):
     embed_var = discord.Embed(title=":ledger: Komendy:", color=0xff770f)
-    with open(f'{res_dir}/{file_name}.json', 'r') as rd:
-        help_json = json.loads(rd.read(), ensure_ascii=False).encode('utf8')
+    with open(f'{res_dir}/{file_name}.json', encoding='utf-8') as rd:
+        help_json = json.loads(rd.read())
     for name, value in help_json.items():
         embed_var.add_field(name=f'**{name}**', value=f'```{prefix}{value}```', inline=False)
     await ctx.send(embed=embed_var)
