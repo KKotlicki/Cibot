@@ -253,11 +253,10 @@ Data will be updated to 2nd semester soon.
 ```
 
 
-```
 [Major Rewrite] - Changes in dependencies or in code of several different scripts
 [Rewrite] - Changes in singular script
 [Major Feature] - Entirely new feature requiring a new large script and possibly new cog
 [Feature] - A small new feature
 [Fix] - A small bug fix
-```
+
 **DO NOT COMMIT CHANGES CONTAINING MAJOR BUGS!**
