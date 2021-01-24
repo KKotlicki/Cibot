@@ -22,7 +22,7 @@ bot = commands.Bot(command_prefix=prefix)
 async def update(ctx):
     with open(f'{res_dir}/status.json', 'r') as rd:
         statuses = json.loads(rd.read())
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game(statuses['update']))
+    await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(statuses['update']))
 
     py_prefix = os.getenv("OS_PYTHON_PREFIX")
     os_system = system()
