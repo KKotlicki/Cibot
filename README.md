@@ -213,7 +213,7 @@ Data will be updated to 2nd semester soon.
 
 **ToDo:**
 
- - **[Major Rewrite]**
+ - **[Major Rewrites]**
 
 ```
 1.  Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path) 
@@ -253,10 +253,10 @@ Data will be updated to 2nd semester soon.
 ```
 
 
-[Major Rewrite] - Changes in dependencies or in code of several different scripts
-[Rewrite] - Changes in singular script
-[Major Feature] - Entirely new feature requiring a new large script and possibly new cog
-[Feature] - A small new feature
-[Fix] - A small bug fix
+[Major Rewrites] - Changes in dependencies or in code of several different scripts
+[Rewrites] - Changes in singular script
+[Major Features] - Entirely new feature requiring a new large script and possibly new cog
+[Features] - A small new feature
+[Fixes] - A small bug fix
 
 **DO NOT COMMIT CHANGES CONTAINING MAJOR BUGS!**
