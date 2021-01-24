@@ -15,7 +15,7 @@ Bot uses exclusively python, with heavy dependence on [discord.py](https://disco
 
 ### Installing
 
-To use our bot you only need [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system;
+To use our bot, you only need [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system.
 
 To download current version of bot, open destination directory, then run terminal and enter following commands:
 
@@ -25,7 +25,7 @@ git clone https://github.com/KKotlicki/Cibot.git
 ```
 
 
-### Bot settup
+### Bot setup
 
 **Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 call command (usually python3 or py - you can check which one is it by running it in cmd)**
 
@@ -61,7 +61,7 @@ res/                # text, .json, .xml, Lua and CMS resources
 |- linki            # links for <"unofficial" links> command
 |- oflinki          # links for <"official" links> command
 |- subject_aliases  # alternative call names for <"unofficial" links> command
-servers/            # servers data and logs
+servers/            # server's data and logs
 .gitattributes      # Git repo configuration
 .gitignore          # ^
 cibot.py            # ! - the main bot script
@@ -89,7 +89,7 @@ git push
 
 ```
 
-To commit changes to the main branch and publish your contribution, log in your GitHub account and send a branch pull request
+To commit changes to the main branch and publish your contribution, log in your GitHub account, and send a branch pull request
 
 
 ### Language
@@ -138,7 +138,7 @@ Here is one that defines three methods:
  - 3rd when user types in chat <!dice>
 
 ```
-from discord.ext import commands           # necessary function - loads cog stucture commands
+from discord.ext import commands           # necessary function - loads cog structure commands
 import random                              # the library used by an example method
 
 
@@ -191,7 +191,7 @@ MANUAL.txt - instructions for creating new bot with this code.
 
 
 hidden files:
- - .env - contains bot TOKEN, OS python 3 prefix and information if your machine is raspberry pi. this information is hidden and won't be shared.
+ - .env - contains bot TOKEN, OS python 3 prefix and information if your machine is raspberry pi. this information is hidden and will not be shared.
 
 Main bot script is cibot.py. Keep it tidy!
 In config.py save data such as relative paths, server settings, etc.
@@ -204,7 +204,7 @@ Data will be updated to 2nd semester soon.
 1.  name variables clearly and by this standard: variable_name
 2.  name classes clearly and by this standard: ClassName
 3.  name files clearly and by this standard: fname_sname.foo
-4.  do not create subfolders or add any non cog file in cogs/
+4.  do not create subfolders or add any non-cog file in cogs/
 5.  in cogs/ put ONLY cogs file with correct cogs structure
 6.  if you want to create directory for something entirely different, do so in the main directory
 7.  unless you have a good reason, do not change cibot.py script
@@ -212,7 +212,7 @@ Data will be updated to 2nd semester soon.
 
 
 **ToDo:**
-1.  Chat chess game (with elo rating) **[Major Feature]**
+1.  Chat chess game (with ELO rating) **[Major Feature]**
 2.  Calendar of exams [Feature]
 3.  Countdown to final exams [Feature]
 4.  Send documents (such as subject statues, PW anthem) [Feature]
@@ -222,7 +222,7 @@ Data will be updated to 2nd semester soon.
 8.  Finish documentation and setup manual [Rewrite]
 9.  AI chatbot **[Major Feature]**
 10. Move __helpers.py__ to utils directory (most cogs have dependency on it set by relative path!) **[Major Rewrite]**
-11. Fix shutdown and raspberry temperature shutdwon bug (currently restarts after first use, closes after second) [Fix]
+11. Fix shutdown and raspberry temperature shutdown bug (currently restarts after first use, closes after second) [Fix]
 12. Disconnect from voice channel after period of inactivity [Rewrite]
 13. Unit test script **[Major Feature]**
 14. Error and exception handling **[Major Rewrite]**
@@ -231,8 +231,8 @@ Data will be updated to 2nd semester soon.
 
 ```
 [Major Rewrite] - Changes in dependencies or in code of several different scripts
-[Rewrite] - Changes in singular scipt
-[Major Feature] - Entirely new feature requiring a new large srcipt and possibly new cog
+[Rewrite] - Changes in singular script
+[Major Feature] - Entirely new feature requiring a new large script and possibly new cog
 [Feature] - A small new feature
 [Fix] - A small bug fix
 ```

@@ -20,7 +20,6 @@ bot = commands.Bot(command_prefix=prefix)
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def update(ctx):
-    # await bot.change_presence(status=discord.Status.offline, activity=discord.Game('aktualizuje'))
     with open(f'{res_dir}/status.json', 'r') as rd:
         statuses = json.loads(rd.read())
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(statuses['update']))

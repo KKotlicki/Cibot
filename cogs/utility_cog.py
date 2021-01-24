@@ -2,11 +2,12 @@ import discord
 from discord.ext import commands, tasks
 from helpers import fetch_sv_data
 from loguru import logger
-from config import logs_dir
+from config import logs_dir, res_dir
 import os
 from urllib.request import urlopen
 from urllib.error import URLError
 from dotenv import load_dotenv
+import json
 load_dotenv()
 
 
@@ -26,7 +27,9 @@ class UtilityCog(commands.Cog):
         if not os.path.exists(f'{logs_dir}/errors.log'):
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
         self.connection_timeout.start()
-        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game('infiltruje discorda'))
+        with open(f'{res_dir}/status.json', 'r') as rd:
+            statuses = json.loads(rd.read())
+        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 
     @commands.Cog.listener()
     async def on_guild_join(self, ctx, guild):
