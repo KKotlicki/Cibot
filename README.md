@@ -213,14 +213,14 @@ Data will be updated to 2nd semester soon.
 
 **ToDo:**
 
- - **[Major Rewrites]**
+ - **[Major Rewrite]**
 
 ```
 1. Move helpers.py to utils directory (most cogs have dependency on it set by relative path) 
 2. Error and exception handling
 ```
 
- - [Rewrites]
+ - [Rewrite]
 
 ```
 1. yt_cog - play playlists, query, save query, load query
@@ -228,7 +228,7 @@ Data will be updated to 2nd semester soon.
 3. Finish documentation and setup manual 
 ```
 
- - **[Major Features]**
+ - **[Major Feature]**
 
 ```
 1. Chat chess game (with ELO rating)
@@ -236,7 +236,7 @@ Data will be updated to 2nd semester soon.
 3. Unit test script
 ```
 
- - [Features]
+ - [Feature]
 
 ```
 1. Calendar of exams
@@ -245,7 +245,7 @@ Data will be updated to 2nd semester soon.
 4. Points to grade converter by subject
 ```
 
- - [Fixes]
+ - [Fix]
 
 ```
 1. Logging systems
@@ -253,14 +253,14 @@ Data will be updated to 2nd semester soon.
 ```
 
 
-[Major Rewrites] - Changes in dependencies or in code of several different scripts
+[Major Rewrite] - Changes in dependencies or in code of several different scripts
 
-[Rewrites] - Changes in singular script
+[Rewrite] - Changes in singular script
 
-[Major Features] - Entirely new feature requiring a new large script and possibly new cog
+[Major Feature] - Entirely new feature requiring a new large script and possibly new cog
 
-[Features] - A small new feature
+[Feature] - A small new feature
 
-[Fixes] - A small bug fix
+[Fix] - A small bug fix
 
 **DO NOT COMMIT CHANGES CONTAINING MAJOR BUGS!**
