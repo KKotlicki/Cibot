@@ -3,10 +3,9 @@ import youtube_dl
 from discord.ext import commands
 from helpers import YTDLSource
 from youtubesearchpython import VideosSearch
-from loguru import logger
-from config import logs_dir, res_dir
-import os
+from config import res_dir
 import json
+import asyncio
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -15,6 +14,8 @@ youtube_dl.utils.bug_reports_message = lambda: ''
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.queue_size = 0
+        self.queue_list = []
 
     @commands.command()
     async def join(self, ctx, *, channel: discord.VoiceChannel):
@@ -26,44 +27,42 @@ class Music(commands.Cog):
         await channel.connect()
 
     # @commands.command()
-    # async def load(self, ctx, *, query):
-    #     """Plays a file from the local filesystem"""
+    # async def local(self, ctx, *, query):
     #
     #     source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
     #     ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
     #
-    #     await ctx.send('Now playing: {}'.format(query))
+    #     await ctx.send(f'Now playing: {query}')
 
-    @commands.command()
-    async def qp(self, ctx, *, title):
-        """Plays from a url (almost anything youtube_dl supports)"""
+    # @commands.command()
+    # async def qp(self, ctx, *, title):
+    #
+    #     for fname in os.listdir('.'):
+    #         if fname.endswith('.webm') or fname.endswith('.zip'):
+    #             os.remove(fname)
+    #
+    #     url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
+    #     async with ctx.typing():
+    #         player = await YTDLSource.from_url(url, loop=self.bot.loop)
+    #         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+    #
+    #     await ctx.send(f'Now playing: {player.title}')
 
-        for fname in os.listdir('.'):
-            if fname.endswith('.webm') or fname.endswith('.zip'):
-                os.remove(fname)
+    @commands.command(aliases=['p', 'graj'])
+    async def play(self, ctx, *, title):
 
-        logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
-        url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
+        video_data = VideosSearch(str(title), limit=1).result()['result'][0]
         async with ctx.typing():
-            player = await YTDLSource.from_url(url, loop=self.bot.loop)
-            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-
-        await ctx.send('Now playing: {}'.format(player.title))
-
-    @commands.command()
-    async def p(self, ctx, *, title):
-        """Streams from a url (same as yt, but doesn't predownload)"""
-        logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
-        url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
-        async with ctx.typing():
-            player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
-            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-
-        await ctx.send('Teraz gram: {}'.format(player.title))
+            url = video_data['link']
+            song_title = video_data['title']
+            self.queue_list.append([url, song_title])
+            self.queue_size = len(self.queue_list)
+        await ctx.send(f'Dodałem do kolejki: {song_title}')
+        if not ctx.voice_client.is_playing() and self.queue_size == 1:
+            await self.play_yt(ctx)
 
     @commands.command()
     async def volume(self, ctx, volume: int):
-        """Changes the player's volume"""
 
         if ctx.voice_client is None:
             return await ctx.send("Nie jesteś podłączony do kanału głosowego.")
@@ -71,18 +70,18 @@ class Music(commands.Cog):
         ctx.voice_client.source.volume = volume / 100
         await ctx.send("Zmieniłem głośność na {}%".format(volume))
 
-    @commands.command()
-    async def stop(self, ctx):
-        """Stops and disconnects the bot from voice"""
+    @commands.command(aliases=['qc', 'clear_queue'])
+    async def qclear(self, ctx):
 
         await ctx.voice_client.disconnect()
         with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
             statuses = json.loads(rd.read())
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
+        self.queue_list = []
 
     # @load.before_invoke
-    @qp.before_invoke
-    @p.before_invoke
+    # @qp.before_invoke
+    @play.before_invoke
     async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
@@ -93,8 +92,33 @@ class Music(commands.Cog):
             else:
                 await ctx.send("Nie jesteś podłączony do kanału głosowego.")
                 raise commands.CommandError("Author not connected to a voice channel.")
-        elif ctx.voice_client.is_playing():
+
+    @commands.command()
+    async def play_yt(self, ctx):
+        if not ctx.voice_client.is_playing() and len(self.queue_list) != 0:
+            player = await YTDLSource.from_url(self.queue_list[0][1], loop=self.bot.loop, stream=True)
+            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+            await ctx.send(f"Teraz gram: {player.title}")
+            while True:
+                if ctx.voice_client.is_playing() is False:
+                    break
+                await asyncio.sleep(3)
             ctx.voice_client.stop()
+            self.queue_list.pop(0)
+            await self.play_yt(ctx)
+        elif not ctx.voice_client.is_playing() and len(self.queue_list) == 0:
+            ctx.voice_client.stop()
+            await ctx.voice_client.disconnect()
+
+    @commands.command(aliases=['q', 'kolejka'])
+    async def queue(self, ctx):
+        embed_var = discord.Embed(title="Kolejka:", color=0xff770f)
+        for song in self.queue_list:
+            if self.queue_list.index(song) == 0:
+                embed_var.add_field(name=f'Teraz gra:', value=f'**{song[1]}**', inline=False)
+            else:
+                embed_var.add_field(name=f'nr. {self.queue_list.index(song)}:', value=f'**{song[1]}**', inline=False)
+        await ctx.send(embed=embed_var)
 
 
 def setup(bot):

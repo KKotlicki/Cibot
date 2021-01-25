@@ -216,16 +216,15 @@ Data will be updated to 2nd semester soon.
  - **[Major Rewrite]**
 
 ```
-1. Move helpers.py to utils directory (most cogs have dependency on it set by relative path) 
-2. Error and exception handling
+1. Error and exception handling
 ```
 
  - [Rewrite]
 
 ```
-1. yt_cog - play playlists, query, save query, load query
+1. yt_cog - play playlists, save queue, load queue, additional queue handling
 2. Disconnect from voice channel after period of inactivity
-3. Finish documentation and setup manual 
+3. Finish documentation and setup manual
 ```
 
  - **[Major Feature]**
