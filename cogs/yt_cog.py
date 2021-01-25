@@ -98,7 +98,6 @@ class Music(commands.Cog):
         if not ctx.voice_client.is_playing() and len(self.queue_list) != 0:
             player = await YTDLSource.from_url(self.queue_list[0][1], loop=self.bot.loop, stream=True)
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-            await ctx.send(f"Teraz gram: {player.title}")
             while True:
                 if ctx.voice_client.is_playing() is False:
                     break
