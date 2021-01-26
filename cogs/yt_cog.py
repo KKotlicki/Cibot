@@ -16,6 +16,7 @@ class Music(commands.Cog):
         self.bot = bot
         self.queue_size = 0
         self.queue_list = []
+        self.skip_song = False
 
     @commands.command()
     async def join(self, ctx, *, channel: discord.VoiceChannel):
@@ -101,7 +102,10 @@ class Music(commands.Cog):
             while True:
                 if ctx.voice_client.is_playing() is False:
                     break
-                await asyncio.sleep(3)
+                elif self.skip_song is True:
+                    self.skip_song = False
+                    break
+                await asyncio.sleep(2)
             ctx.voice_client.stop()
             self.queue_list.pop(0)
             await self.play_yt(ctx)
@@ -118,6 +122,10 @@ class Music(commands.Cog):
             else:
                 embed_var.add_field(name=f'nr. {self.queue_list.index(song)}:', value=f'**{song[1]}**', inline=False)
         await ctx.send(embed=embed_var)
+
+    @commands.command(aliases=['s', 'kurwaskipu'])
+    async def skip(self, ctx):
+        self.skip_song = True
 
 
 def setup(bot):
