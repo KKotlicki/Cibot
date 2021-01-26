@@ -125,10 +125,12 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['s', 'kurwaskipu'])
     async def skip(self, ctx):
-        if ctx.voice_client.is_playing():
-            self.skip_song = True
+        if ctx.voice_client is None:
+            await ctx.send("Nic teraz nie gra.")
+        elif ctx.voice_client.is_playing() is False:
+            await ctx.send("Nic teraz nie gra.")
         else:
-            ctx.send('Nic teraz nie gra.')
+            self.skip_song = True
 
 
 def setup(bot):
