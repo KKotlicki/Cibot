@@ -21,7 +21,14 @@ class ChessCog(commands.Cog):
         await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
 
 
-async def chess_loop(user1, user2, ctx, bot):
+async def chess_loop(challenger, challenged, ctx, bot):
+
+    if bool(random.getrandbits(1)):
+        user1 = challenger
+        user2 = challenged
+    else:
+        user2 = challenger
+        user1 = challenged
 
     # Chess loop
     embed = discord.Embed(title=f"Nowa gra!",
@@ -60,16 +67,16 @@ async def chess_loop(user1, user2, ctx, bot):
             return
 
         # Basically a repeat of above!
-        # cancel = await board_move(user2, board, ctx, bot)
-        # game_over = board.is_game_over(claim_draw=False)
-        # if cancel:
-        #     return
-        # if game_over:
-        #     embed = discord.Embed(title=f"Gra Zakończona!",
-        #                           description=f"{user2.mention} wygrał! GG",
-        #                           color=discord.Color.green())
-        #     await ctx.send(embed=embed)
-        #     return
+        cancel = await board_move(user2, board, ctx, bot)
+        game_over = board.is_game_over(claim_draw=False)
+        if cancel:
+            return
+        if game_over:
+            embed = discord.Embed(title=f"Gra Zakończona!",
+                                  description=f"{user2.mention} wygrał! GG",
+                                  color=discord.Color.green())
+            await ctx.send(embed=embed)
+            return
 
 
 async def board_move(player, board, ctx, bot):
