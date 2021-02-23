@@ -111,6 +111,9 @@ class Music(commands.Cog):
             await self.play_yt(ctx)
         elif not ctx.voice_client.is_playing() and len(self.queue_list) == 0:
             ctx.voice_client.stop()
+            with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+                statuses = json.loads(rd.read())
+            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
             await ctx.voice_client.disconnect()
 
     @commands.command(aliases=['q', 'kolejka'])
