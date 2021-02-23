@@ -7,6 +7,8 @@
     "Wyczyść kolejkę i zakończ utwór": "qc",
     "Pokaż kolejkę": "q",
     "Dołącz na kanał głosowy": "join <kanał>",
+    "Wyzwij użytkownika na szachy": "chess <@użytkownik>",
+    "Komendy w szachach (bez prefiksu)": "ruchy - UCI(np. e2e4 lub g2g1q), zrezygnuj - cancel",
     "Podaj ping bota": "ping",
     "Komendy dla adminów": "adm",
     "Nie wiem": "co",

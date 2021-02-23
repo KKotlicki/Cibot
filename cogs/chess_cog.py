@@ -23,7 +23,7 @@ class ChessCog(commands.Cog):
 
 async def chess_loop(challenger, challenged, ctx, bot):
 
-    if bool(random.getrandbits(1)):
+    if bool(random.getrandbits(1)) or True:
         user1 = challenger
         user2 = challenged
     else:
@@ -117,13 +117,21 @@ async def board_move(player, board, ctx, bot):
                 joined = message.content
                 try:
                     # Get the move
-                    move = chess.Move.from_uci(joined)
+                    if len(joined) >= 4:
+                        if ((joined[1] == '7' and joined[3] == '8') or (
+                                joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(joined[0:2])) == 1 and len(joined) == 5:
+                            move = chess.Move.from_uci(joined[0:5])
+                        elif ((joined[1] == '7' and joined[3] == '8') or (
+                                joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(joined[0:2])) == 1 and len(joined) == 4:
+                            move = chess.Move.from_uci(joined[0:4]+'q')
+                        else:
+                            move = chess.Move.from_uci(joined[0:4])
+                    else:
+                        raise ValueError('Szachy: zła długość ruchu')
                     if move in board.legal_moves:
                         # Check if the move was valid
-                        print(joined[0:2])
-                        print(joined[2:4])
                         embed = discord.Embed(title=f"Ruch",
-                                              description=f"{player.mention} ruszył się z {joined[0:2]} do {joined[2:4]}!",
+                                              description=f"{player.mention} ruszył się z {joined[0:2]} na {joined[2:4]}!",
                                               color=discord.Color.green())
                         await ctx.send(embed=embed)
                         # Make the move on the board
