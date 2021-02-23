@@ -35,14 +35,14 @@ git clone https://github.com/KKotlicki/Cibot.git
 To install all the libraries and modules, run the following script in terminal:
 
 ```
-python3 -m pip3 install discord
-python3 -m pip3 install python.dotenv
-python3 -m pip3 install youtube-dl
-python3 -m pip3 install loguru
-python3 -m pip3 install -U discord.py[voice]
-python3 -m pip3 install youtube-search-python
-python3 -m pip3 install svglib
-python3 -m pip3 install reportlab
+python3 -m pip install discord
+python3 -m pip install python.dotenv
+python3 -m pip install youtube-dl
+python3 -m pip install loguru
+python3 -m pip install -U discord.py[voice]
+python3 -m pip install youtube-search-python
+python3 -m pip install svglib
+python3 -m pip install reportlab
 
 ```
 
