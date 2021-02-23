@@ -41,6 +41,8 @@ python3 -m pip3 install youtube-dl
 python3 -m pip3 install loguru
 python3 -m pip3 install -U discord.py[voice]
 python3 -m pip3 install youtube-search-python
+python3 -m pip3 install svglib
+python3 -m pip3 install reportlab
 
 ```
 

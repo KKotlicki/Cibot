@@ -132,6 +132,8 @@ cibot.sh
 updater.sh
 update.bat
 rbp/rb_config.txt
+chess_board.svg
+chess_board.png
 /*.zip
 /*.webm
 /*.m4a
