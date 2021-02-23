@@ -21,13 +21,7 @@ class ChessCog(commands.Cog):
         await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
 
 
-async def chess_loop(challenger, challenged, ctx, bot):
-    if bool(random.getrandbits(1)):
-        user1 = challenger
-        user2 = challenged
-    else:
-        user2 = challenger
-        user1 = challenged
+async def chess_loop(user1, user2, ctx, bot):
 
     # Chess loop
     embed = discord.Embed(title=f"Nowa gra!",
