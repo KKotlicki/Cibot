@@ -8,6 +8,10 @@ cogs_dir = 'cogs'
 ai_dir = 'ai'
 temp_mp3_name = 'yt_audio.mp3'
 rasp_dir = 'rbp'
+chess_options = {
+    'starting_elo': 1200,
+    'K': 40
+}
 ytdl_options = {
     'format': 'bestaudio/best',
     'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',

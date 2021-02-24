@@ -7,6 +7,7 @@ from reportlab.graphics import renderPM
 from svglib.svglib import svg2rlg
 from PIL import Image
 import random
+from config import sv_dir, chess_options
 
 
 class ChessCog(commands.Cog):
@@ -19,6 +20,13 @@ class ChessCog(commands.Cog):
     async def chess(self, ctx, *, user: discord.User):
         """Start a chess game with someone!"""
         await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
+
+    @commands.command()
+    async def elo(self, ctx):
+        try:
+            await get_elo(ctx.author)
+        except:
+            print("elo error")
 
 
 async def chess_loop(challenger, challenged, ctx, bot):
@@ -167,6 +175,14 @@ async def board_move(player, board, ctx, bot):
                     pass
             finally:
                 pass
+
+async def get_elo(user: discord.User):
+    with open(sv_dir, "r") as rd:
+        player_chess_history = rd.read()[user]
+    elo_rating = chess_options['starting_elo']
+    for i in player_chess_history:
+        elo_rating += chess_options['K'] * (i[2] - 1/(1 + 10**((i[1]-i[0])/400)))
+    return elo_rating
 
 
 def setup(bot):

@@ -228,14 +228,14 @@ Data will be updated to 2nd semester soon.
 1. yt_cog - play playlists, save queue, load queue, additional queue handling
 2. Disconnect from voice channel after period of inactivity
 3. Finish documentation and setup manual
+4. chess parallel games, leaderboards, server only player databases, draws, takeback offer
 ```
 
  - **[Major Feature]**
 
 ```
-1. Chat chess game (with ELO rating)
-2. AI chatbot
-3. Unit test script
+1. AI chatbot
+2. Unit test script
 ```
 
  - [Feature]
@@ -251,7 +251,7 @@ Data will be updated to 2nd semester soon.
 
 ```
 1. Logging systems
-2. Fix shutdown and raspberry temperature shutdown bug (currently restarts after first use, closes after second use)
+2. shutdown and raspberry temperature shutdown bug (currently restarts after first use, closes after second use, sometimes doesn't work)
 ```
 
 
