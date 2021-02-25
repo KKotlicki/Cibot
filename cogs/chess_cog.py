@@ -17,14 +17,35 @@ class ChessCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
+            open(f"{sv_dir}/chess_queue.txt", "a").close()
 
     @commands.command()
     async def chess(self, ctx, *, user: discord.User):
         if not os.path.isfile(f"{sv_dir}/{ctx.message.guild}_chess.json"):
             with open(f"{sv_dir}/{ctx.message.guild}_chess.json", "w+") as fn:
-                fn.write("{\n}")
+                fn.write("{}")
         """Start a chess game with someone!"""
-        await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
+        if not get_chess_queue():
+            add_to_chess_queue(ctx.author, user)
+            get_chess_queue()
+            await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
+        else:
+            is_in_queue = False
+            for elem in get_chess_queue():
+                if elem[0] == str(ctx.author):
+                    is_in_queue = True
+                    embed = discord.Embed(title=f"Już wyzwałeś gracza!",
+                                          description=f"Zakończ swoją grę z **{elem[1][:-5]}** aby móc wywzać do gry znowu.",
+                                          color=discord.Color.green())
+                    await ctx.send(embed=embed)
+                    break
+            if not is_in_queue:
+                add_to_chess_queue(ctx.author, user)
+                embed = discord.Embed(title=f"Dodano do kolejki!",
+                                      description=f"Gracz {ctx.author} wyzwał gracza {user.mention} na grę w szachy!",
+                                      color=discord.Color.green())
+                await ctx.send(embed=embed)
 
     @commands.command()
     async def elo(self, ctx, *, user: discord.User = None):
@@ -32,7 +53,7 @@ class ChessCog(commands.Cog):
         if user is None:
             user = ctx.author
         elo_rating = get_elo(ctx, user)
-        embed = discord.Embed(title=str(user),
+        embed = discord.Embed(title=user.mention,
                               description=f"Elo to: {elo_rating}",
                               color=discord.Color.green())
         await ctx.send(embed=embed)
@@ -42,15 +63,15 @@ class ChessCog(commands.Cog):
 
 async def chess_loop(challenger, challenged, ctx, bot):
     if bool(random.getrandbits(1)):
-        user1 = challenger
-        user2 = challenged
+        user_white = challenger
+        user_black = challenged
     else:
-        user2 = challenger
-        user1 = challenged
+        user_black = challenger
+        user_white = challenged
 
     # Chess loop
     embed = discord.Embed(title=f"Nowa gra!",
-                          description=f"Wiadomości w DM. {user1.mention} jest białymi, {user2.mention} jest czarnymi.",
+                          description=f"Wiadomości w DM. {user_white.mention} jest białymi, {user_black.mention} jest czarnymi.",
                           color=discord.Color.green())
     await ctx.send(embed=embed)
     # Initiate the board
@@ -69,34 +90,40 @@ async def chess_loop(challenger, challenged, ctx, bot):
     await ctx.send(file=discord.File(fp="chess_board.png"))
     game_over = False
     while game_over is not True:
-        # Loop until game is over or canceled. Yes this can be optimized but this was around the time he didnt pay
-        cancel = await board_move(user1, board, ctx, bot)
+        # Loop until game is over or canceled.
+        cancel = await board_move(user_white, board, ctx, bot)
         # Check if game is over
         game_over = board.is_game_over(claim_draw=False)
         if cancel:
             # Check if a user canceled
-            return
+            break
         if game_over:
             # Check if game is over
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f"{user1.mention} wygrał! GG",
+                                  description=f"{user_white.mention} wygrał! GG",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
-            update_match_history(ctx, user1, user2, True)
-            return
+            update_match_history(ctx, user_white, user_black, True)
+            break
 
         # Basically a repeat of above!
-        cancel = await board_move(user2, board, ctx, bot)
+        cancel = await board_move(user_black, board, ctx, bot)
         game_over = board.is_game_over(claim_draw=False)
         if cancel:
-            return
+            break
         if game_over:
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f"{user2.mention} wygrał! GG",
+                                  description=f"{user_black.mention} wygrał! GG",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
-            update_match_history(ctx, user2, user1, True)
-            return
+            update_match_history(ctx, user_black, user_white, True)
+            break
+    remove_from_chess_queue()
+    if len(get_chess_queue()) != 0:
+        print(await commands.UserConverter.convert(ctx, get_chess_queue()[0][0]))
+        print(type(await commands.UserConverter.convert(ctx, get_chess_queue()[0][0])))
+        await chess_loop(await commands.UserConverter.convert(ctx, get_chess_queue()[0][0]),
+                         await commands.UserConverter.convert(ctx, get_chess_queue()[0][1]), ctx, bot)
 
 
 async def board_move(player, board, ctx, bot):
@@ -176,7 +203,7 @@ async def board_move(player, board, ctx, bot):
                                               description=f"Nielegalny ruch :no_entry:"
                                                           f"Spróbuj jeszcze raz.",
                                               color=discord.Color.red())
-                        await player.send(embed=embed)
+                        await ctx.send(embed=embed)
                     # Delete the messages to make it a little nicer
                     # This, again, is a copy from above
                     delete_array = [message]
@@ -222,6 +249,29 @@ def update_match_history(ctx, winner, looser, is_victory):
     match_history[str(looser)] = [elo_looser, elo_winner, lost]
     with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', "w+", encoding='utf-8') as fn:
         fn.write(json.dumps(match_history))
+
+
+def get_chess_queue():
+    chess_queue_lines = []
+    chess_queue = []
+    with open(f'{sv_dir}/chess_queue.txt', encoding='utf-8') as rd:
+        for line in rd:
+            chess_queue_lines.append(line[:-1])
+    for elem in chess_queue_lines:
+        chess_queue.append(elem.split('/vs/'))
+    return chess_queue
+
+
+def add_to_chess_queue(challenger, challenged):
+    with open(f'{sv_dir}/chess_queue.txt', 'a', encoding='utf-8') as fn:
+        fn.write(f'{challenger}/vs/{challenged}\n')
+
+
+def remove_from_chess_queue():
+    with open(f'{sv_dir}/chess_queue.txt', 'r') as fin:
+        data = fin.read().splitlines(True)
+    with open(f'{sv_dir}/chess_queue.txt', 'w') as fout:
+        fout.writelines(data[1:])
 
 
 def setup(bot):

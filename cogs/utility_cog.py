@@ -22,7 +22,6 @@ class UtilityCog(commands.Cog):
             os.remove("update.sh")
         if os.path.exists("update.bat"):
             os.remove("update.bat")
-        print(f"Logged in as {self.bot.user}")
         logger.info(f"Logged in as {self.bot.user}")
         if not os.path.exists(f'{logs_dir}/errors.log'):
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
