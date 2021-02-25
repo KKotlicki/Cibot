@@ -28,12 +28,11 @@ class ChessCog(commands.Cog):
         """Start a chess game with someone!"""
         if not get_chess_queue():
             add_to_chess_queue(ctx.author, user)
-            get_chess_queue()
             await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
         else:
             is_in_queue = False
             for elem in get_chess_queue():
-                if elem[0] == str(ctx.author):
+                if elem[0].split("/id/")[0] == str(ctx.author):
                     is_in_queue = True
                     embed = discord.Embed(title=f"Już wyzwałeś gracza!",
                                           description=f"Zakończ swoją grę z **{elem[1][:-5]}** aby móc wywzać do gry znowu.",
@@ -43,7 +42,7 @@ class ChessCog(commands.Cog):
             if not is_in_queue:
                 add_to_chess_queue(ctx.author, user)
                 embed = discord.Embed(title=f"Dodano do kolejki!",
-                                      description=f"Gracz {ctx.author} wyzwał gracza {user.mention} na grę w szachy!",
+                                      description=f"Gracz {ctx.author} wyzwał gracza {user.mention} na grę w szachy.",
                                       color=discord.Color.green())
                 await ctx.send(embed=embed)
 
@@ -62,7 +61,6 @@ class ChessCog(commands.Cog):
 
 
 async def chess_loop(challenger, challenged, ctx, bot):
-    print(await commands.UserConverter.convert(ctx, str(challenged)))
     if bool(random.getrandbits(1)):
         user_white = challenger
         user_black = challenged
@@ -72,7 +70,7 @@ async def chess_loop(challenger, challenged, ctx, bot):
 
     # Chess loop
     embed = discord.Embed(title=f"Nowa gra!",
-                          description=f"Wiadomości w DM. {user_white.mention} jest białymi, {user_black.mention} jest czarnymi.",
+                          description=f"{user_white.mention} jest białymi, {user_black.mention} jest czarnymi.",
                           color=discord.Color.green())
     await ctx.send(embed=embed)
     # Initiate the board
@@ -121,10 +119,9 @@ async def chess_loop(challenger, challenged, ctx, bot):
             break
     remove_from_chess_queue()
     if len(get_chess_queue()) != 0:
-        print(await commands.UserConverter.convert(ctx, get_chess_queue()[0][0]))
-        print(type(await commands.UserConverter.convert(ctx, get_chess_queue()[0][0])))
-        await chess_loop(await commands.UserConverter.convert(ctx, get_chess_queue()[0][0]),
-                         await commands.UserConverter.convert(ctx, get_chess_queue()[0][1]), ctx, bot)
+        local_converter = commands.UserConverter()
+        await chess_loop(await local_converter.convert(ctx, get_chess_queue()[0][0].split('/id/')[1]),
+                         await local_converter.convert(ctx, get_chess_queue()[0][1].split('/id/')[1]), ctx, bot)
 
 
 async def board_move(player, board, ctx, bot):
@@ -265,7 +262,7 @@ def get_chess_queue():
 
 def add_to_chess_queue(challenger, challenged):
     with open(f'{sv_dir}/chess_queue.txt', 'a', encoding='utf-8') as fn:
-        fn.write(f'{challenger}/vs/{challenged}\n')
+        fn.write(f'{challenger}/id/{challenger.id}/vs/{challenged}/id/{challenged.id}\n')
 
 
 def remove_from_chess_queue():
