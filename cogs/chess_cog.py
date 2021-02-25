@@ -27,11 +27,13 @@ class ChessCog(commands.Cog):
         await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
 
     @commands.command()
-    async def elo(self, ctx):
+    async def elo(self, ctx, *, user: discord.User = None):
         # try:
-        elo_rating = get_elo(ctx, ctx.author)
-        embed = discord.Embed(title=str(ctx.author),
-                              description=f"Twoje elo to: {elo_rating}",
+        if user is None:
+            user = ctx.author
+        elo_rating = get_elo(ctx, user)
+        embed = discord.Embed(title=str(user),
+                              description=f"Elo to: {elo_rating}",
                               color=discord.Color.green())
         await ctx.send(embed=embed)
         # except:
@@ -39,7 +41,6 @@ class ChessCog(commands.Cog):
 
 
 async def chess_loop(challenger, challenged, ctx, bot):
-
     if bool(random.getrandbits(1)):
         user1 = challenger
         user2 = challenged
@@ -139,12 +140,12 @@ async def board_move(player, board, ctx, bot):
                     if len(joined) >= 4:
                         if ((joined[1] == '7' and joined[3] == '8') or (
                                 joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(
-                                joined[0:2])) == 1 and len(joined) == 5:
+                            joined[0:2])) == 1 and len(joined) == 5:
                             move = chess.Move.from_uci(joined[0:5])
                         elif ((joined[1] == '7' and joined[3] == '8') or (
                                 joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(
-                                joined[0:2])) == 1 and len(joined) == 4:
-                            move = chess.Move.from_uci(joined[0:4]+'q')
+                            joined[0:2])) == 1 and len(joined) == 4:
+                            move = chess.Move.from_uci(joined[0:4] + 'q')
                         else:
                             move = chess.Move.from_uci(joined[0:4])
                     else:
@@ -195,7 +196,8 @@ def get_elo(ctx, user):
         chess_history = json.loads(rd.read())
     if str(user) in chess_history.keys():
         player_chess_history = chess_history[str(user)]
-        elo_rating = player_chess_history[0] + chess_options['K'] * (player_chess_history[2] - 1/(1 + 10**((player_chess_history[1]-player_chess_history[0])/400)))
+        elo_rating = player_chess_history[0] + chess_options['K'] * (player_chess_history[2] - 1 / (
+                    1 + 10 ** ((player_chess_history[1] - player_chess_history[0]) / 400)))
         return round(elo_rating)
     else:
         return chess_options['starting_elo']
