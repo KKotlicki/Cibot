@@ -8,6 +8,8 @@ from svglib.svglib import svg2rlg
 from PIL import Image
 import random
 from config import sv_dir, chess_options
+import json
+import os.path
 
 
 class ChessCog(commands.Cog):
@@ -18,20 +20,27 @@ class ChessCog(commands.Cog):
 
     @commands.command()
     async def chess(self, ctx, *, user: discord.User):
+        if not os.path.isfile(f"{sv_dir}/{ctx.message.guild}_chess.json"):
+            with open(f"{sv_dir}/{ctx.message.guild}_chess.json", "w+") as fn:
+                fn.write("{\n}")
         """Start a chess game with someone!"""
         await chess_loop(ctx.author, user, ctx, self.bot)  # Load the loop
 
     @commands.command()
     async def elo(self, ctx):
-        try:
-            await get_elo(ctx.author)
-        except:
-            print("elo error")
+        # try:
+        elo_rating = get_elo(ctx, ctx.author)
+        embed = discord.Embed(title=str(ctx.author),
+                              description=f"Twoje elo to: {elo_rating}",
+                              color=discord.Color.green())
+        await ctx.send(embed=embed)
+        # except:
+        # print("elo error")
 
 
 async def chess_loop(challenger, challenged, ctx, bot):
 
-    if bool(random.getrandbits(1)) or True:
+    if bool(random.getrandbits(1)):
         user1 = challenger
         user2 = challenged
     else:
@@ -72,6 +81,7 @@ async def chess_loop(challenger, challenged, ctx, bot):
                                   description=f"{user1.mention} wygrał! GG",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
+            update_match_history(ctx, user1, user2, True)
             return
 
         # Basically a repeat of above!
@@ -84,6 +94,7 @@ async def chess_loop(challenger, challenged, ctx, bot):
                                   description=f"{user2.mention} wygrał! GG",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
+            update_match_history(ctx, user2, user1, True)
             return
 
 
@@ -127,10 +138,12 @@ async def board_move(player, board, ctx, bot):
                     # Get the move
                     if len(joined) >= 4:
                         if ((joined[1] == '7' and joined[3] == '8') or (
-                                joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(joined[0:2])) == 1 and len(joined) == 5:
+                                joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(
+                                joined[0:2])) == 1 and len(joined) == 5:
                             move = chess.Move.from_uci(joined[0:5])
                         elif ((joined[1] == '7' and joined[3] == '8') or (
-                                joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(joined[0:2])) == 1 and len(joined) == 4:
+                                joined[1] == '2' and joined[3] == '1')) and board.piece_type_at(chess.parse_square(
+                                joined[0:2])) == 1 and len(joined) == 4:
                             move = chess.Move.from_uci(joined[0:4]+'q')
                         else:
                             move = chess.Move.from_uci(joined[0:4])
@@ -176,13 +189,37 @@ async def board_move(player, board, ctx, bot):
             finally:
                 pass
 
-async def get_elo(user: discord.User):
-    with open(sv_dir, "r") as rd:
-        player_chess_history = rd.read()[user]
-    elo_rating = chess_options['starting_elo']
-    for i in player_chess_history:
-        elo_rating += chess_options['K'] * (i[2] - 1/(1 + 10**((i[1]-i[0])/400)))
-    return elo_rating
+
+def get_elo(ctx, user):
+    with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+        chess_history = json.loads(rd.read())
+    if str(user) in chess_history.keys():
+        player_chess_history = chess_history[str(user)]
+        elo_rating = player_chess_history[0] + chess_options['K'] * (player_chess_history[2] - 1/(1 + 10**((player_chess_history[1]-player_chess_history[0])/400)))
+        return round(elo_rating)
+    else:
+        return chess_options['starting_elo']
+
+
+def update_match_history(ctx, winner, looser, is_victory):
+    with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+        match_history = json.loads(rd.read())
+    if winner not in match_history.keys():
+        match_history[str(winner)] = []
+    if looser not in match_history.keys():
+        match_history[str(looser)] = []
+    elo_winner = get_elo(ctx, winner)
+    elo_looser = get_elo(ctx, looser)
+    if is_victory:
+        win = 1
+        lost = 0
+    else:
+        win = 0.5
+        lost = 0.5
+    match_history[str(winner)] = [elo_winner, elo_looser, win]
+    match_history[str(looser)] = [elo_looser, elo_winner, lost]
+    with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', "w+", encoding='utf-8') as fn:
+        fn.write(json.dumps(match_history))
 
 
 def setup(bot):

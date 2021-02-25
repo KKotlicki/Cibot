@@ -28,8 +28,7 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def sv(self, ctx):
-        guild = ctx.message.guild
-        await fetch_sv_data(ctx, guild)
+        await fetch_sv_data(ctx)
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
