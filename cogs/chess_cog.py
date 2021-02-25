@@ -62,6 +62,7 @@ class ChessCog(commands.Cog):
 
 
 async def chess_loop(challenger, challenged, ctx, bot):
+    print(await commands.UserConverter.convert(ctx, str(challenged)))
     if bool(random.getrandbits(1)):
         user_white = challenger
         user_black = challenged
