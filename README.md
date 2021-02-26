@@ -228,7 +228,7 @@ Data will be updated to 2nd semester soon.
 1. yt_cog - play playlists, save queue, load queue, additional queue handling
 2. Disconnect from voice channel after period of inactivity
 3. Finish documentation and setup manual
-4. chess_cog takeback offer, timer with different modes
+4. chess_cog takeback offer, timer with different modes, one board at a time
 5. better <help> design
 ```
 
