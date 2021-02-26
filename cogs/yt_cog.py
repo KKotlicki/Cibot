@@ -83,6 +83,7 @@ class Music(commands.Cog):
                 statuses = json.loads(rd.read())
             await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
         self.queue_list = []
+        await ctx.send('Kolejka usunięta')
 
     # @load.before_invoke
     # @qp.before_invoke
