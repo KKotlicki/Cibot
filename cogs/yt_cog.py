@@ -77,11 +77,11 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['qc', 'clear_queue'])
     async def qclear(self, ctx):
-
-        await ctx.voice_client.disconnect()
-        with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
-            statuses = json.loads(rd.read())
-        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
+        if ctx.voice_client.is_playing():
+            await ctx.voice_client.disconnect()
+            with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+                statuses = json.loads(rd.read())
+            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
         self.queue_list = []
 
     # @load.before_invoke
