@@ -306,7 +306,7 @@ async def board_move(player, board, ctx, bot, is_draw_offered):
                 try:
                     # We are tying to see if they added a comma split. You can change this i guess!
                     # Moves will be from positions on the board
-                    joined = message.content.lower()
+                    joined = message
                     try:
                         # Get the move
                         if len(joined) >= 4:
