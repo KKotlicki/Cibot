@@ -55,7 +55,7 @@ class ChessCog(commands.Cog):
     async def chqc(self, ctx):
         with open(f'{sv_dir}/chess_queue.txt', 'w+') as fn:
             fn.write('')
-            ctx.send('Kolejka usunięta')
+            await ctx.send('Kolejka usunięta')
 
     @commands.command()
     async def elo(self, ctx, *, user: discord.User = None):
@@ -306,7 +306,7 @@ async def board_move(player, board, ctx, bot, is_draw_offered):
                 try:
                     # We are tying to see if they added a comma split. You can change this i guess!
                     # Moves will be from positions on the board
-                    joined = message
+                    joined = message.content.lower()
                     try:
                         # Get the move
                         if len(joined) >= 4:
