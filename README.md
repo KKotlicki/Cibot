@@ -236,6 +236,7 @@ Data will be updated to 2nd semester soon.
 ```
 1. AI chatbot
 2. Unit test script
+3. Shogi
 ```
 
  - [Feature]
@@ -245,13 +246,14 @@ Data will be updated to 2nd semester soon.
 2. Countdown to final exams
 3. Send documents (such as subject statues, PW anthem)
 4. Points to grade converter by subject
+5. Akinator
 ```
 
  - [Fix]
 
 ```
 1. Logging systems
-2. shutdown and raspberry temperature shutdown bug (currently restarts after first use, closes after second use, sometimes doesn't work)
+2. yt_cog change music to pre-bufforing
 ```
 
 
