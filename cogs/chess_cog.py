@@ -326,7 +326,7 @@ async def board_move(player, board, ctx, bot, is_draw_offered):
                             # Check if the move was valid
                             embed = discord.Embed(title=f"Ruch",
                                                   description=f"{player.mention} ruszył się: "
-                                                              f"{joined[0:2]} -> {joined[2:4]}!",
+                                                              f"`{joined[0:2]} -> {joined[2:4]}`!",
                                                   color=discord.Color.green())
                             await ctx.send(embed=embed)
                             # Make the move on the board
