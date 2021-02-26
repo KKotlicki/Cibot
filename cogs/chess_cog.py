@@ -21,7 +21,7 @@ class ChessCog(commands.Cog):
         if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
             open(f"{sv_dir}/chess_queue.txt", "a").close()
 
-    @commands.command(aliases=['challenge', 'Chess', 'kill'])
+    @commands.command(aliases=['challenge', 'Chess', 'kill', 'ch'])
     async def chess(self, ctx, *, user: discord.User):
         if not os.path.isfile(f"{sv_dir}/{ctx.message.guild}_chess.json"):
             with open(f"{sv_dir}/{ctx.message.guild}_chess.json", "w+") as fn:
@@ -44,11 +44,13 @@ class ChessCog(commands.Cog):
             if not is_in_queue:
                 add_to_chess_queue(ctx.author, user)
                 embed = discord.Embed(title=f"Dodano do kolejki!",
-                                      description=f"Gracz {ctx.author.mention} wyzwał gracza {user.mention} na grę w szachy.",
+                                      description=f":crossed_swords: Gracz {ctx.author.mention} "
+                                                  f"wyzwał gracza {user.mention} na grę w szachy.",
                                       color=discord.Color.blue())
                 await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True, aliases=['cqc', 'chess_queue_clear', "clear_chess_queue", "clear_game_queue", "gqc"])
+    @commands.command(pass_context=True,
+                      aliases=['cqc', 'chess_queue_clear', "clear_chess_queue", "clear_game_queue", "gqc"])
     @commands.has_permissions(administrator=True)
     async def chqc(self, ctx):
         with open(f'{sv_dir}/chess_queue.txt', 'w+') as fn:
@@ -73,20 +75,23 @@ class ChessCog(commands.Cog):
     @commands.command(aliases=['chq', 'chess_queue', 'queuechess', 'game_queue'])
     async def chessq(self, ctx):
         queue = get_chess_queue()
-        embed = discord.Embed(title=f"Kolej gier:",
-                              description=f":crossed_swords: Teraz gra: ***{queue[0][0].split('/id/')[0][:-5]}***  "
-                                          f"**vs**  ***{queue[0][1].split('/id/')[0][:-5]}***\n...",
-                              color=discord.Color.blue())
-        temp = 1
-        for elem in queue:
-            if elem != queue[0]:
-                embed.description += f"\n{temp}: *{elem[0].split('/id/')[0][:-5]}* vs *{elem[1].split('/id/')[0][:-5]}*"
-                temp += 1
+        if not queue:
+            embed = discord.Embed(title=f"Kolej gier:",
+                                  description=f":crescent_moon: Kolejka jest pusta...\n",
+                                  color=discord.Color.dark_blue())
+        else:
+            embed = discord.Embed(title=f"Kolej gier:",
+                                  description=f":crossed_swords: Teraz gra: ***{queue[0][0].split('/id/')[0][:-5]}***"
+                                              f"  **vs**  "
+                                              f"***{queue[0][1].split('/id/')[0][:-5]}*** :crossed_swords:\n...",
+                                  color=discord.Color.blue())
+            temp = 1
+            for elem in queue:
+                if elem != queue[0]:
+                    embed.description += f"\n{temp}: *{elem[0].split('/id/')[0][:-5]}* vs "\
+                                         f"*{elem[1].split('/id/')[0][:-5]}*"
+                    temp += 1
         await ctx.send(embed=embed)
-
-
-
-
 
     @commands.command(aliases=['leaderboard', 'ranking', '10'])
     async def top(self, ctx):
@@ -100,7 +105,7 @@ class ChessCog(commands.Cog):
         temp = 1
         for key, value in ranking.items():
             if temp == 1:
-                embed.add_field(name=f'1.  :crown:  **{key}**  :crown:', value=f'**`{value}`**', inline=False)
+                embed.add_field(name=f':crown:  **{key}**  :crown:', value=f'**`{value}`**', inline=False)
             else:
                 embed.add_field(name=f'{temp}. {key}', value=f'`{value}`', inline=False)
             temp += 1
@@ -145,7 +150,7 @@ async def chess_loop(challenger, challenged, ctx, bot):
         result = board.result(claim_draw=True)
         if cancel == "yes":
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f"Remis między {user_white.mention} i {user_black.mention}.",
+                                  description=f":handshake: Remis między {user_white.mention} i {user_black.mention}.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             update_match_history(ctx, user_black, user_white, False, bot)
@@ -162,7 +167,7 @@ async def chess_loop(challenger, challenged, ctx, bot):
         if cancel == "surrender" or cancel == "timeout":
             # Check if a user canceled
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f"{user_black.mention} wygrał! {user_white.mention} poddał się.",
+                                  description=f":tada: {user_black.mention} wygrał! {user_white.mention} poddał się.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             update_match_history(ctx, user_white, user_black, True, bot)
@@ -172,13 +177,13 @@ async def chess_loop(challenger, challenged, ctx, bot):
             print(result)
             if result == "1-0":
                 embed = discord.Embed(title=f"Gra Zakończona!",
-                                      description=f"{user_white.mention} wygrał! GG",
+                                      description=f":tada: {user_white.mention} wygrał! GG",
                                       color=discord.Color.green())
                 await ctx.send(embed=embed)
                 update_match_history(ctx, user_white, user_black, True, bot)
             else:
                 embed = discord.Embed(title=f"Gra Zakończona!",
-                                      description=f"{user_white.mention} zremisował z {user_black.mention}.",
+                                      description=f"Remis między {user_white.mention} i {user_black.mention}.",
                                       color=discord.Color.green())
                 await ctx.send(embed=embed)
                 update_match_history(ctx, user_white, user_black, False, bot)
@@ -190,7 +195,7 @@ async def chess_loop(challenger, challenged, ctx, bot):
         result = board.result(claim_draw=True)
         if cancel == "yes":
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f"Remis między {user_black.mention} i {user_white.mention}.",
+                                  description=f":handshake: Remis między {user_black.mention} i {user_white.mention}.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             update_match_history(ctx, user_black, user_white, False, bot)
@@ -207,7 +212,7 @@ async def chess_loop(challenger, challenged, ctx, bot):
         if cancel == "surrender" or cancel == "timeout":
             # Check if a user canceled
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f"{user_white.mention} wygrał! {user_black.mention} poddał się.",
+                                  description=f":tada: {user_white.mention} wygrał! {user_black.mention} poddał się.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             update_match_history(ctx, user_white, user_black, True, bot)
@@ -217,13 +222,13 @@ async def chess_loop(challenger, challenged, ctx, bot):
             # Check if game is over
             if result == "1-0":
                 embed = discord.Embed(title=f"Gra Zakończona!",
-                                      description=f"{user_black.mention} wygrał! GG",
+                                      description=f":tada: {user_black.mention} wygrał! GG",
                                       color=discord.Color.green())
                 await ctx.send(embed=embed)
                 update_match_history(ctx, user_white, user_black, True, bot)
             else:
                 embed = discord.Embed(title=f"Gra Zakończona!",
-                                      description=f"{user_black.mention} zremisował z {user_white.mention}.",
+                                      description=f"Remis między {user_black.mention} i {user_white.mention}.",
                                       color=discord.Color.green())
                 await ctx.send(embed=embed)
                 update_match_history(ctx, user_white, user_black, False, bot)
@@ -247,7 +252,7 @@ async def board_move(player, board, ctx, bot, is_draw_offered):
             # That awkward moment they leave you on read (You left them speechless!)
             # Basically we want to cancel the game tbf
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f"{player.mention} nie odpowiadał za długo.",
+                                  description=f":skull_crossbones: {player.mention} nie odpowiadał za długo.",
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
             return "timeout"
