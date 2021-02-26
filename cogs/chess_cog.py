@@ -10,6 +10,7 @@ import random
 from config import sv_dir, chess_options
 import json
 import os.path
+from helpers import sort_dict_by_value
 
 
 class ChessCog(commands.Cog):
@@ -58,6 +59,24 @@ class ChessCog(commands.Cog):
         await ctx.send(embed=embed)
         # except:
         # print("elo error")
+
+    @commands.command()
+    async def top(self, ctx):
+        ranking = {}
+        with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+            chess_history = json.loads(rd.read())
+        for key in chess_history:
+            ranking[key[:-5]] = get_elo(ctx, key)
+        ranking = sort_dict_by_value(ranking)
+        embed = discord.Embed(title='Leaderboard:', color=discord.Color.green())
+        temp = 1
+        for key, value in ranking.items():
+            if temp == 1:
+                embed.add_field(name=f'1.  :crown:  **{key}**  :crown:', value=f'**`{value}`**', inline=False)
+            else:
+                embed.add_field(name=f'{temp}. {key}', value=f'`{value}`', inline=False)
+            temp += 1
+        await ctx.send(embed=embed)
 
 
 async def chess_loop(challenger, challenged, ctx, bot):
@@ -178,7 +197,7 @@ async def board_move(player, board, ctx, bot):
                     if move in board.legal_moves:
                         # Check if the move was valid
                         embed = discord.Embed(title=f"Ruch",
-                                              description=f"{player.mention} ruszył się z {joined[0:2]} na {joined[2:4]}!",
+                                              description=f"{player.mention} ruszył się: {joined[0:2]} :arrow_right: {joined[2:4]}!",
                                               color=discord.Color.green())
                         await ctx.send(embed=embed)
                         # Make the move on the board
@@ -198,7 +217,7 @@ async def board_move(player, board, ctx, bot):
                     else:
                         # If the move wasn't valid
                         embed = discord.Embed(title=f"Error",
-                                              description=f"Nielegalny ruch :no_entry:"
+                                              description=f"Nielegalny ruch :no_entry: "
                                                           f"Spróbuj jeszcze raz.",
                                               color=discord.Color.red())
                         await ctx.send(embed=embed)

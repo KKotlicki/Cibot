@@ -69,6 +69,16 @@ def env_config():
         wr.write(f"TOKEN={token}\nRASPBERRY_PI={raspberry_pi_check}\nOS_PYTHON_PREFIX={python_prefix_check}")
 
 
+def sort_dict_by_value(dict):
+    sorted_values = sorted(dict.values(), key=None, reverse=True)  # Sort the values
+    sorted_dict = {}
+    for i in sorted_values:
+        for k in dict.keys():
+            if dict[k] == i:
+                sorted_dict[k] = dict[k]
+                break
+    return sorted_dict
+
 class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
