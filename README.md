@@ -210,7 +210,8 @@ Data will be updated to 2nd semester soon.
 5.  in cogs/ put ONLY cogs file with correct cogs structure
 6.  if you want to create directory for something entirely different, do so in the main directory
 7.  unless you have a good reason, do not change cibot.py script
-8.  do not use __while True__ or similar commands in cogs - they break script asynchronicity
+8.  make sure to test your code before uploading
+10. remember not to break asynchronicity
 
 
 **ToDo:**
@@ -227,7 +228,7 @@ Data will be updated to 2nd semester soon.
 1. yt_cog - play playlists, save queue, load queue, additional queue handling
 2. Disconnect from voice channel after period of inactivity
 3. Finish documentation and setup manual
-4. chess_cog takeback offer
+4. chess_cog takeback offer, timer with different modes
 5. better <help> design
 ```
 

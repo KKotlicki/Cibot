@@ -56,9 +56,13 @@ class Music(commands.Cog):
         async with ctx.typing():
             url = video_data['link']
             song_title = video_data['title']
+            song_duration = video_data['duration']
             self.queue_list.append([url, song_title])
             self.queue_size = len(self.queue_list)
-        await ctx.send(f'Dodałem do kolejki: {song_title}')
+        embed = discord.Embed(title=f":notes: Dodałem do kolejki:  {song_title}",
+                              description=f"Długość:  {song_duration} minut",
+                              color=discord.Color.dark_green())
+        await ctx.send(embed=embed)
         if not ctx.voice_client.is_playing() and self.queue_size == 1:
             await self.play_yt(ctx)
 
@@ -111,17 +115,14 @@ class Music(commands.Cog):
             await self.play_yt(ctx)
         elif not ctx.voice_client.is_playing() and len(self.queue_list) == 0:
             ctx.voice_client.stop()
-            with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
-                statuses = json.loads(rd.read())
-            await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
-            await ctx.voice_client.disconnect()
+            self.bot.loop.create_task(self.voice_out_timer(ctx))
 
     @commands.command(aliases=['q', 'kolejka'])
     async def queue(self, ctx):
-        embed_var = discord.Embed(title="Kolejka:", color=0xff770f)
+        embed_var = discord.Embed(title=":roll_of_paper: Kolejka:", color=0xff770f)
         for song in self.queue_list:
             if self.queue_list.index(song) == 0:
-                embed_var.add_field(name=f'Teraz gra:', value=f'**{song[1]}**', inline=False)
+                embed_var.add_field(name=f':notes: Teraz gra:', value=f'**{song[1]}**', inline=False)
             else:
                 embed_var.add_field(name=f'nr. {self.queue_list.index(song)}:', value=f'**{song[1]}**', inline=False)
         await ctx.send(embed=embed_var)
@@ -134,6 +135,18 @@ class Music(commands.Cog):
             await ctx.send("Nic teraz nie gra.")
         else:
             self.skip_song = True
+
+    async def voice_out_timer(self, ctx):
+        time = 0
+        while time < 60:
+            if ctx.voice_client.is_playing():
+                return
+            await asyncio.sleep(5)
+            time += 1
+        await ctx.voice_client.disconnect()
+        with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+            statuses = json.loads(rd.read())
+        await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 
 
 def setup(bot):
