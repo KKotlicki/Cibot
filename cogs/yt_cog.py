@@ -77,7 +77,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['qc', 'clear_queue'])
     async def qclear(self, ctx):
-        if ctx.voice_client.is_playing():
+        if ctx.voice_client is not None:
             await ctx.voice_client.disconnect()
             with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
                 statuses = json.loads(rd.read())
