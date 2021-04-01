@@ -5,6 +5,7 @@ import glob
 import json
 import youtube_dl
 import asyncio
+import os
 
 
 def read_lines(fname):
@@ -43,6 +44,40 @@ async def build_link_list(ctx, embed_var, fname, message):
     await ctx.send(embed=embed_var)
 
 
+async def set_sv_config(ctx, value, key):
+    if os.path.exists(f'{sv_dir}/{ctx.message.guild.name}_config.json'):
+        with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', 'r', encoding='utf-8') as r:
+            config_content = json.loads(r.read())
+        config_content[key] = value
+        with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', 'w') as wr:
+            wr.write(json.dumps(config_content))
+    else:
+        temp_json = json.dumps({key: value})
+        with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', 'w+') as cr:
+            cr.write(temp_json)
+    await ctx.send(f"{key} channel set to {value}")
+
+
+def get_valid_text_channel_id(ctx, purpose):
+    with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', encoding='utf-8') as rd:
+        message_channel = json.loads(rd.read())[purpose]
+    return get_text_channel_id_from_name(ctx, message_channel)
+
+
+def get_text_channel_id_from_name(ctx, message_channel):
+    sv_text_channel_dict = {}
+    keys = []
+    values = []
+    with open(f"{sv_dir}/{ctx.message.guild.name}.json", encoding='utf-8') as rd:
+        sv_data = json.loads(rd.read())["text"]
+    for elem in sv_data:
+        keys.append(elem.split(" => ")[0])
+        values.append(elem.split(" => ")[1])
+    for x in range(0, len(keys)):
+        sv_text_channel_dict[keys[x]] = values[x]
+    return int(sv_text_channel_dict[message_channel])
+
+
 def get_random_number_unless_specified(question):
     if question == '1':
         return '1'
@@ -66,18 +101,20 @@ def env_config():
     raspberry_pi_check = input("\n\nIs host raspberry pi:\n\n(Y/N): ")
     python_prefix_check = input("\n\nOS python 3 call command (usually is python3):\n\n")
     with open(f'.env', 'w') as wr:
-        wr.write(f"TOKEN={token}\nRASPBERRY_PI={raspberry_pi_check}\nOS_PYTHON_PREFIX={python_prefix_check}")
+        wr.write(f"TOKEN=\'{token}\'\nRASPBERRY_PI=\'{raspberry_pi_check}\'\n"
+                 f"OS_PYTHON_PREFIX=\'{python_prefix_check}\'")
 
 
-def sort_dict_by_value(dict):
-    sorted_values = sorted(dict.values(), key=None, reverse=True)  # Sort the values
+def sort_dict_by_value(dictionary):
+    sorted_values = sorted(dictionary.values(), key=None, reverse=True)  # Sort the values
     sorted_dict = {}
     for i in sorted_values:
-        for k in dict.keys():
-            if dict[k] == i:
-                sorted_dict[k] = dict[k]
+        for k in dictionary.keys():
+            if dictionary[k] == i:
+                sorted_dict[k] = dictionary[k]
                 break
     return sorted_dict
+
 
 class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):

@@ -8,6 +8,7 @@
     "Pokaż kolejkę": "q",
     "Dołącz na kanał głosowy": "join <kanał>",
     "Wyzwij użytkownika na szachy": "chess <@użytkownik>",
+    "Pokaż kolejkę do szachów": "chq",
     "Pokaż ranking szachowy": "top",
     "Pokaż mój ranking Elo": "elo [@użytkownik]",
     "Podaj ping bota": "ping",

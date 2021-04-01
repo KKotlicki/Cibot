@@ -9,7 +9,7 @@ from platform import system
 import json
 
 
-if not os.path.exists(f'.env'):
+if not os.path.exists('.env'):
     env_config()
 load_dotenv()
 

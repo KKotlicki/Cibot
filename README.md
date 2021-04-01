@@ -141,7 +141,7 @@ Here is one that defines three methods:
 
 ```
 from discord.ext import commands           # necessary function - loads cog structure commands
-import random                              # the library used by an example method
+import random                              # the library used by 3rd example method
 
 
 class ExampleCog(commands.Cog):            # the class containing cogs functions; inherits from commands.Cog class
@@ -184,7 +184,7 @@ from helpers import *
 Contents:
 cibot.py - Bot's exec script. Do not edit the code unless you know what you're doing. Anyway, keep the code here minimal.
 config.py - Script containing setup variables. It contains relative paths and general bot settings (you can add your own).
-helpers.py - Script stores local and global functions, that have either too big, too small scope or are too long to be used in cogs under @commands.command.
+helpers.py - Script stores local and global functions, that repeat across different modules or are too long to be used in cogs under @commands.command.
 cogs/ - Place here cogs with your own commands.
 res/ - Place here your text, json, xml, CMS files or special images. Do not create any folders in this directory. Create in main instead.
 pics/ - Place here your pictures.
@@ -199,15 +199,13 @@ Main bot script is cibot.py. Keep it tidy!
 In config.py save data such as relative paths, server settings, etc.
 In helpers.py add your local methods.
 
-Data will be updated to 2nd semester soon.
-
 
 **Development Rules:**
 1.  name variables clearly and by this standard: variable_name
 2.  name classes clearly and by this standard: ClassName
 3.  name files clearly and by this standard: fname_sname.foo
-4.  do not create subfolders or add any non-cog file in cogs/
-5.  in cogs/ put ONLY cogs file with correct cogs structure
+4.  do not create subfolders or add any non-cog files in cogs/
+5.  in cogs/ put only cog files with correct cog structure
 6.  if you want to create directory for something entirely different, do so in the main directory
 7.  unless you have a good reason, do not change cibot.py script
 8.  make sure to test your code before uploading

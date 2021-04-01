@@ -1,14 +1,11 @@
 import discord
 from discord.ext import commands
-from helpers import fetch_sv_data, open_help
-from config import sv_dir
-import json
+from helpers import fetch_sv_data, open_help, set_sv_config, get_valid_text_channel_id
 
 
 class AdminCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.message_channel = ""
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
@@ -32,27 +29,19 @@ class AdminCog(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
-    async def set_anns(self, ctx, *, message=''):
-        with open(f'{sv_dir}/{ctx.message.guild.name}_config.txt', 'w+') as wr:
-            wr.write(message)
-        await ctx.send(f"channel set to {message}")
+    async def set_answ(self, ctx, *, message=''):
+        await set_sv_config(ctx, message, 'answ')
+
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)
+    async def set_game(self, ctx, *, message=''):
+        await set_sv_config(ctx, message, 'game')
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def say(self, ctx, *, message):
-        sv_text_channel_dict = {}
-        keys = []
-        values = []
-        with open(f'{sv_dir}/{ctx.message.guild.name}_config.txt', encoding='utf-8') as rd:
-            self.message_channel = rd.read()
-        with open(f"{sv_dir}/{ctx.message.guild.name}.json", encoding='utf-8') as rd:
-            sv_data = json.loads(rd.read())["text"]
-        for elem in sv_data:
-            keys.append(elem.split(" => ")[0])
-            values.append(elem.split(" => ")[1])
-        for x in range(0, len(keys)):
-            sv_text_channel_dict[keys[x]] = values[x]
-        channel = self.bot.get_channel(int(sv_text_channel_dict[self.message_channel]))
+        channel_id = get_valid_text_channel_id(ctx, 'answ')
+        channel = self.bot.get_channel(channel_id)
         embed_var = discord.Embed(title=f"**{message}**", color=0x00ff00)
         await channel.send(embed=embed_var)
 

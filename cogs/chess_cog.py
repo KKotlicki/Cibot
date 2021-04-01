@@ -7,10 +7,10 @@ from reportlab.graphics import renderPM
 from svglib.svglib import svg2rlg
 from PIL import Image
 import random
-from config import sv_dir, chess_options
+from config import sv_dir, chess_options, prefix
 import json
 import os.path
-from helpers import sort_dict_by_value
+from helpers import sort_dict_by_value, set_sv_config, get_valid_text_channel_id
 import re
 
 
@@ -19,11 +19,14 @@ class ChessCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.channel = ''
         if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
             open(f"{sv_dir}/chess_queue.txt", "a").close()
 
     @commands.command(aliases=['challenge', 'Chess', 'kill', 'ch'])
     async def chess(self, ctx, *, user: discord.User):
+        if not os.path.exists(f'{sv_dir}/{ctx.message.guild.name}_config.json'):
+            await set_sv_config(ctx, ctx.message.channel, 'game')
         if not os.path.isfile(f"{sv_dir}/{ctx.message.guild}_chess.json"):
             with open(f"{sv_dir}/{ctx.message.guild}_chess.json", "w+") as fn:
                 fn.write("{}")
@@ -46,7 +49,8 @@ class ChessCog(commands.Cog):
                 add_to_chess_queue(ctx.author, user)
                 embed = discord.Embed(title=f"Dodano do kolejki!",
                                       description=f":crossed_swords: Gracz {ctx.author.mention} "
-                                                  f"wyzwał gracza {user.mention} na grę w szachy.",
+                                                  f"wyzwał gracza {user.mention} na grę w szachy.\n\n"
+                                                  f"Wpisz *{prefix}chq* aby wyświetlić koljekę.",
                                       color=discord.Color.blue())
                 await ctx.send(embed=embed)
 
@@ -248,7 +252,9 @@ async def board_move(player, board, ctx, bot, is_draw_offered):
         # Make it a loop so if they make a mistake they can have more attempts
         try:
             # Wait for message
-            message = await bot.wait_for("message", check=lambda m: m.author == player)
+            channel_id = get_valid_text_channel_id(ctx, 'game')
+            channel = bot.get_channel(channel_id)
+            message = await bot.wait_for("message", check=lambda m: m.author == player and m.channel == channel)
         except asyncio.TimeoutError:
             # That awkward moment they leave you on read (You left them speechless!)
             # Basically we want to cancel the game tbf
@@ -307,7 +313,6 @@ async def board_move(player, board, ctx, bot, is_draw_offered):
                 try:
                     # We are tying to see if they added a comma split. You can change this i guess!
                     # Moves will be from positions on the board
-                    pattern = re.compile(r'\s+')
                     joined = re.sub('[-.></`|{}_,!*^()?+=;:@#$%&~]', '', re.sub(r'\s+', '', message.content.lower())).replace('move', '').replace('from', '').replace('to', '')
                     try:
                         # Get the move
