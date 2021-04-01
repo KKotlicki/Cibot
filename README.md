@@ -91,7 +91,8 @@ git push
 
 ```
 
-To commit changes to the main branch and publish your contribution, log in your GitHub account, and send a branch pull request
+To commit changes to the main branch and publish your contribution, log in your GitHub account, and send a branch pull request.
+Every current command is described in res/help.json and res/adm_help.json
 
 
 ### Language
@@ -210,6 +211,7 @@ In helpers.py add your local methods.
 7.  unless you have a good reason, do not change cibot.py script
 8.  make sure to test your code before uploading
 10. remember not to break asynchronicity
+11. do not duplicate function names, command aliases, or features
 
 
 **ToDo:**
