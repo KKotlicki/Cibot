@@ -212,6 +212,7 @@ In helpers.py add your local methods.
 8.  make sure to test your code before uploading
 10. remember not to break asynchronicity
 11. do not duplicate function names, command aliases, or features
+12. do not duplicate function names, command aliases, or features
 
 
 **ToDo:**
