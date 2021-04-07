@@ -2,6 +2,7 @@ import asyncio
 import chess
 import chess.svg
 import discord
+import datetime
 from discord.ext import commands, tasks
 from reportlab.graphics import renderPM
 from svglib.svglib import svg2rlg
@@ -20,23 +21,47 @@ class ChessCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.channel = ''
-        self.time_white = 60*60
-        self.time_black = 60*60
+        self.time_white = 60 * 60
+        self.time_black = 60 * 60
         self.current_turn = "white"
+        """chess time modes. Values in minutes."""
+        self.time_modes = {
+            "bullet": 3,
+            "blitz": 7,
+            "quick": 30,
+            "standard": 60
+        }
         if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
             open(f"{sv_dir}/chess_queue.txt", "a").close()
 
     @commands.command(aliases=['challenge', 'Chess', 'kill', 'ch'])
-    async def chess(self, ctx, *, user: discord.User):
+    async def chess(self, ctx, user: discord.User, time_mode="standard"):
         if not os.path.exists(f'{sv_dir}/{ctx.message.guild.name}_config.json'):
             await set_sv_config(ctx, ctx.message.channel, 'game')
         if not os.path.isfile(f"{sv_dir}/{ctx.message.guild}_chess.json"):
             with open(f"{sv_dir}/{ctx.message.guild}_chess.json", "w+") as fn:
                 fn.write("{}")
+        if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
+            with open(f"{sv_dir}/chess_queue.txt", "w+") as fn:
+                fn.write("")
         """Start a chess game with someone!"""
-        if not get_chess_queue():
-            add_to_chess_queue(ctx.author, user)
-            await chess_loop(ctx.author, user, ctx, self)  # Load the loop
+        if time_mode not in self.time_modes:
+            embed = discord.Embed(title=f"Nie ma takiego trybu gry!",
+                                  description=f"Poprawne użycie komendy to: {prefix}chess <@użytkownik> [tryb]\n"
+                                              f"Dostępne tryby to:\n",
+                                  color=discord.Color.red())
+            for key, value in self.time_modes.items():
+                if value == 1:
+                    lang_genitive_numerals = "minuta"
+                elif type(value) == float or value < 5:
+                    lang_genitive_numerals = "minuty"
+                else:
+                    lang_genitive_numerals = "minut"
+                embed.description += f"\n**{key}**: {value} {lang_genitive_numerals}"
+            await ctx.send(embed=embed)
+        elif not get_chess_queue():
+            add_to_chess_queue(ctx.author, user, time_mode)
+            await chess_loop(ctx.author, user, ctx, self, time_mode)  # Load the loop
         else:
             is_in_queue = False
             for elem in get_chess_queue():
@@ -49,13 +74,32 @@ class ChessCog(commands.Cog):
                     await ctx.send(embed=embed)
                     break
             if not is_in_queue:
-                add_to_chess_queue(ctx.author, user)
+                add_to_chess_queue(ctx.author, user, time_mode)
                 embed = discord.Embed(title=f"Dodano do kolejki!",
                                       description=f":crossed_swords: Gracz {ctx.author.mention} "
                                                   f"wyzwał gracza {user.mention} na grę w szachy.\n\n"
                                                   f"Wpisz *{prefix}chq* aby wyświetlić koljekę.",
                                       color=discord.Color.blue())
                 await ctx.send(embed=embed)
+
+    @commands.command(aliases=['cht', 'chess_time', 'chesstime', 'game_time'])
+    async def chesst(self, ctx):
+        if self.switch_timer.is_running():
+            white_turn = ""
+            black_turn = ""
+            if self.current_turn == "white":
+                white_turn = ":arrow_left: "
+            else:
+                black_turn = ":arrow_left: "
+            embed = discord.Embed(title=f":stopwatch: Pozostały czas:",
+                                  description=f"Białe - {datetime.timedelta(seconds=self.time_white)} {white_turn}\n"
+                                              f"Czarne - {datetime.timedelta(seconds=self.time_black)} {black_turn}",
+                                  color=discord.Color.blue())
+            await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(title=f"Nikt jeszcze się nie ruszył",
+                                  color=discord.Color.blue())
+            await ctx.send(embed=embed)
 
     @commands.command(pass_context=True,
                       aliases=['cqc', 'chess_queue_clear', "clear_chess_queue", "clear_game_queue", "gqc"])
@@ -90,14 +134,15 @@ class ChessCog(commands.Cog):
         else:
             embed = discord.Embed(title=f"Kolej gier:",
                                   description=f":crossed_swords: Teraz gra: ***{queue[0][0].split('/id/')[0][:-5]}***"
-                                              f"  **vs**  "
-                                              f"***{queue[0][1].split('/id/')[0][:-5]}*** :crossed_swords:\n...",
+                                              f"  vs  "
+                                              f"***{queue[0][1].split('/id/')[0][:-5]}*** :crossed_swords:"
+                                              f" - ({queue[0][2]})\n...",
                                   color=discord.Color.blue())
             temp = 1
             for elem in queue:
                 if elem != queue[0]:
-                    embed.description += f"\n{temp}: *{elem[0].split('/id/')[0][:-5]}* vs "\
-                                         f"*{elem[1].split('/id/')[0][:-5]}*"
+                    embed.description += f"\n{temp}: *{elem[0].split('/id/')[0][:-5]}* vs " \
+                                         f"*{elem[1].split('/id/')[0][:-5]}* - ({elem[2]})"
                     temp += 1
         await ctx.send(embed=embed)
 
@@ -137,9 +182,9 @@ class ChessCog(commands.Cog):
             self.time_white -= 1
 
 
-async def chess_loop(challenger, challenged, ctx, self):
-    self.time_white = 60*60
-    self.time_black = 60*60
+async def chess_loop(challenger, challenged, ctx, self, time_mode):
+    self.time_white = self.time_modes[time_mode] * 60
+    self.time_black = self.time_modes[time_mode] * 60
     if bool(random.getrandbits(1)):
         user_white = challenger
         user_black = challenged
@@ -171,8 +216,7 @@ async def chess_loop(challenger, challenged, ctx, self):
     is_timer_set = False
     while game_over is not True:
         # Loop until game is over or canceled.
-        cancel = ""
-        cancel = await board_move(user_white, board, ctx, self, is_draw_offered, "white")
+        cancel = await board_move(user_white, board, ctx, self, is_draw_offered)
         if not is_timer_set:
             self.switch_timer.start(ctx)
             is_timer_set = True
@@ -239,7 +283,7 @@ async def chess_loop(challenger, challenged, ctx, self):
             self.current_turn = "black"
 
         # Basically a repeat of above!
-        cancel = await board_move(user_black, board, ctx, self, is_draw_offered, "black")
+        cancel = await board_move(user_black, board, ctx, self, is_draw_offered)
 
         game_over = board.is_game_over(claim_draw=False)
         result = board.result(claim_draw=True)
@@ -305,10 +349,11 @@ async def chess_loop(challenger, challenged, ctx, self):
     if len(get_chess_queue()) != 0:
         local_converter = commands.UserConverter()
         await chess_loop(await local_converter.convert(ctx, get_chess_queue()[0][0].split('/id/')[1]),
-                         await local_converter.convert(ctx, get_chess_queue()[0][1].split('/id/')[1]), ctx, self.bot)
+                         await local_converter.convert(ctx, get_chess_queue()[0][1].split('/id/')[1]),
+                         ctx, self.bot, get_chess_queue()[0][2])
 
 
-async def board_move(player, board, ctx, self, is_draw_offered, color):
+async def board_move(player, board, ctx, self, is_draw_offered):
     # Move loops
     turn_loop = True
     while turn_loop:
@@ -377,7 +422,9 @@ async def board_move(player, board, ctx, self, is_draw_offered, color):
                 try:
                     # We are tying to see if they added a comma split. You can change this i guess!
                     # Moves will be from positions on the board
-                    joined = re.sub('[-.></`|{}_,!*^()?+=;:@#$%&~]', '', re.sub(r'\s+', '', message.content.lower())).replace('move', '').replace('from', '').replace('to', '')
+                    joined = re.sub('[-.></`|{}_,!*^()?+=;:@#$%&~]', '',
+                                    re.sub(r'\s+', '', message.content.lower()))\
+                        .replace('move', '').replace('from', '').replace('to', '')
                     try:
                         # Get the move
                         if len(joined) >= 4:
@@ -397,7 +444,11 @@ async def board_move(player, board, ctx, self, is_draw_offered, color):
                             # Check if the move was valid
                             embed = discord.Embed(title=f"Ruch",
                                                   description=f"{player.mention} ruszył się: "
-                                                              f"`{joined[0:2]} -> {joined[2:4]}`!",
+                                                              f"`{joined[0:2]} -> {joined[2:4]}`!\n"
+                                                              f"Czas Białych - "
+                                                              f"{datetime.timedelta(seconds=self.time_white)}\n"
+                                                              f"Czas Czarnych - "
+                                                              f"{datetime.timedelta(seconds=self.time_black)}",
                                                   color=discord.Color.green())
                             await ctx.send(embed=embed)
                             # Make the move on the board
@@ -477,13 +528,18 @@ def get_chess_queue():
         for line in rd:
             chess_queue_lines.append(line[:-1])
     for elem in chess_queue_lines:
-        chess_queue.append(elem.split('/vs/'))
+        temp_list = elem.split('/time/')
+        temp0 = temp_list[0].split('/vs/')[0]
+        temp1 = temp_list[0].split('/vs/')[1]
+        temp2 = temp_list[1]
+        temp_list = [temp0, temp1, temp2]
+        chess_queue.append(temp_list)
     return chess_queue
 
 
-def add_to_chess_queue(challenger, challenged):
+def add_to_chess_queue(challenger, challenged, time_mode):
     with open(f'{sv_dir}/chess_queue.txt', 'a', encoding='utf-8') as fn:
-        fn.write(f'{challenger}/id/{challenger.id}/vs/{challenged}/id/{challenged.id}\n')
+        fn.write(f'{challenger}/id/{challenger.id}/vs/{challenged}/id/{challenged.id}/time/{time_mode}\n')
 
 
 def remove_from_chess_queue():
