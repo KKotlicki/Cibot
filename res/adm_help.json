@@ -1,6 +1,6 @@
 {
     "Załaduj kanały serwera": "sv",
-    "Ustaw kanał na ogłoszenia bota": "set_anns <kanał>",
+    "Ustaw kanał na ogłoszenia bota": "set_answ <kanał>",
     "Ustaw kanał na gry": "set_game <kanał>",
     "Przekaż ogłoszenie przez bota": "say <wiadomosc>",
     "Usuń <ilość> wiadomości (domyślnie 5)": "clear <ilość>",

@@ -14,7 +14,7 @@ Bot uses exclusively python, with heavy dependence on [discord.py](https://disco
 
 ### Installing
 
-To use our bot, you only need [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system.
+To use the bot, you need [Python (3.7+)](https://www.python.org/), [git](https://git-scm.com/) and [ffmpeg](https://www.ffmpeg.org/) dependencies installed on your system.
 
 To download current version of bot, open destination directory, then run terminal and enter following commands:
 
@@ -31,18 +31,25 @@ git clone https://github.com/KKotlicki/Cibot.git
 
 ### Required modules
 
+If you're running server on Debian or derived system (eg. Ubuntu, Raspbian), first install pip using the following commands:
+
+```
+sudo apt-get install python3-pip
+
+```
+
 To install all the libraries and modules, run the following script in terminal:
 
 ```
-python3 -m pip install discord
-python3 -m pip install python.dotenv
-python3 -m pip install youtube-dl
-python3 -m pip install loguru
-python3 -m pip install -U discord.py[voice]
-python3 -m pip install youtube-search-python
-python3 -m pip install chess
-python3 -m pip install svglib
-python3 -m pip install reportlab
+python3 -m pip3 install discord.py
+python3 -m pip3 install python.dotenv
+python3 -m pip3 install youtube-dl
+python3 -m pip3 install loguru
+python3 -m pip3 install -U discord.py[voice]
+python3 -m pip3 install youtube-search-python
+python3 -m pip3 install chess
+python3 -m pip3 install svglib
+python3 -m pip3 install reportlab
 
 ```
 
@@ -176,10 +183,6 @@ def setup(client):                         # necessary function - allows cibot.p
 ### Common Problems
 
  - synchronicity        
-
-
-from config import *
-from helpers import *
 
 
 Contents:

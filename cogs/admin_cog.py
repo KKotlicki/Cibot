@@ -7,7 +7,7 @@ class AdminCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=["adm_help", "admin_help"])
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
         await open_help(ctx, "adm_help")
@@ -17,12 +17,12 @@ class AdminCog(commands.Cog):
     async def shutdown(self, ctx):
         await self.bot.close()
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, alias="c")
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, amount=5):
         await ctx.channel.purge(limit=amount + 1)
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, alias="save")
     @commands.has_permissions(administrator=True)
     async def sv(self, ctx):
         await fetch_sv_data(ctx)

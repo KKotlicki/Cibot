@@ -72,7 +72,7 @@ class Music(commands.Cog):
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=['v', 'vol'])
     async def volume(self, ctx, volume: int):
 
         if ctx.voice_client is None:
