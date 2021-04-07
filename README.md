@@ -210,9 +210,9 @@ In helpers.py add your local methods.
 6.  if you want to create directory for something entirely different, do so in the main directory
 7.  unless you have a good reason, do not change cibot.py script
 8.  make sure to test your code before uploading
-10. remember not to break asynchronicity
+9. remember not to break asynchronicity
+10. do not duplicate function names, command aliases, or features
 11. do not duplicate function names, command aliases, or features
-12. do not duplicate function names, command aliases, or features
 
 
 **ToDo:**
@@ -227,10 +227,9 @@ In helpers.py add your local methods.
 
 ```
 1. yt_cog - play playlists, save queue, load queue, additional queue handling
-2. Disconnect from voice channel after period of inactivity
-3. Finish documentation and setup manual
-4. chess_cog takeback offer, timer with different modes, one board at a time
-5. better <help> design
+2. Finish documentation and setup manual
+3. chess_cog takeback offer, one board at a time
+4. better <help> design
 ```
 
  - **[Major Feature]**
