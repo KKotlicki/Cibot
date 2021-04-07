@@ -127,7 +127,6 @@ class Music(commands.Cog):
     @commands.command(aliases=['q', 'kolejka'])
     async def queue(self, ctx):
         embed_var = discord.Embed(title=":roll_of_paper: Kolejka:", color=0xff770f)
-        print(self.queue_list)
         for song in self.queue_list:
             if self.queue_list.index(song) == 0:
                 embed_var.add_field(name=f':notes: Teraz gra:', value=f'**{song[1]}**', inline=False)
@@ -148,8 +147,9 @@ class Music(commands.Cog):
     async def voice_out_timer(self, ctx):
         time = 0
         while time < 60:
-            if ctx.voice_client.is_playing():
-                return
+            if ctx.voice_client:
+                if ctx.voice_client.is_playing():
+                    return
             await asyncio.sleep(5)
             time += 1
         await ctx.voice_client.disconnect()
