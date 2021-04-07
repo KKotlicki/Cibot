@@ -1,6 +1,6 @@
 import discord
 import youtube_dl
-from discord.ext import commands
+from discord.ext import commands, tasks
 from helpers import YTDLSource
 from youtubesearchpython import VideosSearch
 from config import res_dir
@@ -53,18 +53,24 @@ class Music(commands.Cog):
     async def play(self, ctx, *, title):
 
         video_data = VideosSearch(str(title), limit=1).result()['result'][0]
-        async with ctx.typing():
-            url = video_data['link']
-            song_title = video_data['title']
-            song_duration = video_data['duration']
-            self.queue_list.append([url, song_title])
-            self.queue_size = len(self.queue_list)
-        embed = discord.Embed(title=f":notes: Dodałem do kolejki:  {song_title}",
-                              description=f"Długość:  {song_duration} minut",
-                              color=discord.Color.dark_green())
-        await ctx.send(embed=embed)
-        if not ctx.voice_client.is_playing() and self.queue_size == 1:
-            await self.play_yt(ctx)
+        if not [video_data['link'], video_data['title']] in self.queue_list:
+            async with ctx.typing():
+                url = video_data['link']
+                song_title = video_data['title']
+                song_duration = video_data['duration']
+                self.queue_list.append([url, song_title])
+                self.queue_size = len(self.queue_list)
+            embed = discord.Embed(title=f":notes: Dodałem do kolejki:  {song_title}",
+                                  description=f"Długość:  {song_duration} minut",
+                                  color=discord.Color.dark_green())
+            await ctx.send(embed=embed)
+            if not ctx.voice_client.is_playing() and self.queue_size == 1:
+                await self.play_yt(ctx)
+        else:
+            embed = discord.Embed(title=f"{video_data['title']} już jest w kolejce!",
+                                  description=f"Nie można znowu dodać do kolejki.",
+                                  color=discord.Color.red())
+            await ctx.send(embed=embed)
 
     @commands.command()
     async def volume(self, ctx, volume: int):
@@ -116,11 +122,12 @@ class Music(commands.Cog):
             await self.play_yt(ctx)
         elif not ctx.voice_client.is_playing() and len(self.queue_list) == 0:
             ctx.voice_client.stop()
-            self.bot.loop.create_task(self.voice_out_timer(ctx))
+            self.voice_out_timer.start(ctx)
 
     @commands.command(aliases=['q', 'kolejka'])
     async def queue(self, ctx):
         embed_var = discord.Embed(title=":roll_of_paper: Kolejka:", color=0xff770f)
+        print(self.queue_list)
         for song in self.queue_list:
             if self.queue_list.index(song) == 0:
                 embed_var.add_field(name=f':notes: Teraz gra:', value=f'**{song[1]}**', inline=False)
@@ -137,6 +144,7 @@ class Music(commands.Cog):
         else:
             self.skip_song = True
 
+    @tasks.loop(seconds=1)
     async def voice_out_timer(self, ctx):
         time = 0
         while time < 60:
