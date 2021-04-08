@@ -1,21 +1,29 @@
 {
-    "Oficjalne linki": "oflinki <semestr>",
-    "Nieoficjalne linki": "linki <semestr>",
-    "Znajdź link do przedmiotu na yt": "link <semestr> <przedmiot>",
-    "Dodaj utwór do kolejki": "p <tytuł>",
-    "Przewiń utwór do następnego": "s",
-    "Wyczyść kolejkę i zakończ utwór": "qc",
-    "Pokaż kolejkę": "q",
-    "Ustaw głośność": "v",
-    "Dołącz na kanał głosowy": "join <kanał>",
-    "Wyzwij użytkownika na szachy": "chess <@użytkownik> [tryb gry]",
-    "Pokaż pozostały czas gry": "cht",
-    "Pokaż kolejkę do szachów": "chq",
-    "Pokaż ranking szachowy": "top",
-    "Pokaż mój ranking Elo": "elo [@użytkownik]",
-    "Podaj ping bota": "ping",
-    "Komendy dla adminów": "adm",
-    "Nie wiem": "co",
-    "Złgoś błąd": "bug",
-    "Credits": "thx"
+    ":scroll: Linki": {
+        "Oficjalne linki": "oflinki <semestr>",
+        "Nieoficjalne linki": "linki [semestr]",
+        "Znajdź link do przedmiotu na yt": "link <semestr> <przedmiot>"
+        },
+    ":musical_note: Muzyka": {
+        "Dodaj utwór do kolejki": "p <tytuł/link>",
+        "Przewiń utwór do następnego": "s",
+        "Wyczyść kolejkę i zakończ utwór": "qc",
+        "Pokaż kolejkę": "q",
+        "Ustaw głośność": "v",
+        "Dołącz bota na kanał głosowy": "join <kanał>"
+        },
+    ":tada: Szachy": {
+        "Wyzwij użytkownika": "chess <@użytkownik> [tryb gry]",
+        "Pozostały czas gry": "cht",
+        "Kolejka do szachów": "chq",
+        "Ranking szachowy": "top",
+        "Mój ranking Elo": "elo [@użytkownik]"
+        },
+    ":wrench: Ogólne": {
+        "Ping bota": "ping",
+        "Komendy dla adminów": "adm",
+        "Nie wiem": "co",
+        "Złgoś błąd": "bug",
+        "Credits": "thx"
+        }
 }

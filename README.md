@@ -232,7 +232,6 @@ In helpers.py add your local methods.
 1. yt_cog - play playlists, save queue, load queue, additional queue handling
 2. Finish documentation and setup manual
 3. chess_cog takeback offer, one board at a time
-4. better <help> design
 ```
 
  - **[Major Feature]**

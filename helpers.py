@@ -19,7 +19,13 @@ async def open_help(ctx, file_name):
     with open(f'{res_dir}/{file_name}.json', encoding='utf-8') as rd:
         help_json = json.loads(rd.read())
     for name, value in help_json.items():
-        embed_var.add_field(name=f'**{name}**', value=f'```{prefix}{value}```', inline=False)
+        command_list = ""
+        for name1, value1 in value.items():
+            command_list += f'`{prefix}{value1}` - {name1}\n'
+        embed_var.add_field(name=f"\u200b\n{name}", value=command_list, inline=False)
+    embed_var.set_footer(text="Komendy mają też nazwy zastępcze. "
+                              "Jeśli chcesz dodać nazwę zastępczą lub stworzyć nową komendę, "
+                              "zmień kod w repo lub skontaktuj się z deweloperami.")
     await ctx.send(embed=embed_var)
 
 
