@@ -28,10 +28,12 @@ class MainCog(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
+        await ctx.channel.purge(limit=1)
         await open_help(ctx, "help")
 
     @commands.command()
     async def bug(self, ctx, *, message):
+        await ctx.channel.purge(limit=1)
         logger.info("\n<" + str(ctx.author) + "> said:\n<" + message + ">")
         logger.add(f'{logs_dir}/bugs.log', rotation="5 MB")
 

@@ -51,7 +51,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['p', 'graj'])
     async def play(self, ctx, *, title):
-
+        await ctx.channel.purge(limit=1)
         video_data = VideosSearch(str(title), limit=1).result()['result'][0]
         if not [video_data['link'], video_data['title']] in self.queue_list:
             async with ctx.typing():

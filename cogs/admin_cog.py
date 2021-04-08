@@ -10,6 +10,7 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True, aliases=["adm_help", "admin_help"])
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
+        await ctx.channel.purge(limit=1)
         await open_help(ctx, "adm_help")
 
     @commands.command(pass_context=True)

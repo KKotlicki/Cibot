@@ -13,11 +13,11 @@
         "Dołącz bota na kanał głosowy": "join <kanał>"
         },
     ":tada: Szachy": {
-        "Wyzwij użytkownika": "chess <@użytkownik> [tryb gry]",
+        "Wyzwij gracza": "chess <@gracz> [tryb gry]",
         "Pozostały czas gry": "cht",
         "Kolejka do szachów": "chq",
         "Ranking szachowy": "top",
-        "Mój ranking Elo": "elo [@użytkownik]"
+        "Ranking Elo gracza": "elo [@gracz]"
         },
     ":wrench: Ogólne": {
         "Ping bota": "ping",

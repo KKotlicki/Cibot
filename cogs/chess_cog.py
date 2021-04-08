@@ -36,6 +36,7 @@ class ChessCog(commands.Cog):
 
     @commands.command(aliases=['challenge', 'Chess', 'kill', 'ch'])
     async def chess(self, ctx, user: discord.User, time_mode="standard"):
+        await ctx.channel.purge(limit=1)
         if not os.path.exists(f'{sv_dir}/{ctx.message.guild.name}_config.json'):
             await set_sv_config(ctx, ctx.message.channel, 'game')
         if not os.path.isfile(f"{sv_dir}/{ctx.message.guild}_chess.json"):
@@ -84,6 +85,7 @@ class ChessCog(commands.Cog):
 
     @commands.command(aliases=['cht', 'chess_time', 'chesstime', 'game_time'])
     async def chesst(self, ctx):
+        await ctx.channel.purge(limit=1)
         if self.switch_timer.is_running():
             white_turn = ""
             black_turn = ""
@@ -105,6 +107,7 @@ class ChessCog(commands.Cog):
                       aliases=['cqc', 'chess_queue_clear', "clear_chess_queue", "clear_game_queue", "gqc"])
     @commands.has_permissions(administrator=True)
     async def chqc(self, ctx):
+        await ctx.channel.purge(limit=1)
         with open(f'{sv_dir}/chess_queue.txt', 'w+') as fn:
             fn.write('')
             await ctx.send('Kolejka usunięta')
@@ -126,6 +129,7 @@ class ChessCog(commands.Cog):
 
     @commands.command(aliases=['chq', 'chess_queue', 'queuechess', 'game_queue'])
     async def chessq(self, ctx):
+        await ctx.channel.purge(limit=1)
         queue = get_chess_queue()
         if not queue:
             embed = discord.Embed(title=f"Kolej gier:",
@@ -148,6 +152,7 @@ class ChessCog(commands.Cog):
 
     @commands.command(aliases=['leaderboard', 'ranking', '10'])
     async def top(self, ctx):
+        await ctx.channel.purge(limit=1)
         ranking = {}
         with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
             chess_history = json.loads(rd.read())
