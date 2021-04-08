@@ -68,17 +68,17 @@ async def set_sv_config(ctx, value, key):
     await ctx.send(f"{key} channel set to {value}")
 
 
-def get_valid_text_channel_id(ctx, purpose):
+def get_valid_text_channel_id(ctx, type_of_data):
     with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', encoding='utf-8') as rd:
-        message_channel = json.loads(rd.read())[purpose]
-    return get_text_channel_id_from_name(ctx, message_channel)
+        message_channel = json.loads(rd.read())[type_of_data]
+    return get_text_channel_id_from_name(ctx.message.guild.name, message_channel)
 
 
-def get_text_channel_id_from_name(ctx, message_channel):
+def get_text_channel_id_from_name(server_name, message_channel):
     sv_text_channel_dict = {}
     keys = []
     values = []
-    with open(f"{sv_dir}/{ctx.message.guild.name}.json", encoding='utf-8') as rd:
+    with open(f"{sv_dir}/{server_name}.json", encoding='utf-8') as rd:
         sv_data = json.loads(rd.read())["text"]
     for elem in sv_data:
         keys.append(elem.split(" => ")[0])

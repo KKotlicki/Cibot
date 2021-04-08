@@ -6,16 +6,16 @@
         },
     ":musical_note: Muzyka": {
         "Dodaj utwór do kolejki": "p <tytuł/link>",
-        "Przewiń utwór do następnego": "s",
-        "Wyczyść kolejkę i zakończ utwór": "qc",
-        "Pokaż kolejkę": "q",
-        "Ustaw głośność": "v",
+        "Przewiń utwór do następnego": "skip",
+        "Wyczyść kolejkę i zakończ utwór": "qclear",
+        "Pokaż kolejkę": "queue",
+        "Ustaw głośność": "volume",
         "Dołącz bota na kanał głosowy": "join <kanał>"
         },
     ":tada: Szachy": {
         "Wyzwij gracza": "chess <@gracz> [tryb gry]",
-        "Pozostały czas gry": "cht",
-        "Kolejka do szachów": "chq",
+        "Pozostały czas gry": "chtime",
+        "Kolejka do szachów": "chqueue",
         "Ranking szachowy": "top",
         "Ranking Elo gracza": "elo [@gracz]"
         },
