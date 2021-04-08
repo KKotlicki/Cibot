@@ -158,7 +158,7 @@ class ChessCog(commands.Cog):
         temp = 1
         for key, value in ranking.items():
             if temp == 1:
-                embed.add_field(name=f':crown:  **{key}**  :crown:', value=f'**`{value}`**', inline=False)
+                embed.add_field(name=f':crown:  **{key}**', value=f'**`{value}`**', inline=False)
             else:
                 embed.add_field(name=f'{temp}. {key}', value=f'`{value}`', inline=False)
             temp += 1

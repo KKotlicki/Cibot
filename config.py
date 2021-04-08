@@ -10,7 +10,7 @@ temp_mp3_name = 'yt_audio.mp3'
 rasp_dir = 'rbp'
 chess_options = {
     'starting_elo': 1200,
-    'K': 40
+    'K': 50
 }
 ytdl_options = {
     'format': 'bestaudio/best',
