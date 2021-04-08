@@ -33,7 +33,7 @@ class AdminCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def set_answ(self, ctx, *, message=''):
         if message == '':
-            message = ctx.guild.name
+            message = ctx.channel.name
         await ctx.channel.purge(limit=1)
         await set_sv_config(ctx, message, 'answ')
 
@@ -41,7 +41,7 @@ class AdminCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def set_game(self, ctx, *, message=''):
         if message == '':
-            message = ctx.guild.name
+            message = ctx.channel.name
         await ctx.channel.purge(limit=1)
         await set_sv_config(ctx, message, 'game')
 
@@ -49,7 +49,7 @@ class AdminCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def set_role(self, ctx, *, message=''):
         if message == '':
-            message = ctx.guild.name
+            message = ctx.channel.name
         await ctx.channel.purge(limit=1)
         await set_sv_config(ctx, message, 'role')
 
