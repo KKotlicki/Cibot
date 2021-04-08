@@ -1,8 +1,9 @@
 {
     "Zapis Danych": {
         "Załaduj kanały serwera": "sv",
-        "Ustaw kanał na ogłoszenia bota": "set_answ <kanał>",
-        "Ustaw kanał na gry": "set_game <kanał>"
+        "Ustaw kanał na ogłoszenia bota": "set_answ [kanał]",
+        "Ustaw kanał na gry": "set_game [kanał]",
+        "Ustaw kanał na wybór roli": "set_role [kanał]"
         },
     "Moderacja": {
         "Przekaż ogłoszenie przez bota": "say <wiadomość>",
@@ -12,6 +13,6 @@
     "Maszyna": {
     "Aktualizuj": "update",
     "Wyłącz": "shutdown",
-    "(RPI) podaj temperaturę serwera": "temp"
+    "(RPI) Podaj temperaturę serwera": "temp"
     }
 }
