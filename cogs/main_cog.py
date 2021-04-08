@@ -38,6 +38,7 @@ class MainCog(commands.Cog):
         logger.info("\n<" + str(ctx.author) + "> said:\n<" + message + ">")
         logger.add(f'{logs_dir}/bugs.log', rotation="5 MB")
 
+    '''Role assignment'''
     @commands.Cog.listener()
     async def on_ready(self):
         for file in os.listdir(f"{sv_dir}/"):
