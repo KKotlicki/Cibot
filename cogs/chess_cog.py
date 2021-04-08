@@ -516,12 +516,12 @@ def update_match_history(ctx, winner, looser, is_victory, bot):
     elo_looser = get_elo(ctx, looser, bot)
     if is_victory:
         win = 1
-        lost = 0
+        loss = 0
     else:
         win = 0.5
-        lost = 0.5
+        loss = 0.5
     match_history[str(winner)] = [elo_winner, elo_looser, win]
-    match_history[str(looser)] = [elo_looser, elo_winner, lost]
+    match_history[str(looser)] = [elo_looser, elo_winner, loss]
     with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', "w+", encoding='utf-8') as fn:
         fn.write(json.dumps(match_history))
 
