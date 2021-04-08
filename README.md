@@ -69,6 +69,8 @@ res/                # text, .json, .xml, Lua and CMS resources
 |- help             # descriptions and call names of user commands
 |- linki            # links for <"unofficial" links> command
 |- oflinki          # links for <"official" links> command
+|- roles            # roles for reaction role assignment function
+|- status           # custom status descriptions of bot
 |- subject_aliases  # alternative call names for <"unofficial" links> command
 servers/            # server's data and logs
 .gitattributes      # Git repo configuration
@@ -229,7 +231,7 @@ In helpers.py add your local methods.
  - [Rewrite]
 
 ```
-1. yt_cog - play playlists, save queue, load queue, additional queue handling
+1. yt_cog - save queue, load queue, additional queue handling
 2. Finish documentation and setup manual
 3. chess_cog takeback offer, one board at a time
 ```
