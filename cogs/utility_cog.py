@@ -41,15 +41,15 @@ class UtilityCog(commands.Cog):
             logger.exception("Invalid command used.")
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
             await ctx.send("Nie znam tej komendy.")
-        if isinstance(err, commands.MissingPermissions):
+        elif isinstance(err, commands.MissingPermissions):
             logger.exception("Permission error.")
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
             await ctx.send("Komenda tylko dla adminów.")
-        if isinstance(err, commands.BotMissingPermissions):
+        elif isinstance(err, commands.BotMissingPermissions):
             logger.exception("Bot permission error.")
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
             await ctx.send("Nie mam odpowiednich uprawnień.")
-        if isinstance(err, commands.MissingRequiredArgument):
+        elif isinstance(err, commands.MissingRequiredArgument):
             logger.exception("Missing required argument.")
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
             await ctx.send("Komenda wymaga argumentu.")
