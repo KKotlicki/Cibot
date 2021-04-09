@@ -15,5 +15,7 @@ class Fun(commands.Cog):
         await send_pic_or_txt_on_choice(ctx, choice)
 
 
+
+
 def setup(bot):
     bot.add_cog(Fun(bot))

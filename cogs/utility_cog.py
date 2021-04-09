@@ -20,8 +20,6 @@ class UtilityCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        if os.path.exists("update.sh"):
-            os.remove("update.sh")
         if os.path.exists("update.bat"):
             os.remove("update.bat")
         logger.info(f"Logged in as {self.bot.user}")
@@ -60,10 +58,11 @@ class UtilityCog(commands.Cog):
     @tasks.loop(minutes=1.0)
     async def automatic_update(self):
         now = datetime.now()
-        if now.hour == 4 and not now.minute:
-            ''':)'''
-            await self.bot.change_presence(status=discord.Status.dnd,
-                                           activity=discord.Game("follow the white rabbit :rabbit2:"))
+        if now.hour == 4:
+            if not now.minute:
+                ''':)'''
+                await self.bot.change_presence(status=discord.Status.dnd,
+                                               activity=discord.Game("follow the white rabbit :rabbit2:"))
             if now.minute == 20:
                 await self.update_fun()
 
@@ -80,12 +79,12 @@ class UtilityCog(commands.Cog):
 
         py_prefix = os.getenv("OS_PYTHON_PREFIX")
         os_system = system()
-
+        print("updating...")
         if os_system == 'Windows':
-            with open(f'{res_dir}/update_ms.txt', 'r') as rd:
-                updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd())
+            # with open(f'{res_dir}/update_ms.txt', 'r') as rd:
+            #     updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd())
             with open(os.getcwd() + '/update.bat', 'w') as wr:
-                wr.write(updater)
+                wr.write(f'Taskkill /IM \"python.exe\" /F\ngit pull\ncd {os.getcwd()}\n{py_prefix} cibot.py')
             os.system('update.bat')
 
         elif os_system == 'Linux':
