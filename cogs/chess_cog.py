@@ -29,7 +29,8 @@ class ChessCog(commands.Cog):
             "bullet": 3,
             "blitz": 7,
             "quick": 30,
-            "standard": 60
+            "standard": 60,
+            "long": 120,
         }
         if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
             open(f"{sv_dir}/chess_queue.txt", "a").close()
@@ -386,7 +387,7 @@ async def board_move(player, board, ctx, self, is_draw_offered):
                     print(e)
                     pass
                 return "yes"
-            elif message.content.lower() == "nie":
+            elif message.content.lower() in ["nie", "n", "not", "niet", "never"]:
                 embed = discord.Embed(title=f"Propozycja odrzucona!",
                                       description=f"{player.mention} odrzucił propozycję remisu.",
                                       color=discord.Color.red())
