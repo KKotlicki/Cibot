@@ -6,9 +6,6 @@ from cairosvg import svg2png
 import discord
 import datetime
 from discord.ext import commands, tasks
-from reportlab.graphics import renderPM
-from svglib.svglib import svg2rlg
-from PIL import Image
 import random
 from config import sv_dir, chess_options, prefix
 import json
@@ -209,16 +206,6 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
     board = chess.Board()
     # Save the board as an svg
     svg_img = chess.svg.board(board=board)
-    # outputfile = open('chess_board.svg', "w")
-    # outputfile.write(img)
-    # outputfile.close()
-    # # Convert svg to png
-    # drawing = svg2rlg("chess_board.svg", )
-    # renderPM.drawToFile(drawing, "chess_board.png", fmt="PNG")
-    # img = Image.open('chess_board.png')
-    # img.save('chess_board.png')
-    # # Send the chess board
-    # await ctx.send(file=discord.File(fp="chess_board.png"))
     png = svg2png(bytestring=svg_img.encode("UTF-8"))
     png_file = discord.File(io.BytesIO(png), filename="board.png")
     await ctx.send(file=png_file)
@@ -467,14 +454,11 @@ async def board_move(player, board, ctx, self, is_draw_offered):
                             board.push(move)
                             # Remake the image and send it back out!
                             # This is a repeat from earlier
-                            img = chess.svg.board(board=board)
-                            outputfile = open('chess_board.svg', "w")
-                            outputfile.write(img)
-                            outputfile.close()
-                            drawing = svg2rlg("chess_board.svg")
-                            renderPM.drawToFile(drawing, "chess_board.png", fmt="PNG")
+                            svg_img = chess.svg.board(board=board)
+                            png = svg2png(bytestring=svg_img.encode("UTF-8"))
+                            png_file = discord.File(io.BytesIO(png), filename="board.png")
                             # Send the image
-                            await ctx.send(file=discord.File(fp="chess_board.png"))
+                            await ctx.send(file=png_file)
                             # Stop their turn
                             turn_loop = False
                         else:
