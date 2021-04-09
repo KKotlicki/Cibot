@@ -40,9 +40,22 @@ class UtilityCog(commands.Cog):
         if isinstance(err, commands.CommandNotFound):
             logger.exception("Invalid command used.")
             logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
-            await ctx.send("Niepoprawna komenda.")
+            await ctx.send("Nie znam tej komendy.")
+        if isinstance(err, commands.MissingPermissions):
+            logger.exception("Permission error.")
+            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            await ctx.send("Komenda tylko dla adminów.")
+        if isinstance(err, commands.BotMissingPermissions):
+            logger.exception("Bot permission error.")
+            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            await ctx.send("Nie mam odpowiednich uprawnień.")
+        if isinstance(err, commands.MissingRequiredArgument):
+            logger.exception("Missing required argument.")
+            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            await ctx.send("Komenda wymaga argumentu.")
         else:
             logger.error(err)
+            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
 
     @tasks.loop(minutes=2.0)
     async def connection_timeout(self):

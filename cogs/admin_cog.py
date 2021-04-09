@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from discord.ext.commands import MissingPermissions
 from helpers import fetch_sv_data, open_help, set_sv_config, get_valid_text_channel_id
 
 
