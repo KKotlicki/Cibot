@@ -84,7 +84,7 @@ class UtilityCog(commands.Cog):
             # with open(f'{res_dir}/update_ms.txt', 'r') as rd:
             #     updater = rd.read().replace('<python>', py_prefix).replace('<path>', os.getcwd())
             with open(os.getcwd() + '/update.bat', 'w') as wr:
-                wr.write(f'Taskkill /IM \"python.exe\" /F\ngit pull\ncd {os.getcwd()}\n{py_prefix} cibot.py')
+                wr.write(f'Taskkill /IM \"python.exe\" /F\ngit pull\ncd {os.getcwd()}\n{py_prefix} cibot.py\n')
             os.system('update.bat')
 
         elif os_system == 'Linux':
