@@ -38,6 +38,8 @@ sudo apt-get install python3-pip
 
 ```
 
+Then, install [ffmpeg](https://www.ffmpeg.org/) video converter.
+
 To install all the libraries and modules, run the following script in terminal:
 
 ```
