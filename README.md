@@ -47,9 +47,9 @@ python3 -m pip install youtube-dl
 python3 -m pip install loguru
 python3 -m pip install -U discord.py[voice]
 python3 -m pip install youtube-search-python
-python3 -m pip install chess
-python3 -m pip install svglib
-python3 -m pip install reportlab
+python3 -m pip install chesspip
+python3 -m pip install pycairo
+python3 -m pip install CairoSVG
 
 ```
 
