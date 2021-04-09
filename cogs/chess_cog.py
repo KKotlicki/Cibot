@@ -1,6 +1,8 @@
 import asyncio
 import chess
 import chess.svg
+import io
+from cairosvg import svg2png
 import discord
 import datetime
 from discord.ext import commands, tasks
@@ -206,17 +208,21 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
     # Initiate the board
     board = chess.Board()
     # Save the board as an svg
-    img = chess.svg.board(board=board)
-    outputfile = open('chess_board.svg', "w")
-    outputfile.write(img)
-    outputfile.close()
-    # Convert svg to png
-    drawing = svg2rlg("chess_board.svg")
-    renderPM.drawToFile(drawing, "chess_board.png", fmt="PNG")
-    img = Image.open('chess_board.png')
-    img.save('chess_board.png')
-    # Send the chess board
-    await ctx.send(file=discord.File(fp="chess_board.png"))
+    svg_img = chess.svg.board(board=board)
+    # outputfile = open('chess_board.svg', "w")
+    # outputfile.write(img)
+    # outputfile.close()
+    # # Convert svg to png
+    # drawing = svg2rlg("chess_board.svg", )
+    # renderPM.drawToFile(drawing, "chess_board.png", fmt="PNG")
+    # img = Image.open('chess_board.png')
+    # img.save('chess_board.png')
+    # # Send the chess board
+    # await ctx.send(file=discord.File(fp="chess_board.png"))
+    png = svg2png(bytestring=svg_img.encode("UTF-8"))
+    png_file = discord.File(io.BytesIO(png), filename="board.png")
+    await ctx.send(file=png_file)
+
     game_over = False
     is_draw_offered = False
     is_timer_set = False
