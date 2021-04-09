@@ -77,7 +77,7 @@ servers/            # server's data and logs
 .gitignore          # ^
 cibot.py            # ! - the main bot script
 config.py           # bot settings
-helpers.py          # custom methods bank
+helpers.py          # custom methods list
 MANUAL.txt          # instructions for creating and setting up new bot
 README.md           # documentation
 ```
@@ -127,7 +127,6 @@ The main bot script. It has only few functions:
  - loads config.py file
  - set few of the global settings
  - loads all the cogs from directory
- - defines __update__ command
 
 Main script should not define any other commands;
 Keep this code as clear and minimal as possible.
