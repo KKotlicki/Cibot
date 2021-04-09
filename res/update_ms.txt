@@ -1,4 +1,0 @@
-Taskkill /IM "python.exe" /F
-git pull
-cd <path>
-<python> cibot.py
