@@ -226,7 +226,7 @@ In helpers.py add your local methods.
  - **[Major Rewrite]**
 
 ```
-1. Error and exception handling
+1. Specific command error and exception handling, show required arguments on command misuse
 ```
 
  - [Rewrite]
