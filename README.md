@@ -208,17 +208,14 @@ In helpers.py add your local methods.
 
 
 **Development Rules:**
-1.  name variables clearly and by this standard: variable_name
-2.  name classes clearly and by this standard: ClassName
-3.  name files clearly and by this standard: fname_sname.foo
-4.  do not create subfolders or add any non-cog files in cogs/
-5.  in cogs/ put only cog files with correct cog structure
-6.  if you want to create directory for something entirely different, do so in the main directory
-7.  unless you have a good reason, do not change cibot.py script
-8.  make sure to test your code before uploading
-9. remember not to break asynchronicity
-10. do not duplicate function names, command aliases, or features
-11. do not duplicate function names, command aliases, or features
+1.  name variables by PEP8 standard
+2.  do not create subfolders or add any non-cog files in cogs/
+3.  if you want to create directory for new features, do so in the main directory
+4.  unless you have a good reason, do not change cibot.py script
+5.  make sure to test your code before uploading
+6. remember not to break asynchronicity
+7. do not duplicate function names, command aliases, or features
+8. do not duplicate function names, command aliases, or features
 
 
 **ToDo:**
@@ -227,6 +224,7 @@ In helpers.py add your local methods.
 
 ```
 1. Specific commands' error and exception handling, send info on required arguments on command misuse
+2. chess_cog - one board at a time
 ```
 
  - [Rewrite]
@@ -234,7 +232,7 @@ In helpers.py add your local methods.
 ```
 1. yt_cog - save queue, load queue, additional queue handling
 2. Finish documentation and setup manual
-3. chess_cog takeback offer, one board at a time
+3. chess_cog - takeback offer
 ```
 
  - **[Major Feature]**
@@ -250,9 +248,12 @@ In helpers.py add your local methods.
 ```
 1. Calendar of exams
 2. Countdown to final exams
-3. Send documents (such as subject statues, PW anthem)
-4. Points to grade converter by subject
-5. Akinator
+3. Send documents (such as subject statues, MUT anthem, magnet links)
+4. Recive and upload text, image, word and .pdf to google drive
+5. Leaderboard of drive files contributions / "Hall of fame"
+6. Points to grade converter by subject
+7. Akinator
+8. Wikipedia lookup
 ```
 
  - [Fix]
