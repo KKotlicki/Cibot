@@ -1,1 +1,1 @@
-temperature_limit = 59.0  # None to remove
+TEMPERATURE_LIMIT = 59.0  # None to remove
