@@ -3,7 +3,7 @@ import youtube_dl
 from discord.ext import commands, tasks
 from helpers import YTDLSource
 from youtubesearchpython import VideosSearch
-from config import res_dir
+from config import RES_PATH
 import json
 import asyncio
 
@@ -85,7 +85,7 @@ class Music(commands.Cog):
     async def qclear(self, ctx):
         if ctx.voice_client is not None:
             await ctx.voice_client.disconnect()
-            with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+            with open(f'{RES_PATH}/status.json', encoding='utf-8') as rd:
                 statuses = json.loads(rd.read())
             await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
         self.queue_list = []
@@ -98,7 +98,7 @@ class Music(commands.Cog):
         if ctx.voice_client is None:
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect()
-                with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+                with open(f'{RES_PATH}/status.json', encoding='utf-8') as rd:
                     statuses = json.loads(rd.read())
                 await self.bot.change_presence(status=discord.Status.online, activity=discord.Game(statuses['voice']))
             else:
@@ -153,7 +153,7 @@ class Music(commands.Cog):
             await asyncio.sleep(5)
             time += 1
         await ctx.voice_client.disconnect()
-        with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+        with open(f'{RES_PATH}/status.json', encoding='utf-8') as rd:
             statuses = json.loads(rd.read())
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 

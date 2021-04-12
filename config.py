@@ -1,18 +1,18 @@
-prefix = '!'
-pic_dir = 'pics'
-res_dir = 'res'
-logs_dir = 'logs'
-sv_dir = 'servers'
-temp_dir = 'temp'
-cogs_dir = 'cogs'
-ai_dir = 'ai'
-temp_mp3_name = 'yt_audio.mp3'
-rasp_dir = 'rbp'
-chess_options = {
+PREFIX = '!'
+PIC_PATH = 'pics'
+RES_PATH = 'res'
+LOGS_PATH = 'logs'
+SV_PATH = 'servers'
+TEMP_PATH = 'temp'
+COGS_PATH = 'cogs'
+AI_PATH = 'ai'
+BUFFERED_MP3_FILENAME = 'yt_audio.mp3'
+RPI_PATH = 'rbp'
+CHESS_OPTIONS = {
     'starting_elo': 1200,
     'K': 50
 }
-ytdl_options = {
+YTDL_OPTIONS = {
     'format': 'bestaudio/best',
     'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
     'restrictfilenames': True,
@@ -25,12 +25,12 @@ ytdl_options = {
     'default_search': 'auto',
     'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
-ai_receptors = [
+AI_RECEPTORS = [
     "Docenc",
     "Docent",
     "docenc",
     "docent",
 ]
-ffmpeg_options = {
+FFMPEG_OPTIONS = {
     'options': '-vn'
 }

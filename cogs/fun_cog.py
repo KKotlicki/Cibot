@@ -5,7 +5,7 @@ from helpers import get_random_number_unless_specified, send_pic_or_txt_on_choic
 
 
 class Fun(commands.Cog):
-    co_alias = read_lines(f'{res_dir}/co_aliases')
+    co_alias = read_lines(f'{RES_PATH}/co_aliases')
 
     def __init__(self, bot):
         self.bot = bot
@@ -17,7 +17,7 @@ class Fun(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if random.randint(1, 16) == 1 and not message.author.bot and not message.content.startswith(prefix):
+        if random.randint(1, 16) == 1 and not message.author.bot and not message.content.startswith(PREFIX):
             emoji_dict = {
                 1: "👍",
                 2: "❤",

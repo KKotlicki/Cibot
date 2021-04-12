@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 import os
-from config import logs_dir
+from config import LOGS_PATH
 from loguru import logger
 from .rasp_config import *
 
@@ -18,7 +18,7 @@ class RaspberryCog(commands.Cog):
             temp = os.popen("vcgencmd measure_temp").readline()
             if float(temp.replace("temp=", "").replace("'C", "")) > temperature_limit:
                 logger.exception("Server overheated.")
-                logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+                logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
                 await self.bot.close()
 
     @commands.command(pass_context=True)

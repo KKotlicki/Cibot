@@ -3,7 +3,7 @@ from datetime import datetime
 from discord.ext import commands, tasks
 from helpers import fetch_sv_data
 from loguru import logger
-from config import logs_dir, res_dir
+from config import LOGS_PATH, RES_PATH
 import os
 from urllib.request import urlopen
 from urllib.error import URLError
@@ -23,11 +23,11 @@ class UtilityCog(commands.Cog):
         if os.path.exists("update.bat"):
             os.remove("update.bat")
         logger.info(f"Logged in as {self.bot.user}")
-        if not os.path.exists(f'{logs_dir}/errors.log'):
-            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+        if not os.path.exists(f'{LOGS_PATH}/errors.log'):
+            logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
         self.connection_timeout.start()
         self.automatic_update.start()
-        with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+        with open(f'{RES_PATH}/status.json', encoding='utf-8') as rd:
             statuses = json.loads(rd.read())
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 
@@ -39,23 +39,23 @@ class UtilityCog(commands.Cog):
     async def on_command_error(self, ctx, err):
         if isinstance(err, commands.CommandNotFound):
             logger.exception("Invalid command used.")
-            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
             await ctx.send("Nie znam tej komendy.")
         elif isinstance(err, commands.MissingPermissions):
             logger.exception("Permission error.")
-            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
             await ctx.send("Komenda tylko dla adminów.")
         elif isinstance(err, commands.BotMissingPermissions):
             logger.exception("Bot permission error.")
-            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
             await ctx.send("Nie mam odpowiednich uprawnień.")
         elif isinstance(err, commands.MissingRequiredArgument):
             logger.exception("Missing required argument.")
-            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
             await ctx.send("Komenda wymaga argumentu.")
         else:
             logger.error(err)
-            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
 
     @tasks.loop(minutes=2.0)
     async def connection_timeout(self):
@@ -63,7 +63,7 @@ class UtilityCog(commands.Cog):
             urlopen('http://216.58.192.142', timeout=20)
         except URLError:
             logger.exception("Disconnected")
-            logger.add(f'{logs_dir}/errors.log', rotation="10 MB")
+            logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
             os.system(f'cd utility\n{os.getenv("OS_PYTHON_PREFIX")} server_down.py\n')
             print('shutting down')
             await self.bot.close()
@@ -86,7 +86,7 @@ class UtilityCog(commands.Cog):
         await self.update_fun()
 
     async def update_fun(self):
-        with open(f'{res_dir}/status.json', encoding='utf-8') as rd:
+        with open(f'{RES_PATH}/status.json', encoding='utf-8') as rd:
             statuses = json.loads(rd.read())
         await self.bot.change_presence(status=discord.Status.dnd, activity=discord.Game(statuses['update']))
 

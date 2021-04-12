@@ -20,12 +20,12 @@ async def open_help(ctx, file_name):
         is_admin = " dla Moderatorów"
     embed_var = discord.Embed(title=f":ledger: **Lista Komend{is_admin}**:", color=0xff770f)
     embed_var.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/commons/c/c8/WEL_WAT.jpg")
-    with open(f'{res_dir}/{file_name}.json', encoding='utf-8') as rd:
+    with open(f'{RES_PATH}/{file_name}.json', encoding='utf-8') as rd:
         help_json = json.loads(rd.read())
     for name, value in help_json.items():
         command_list = ""
         for name1, value1 in value.items():
-            command_list += f'`{prefix}{value1}` - {name1}\n'
+            command_list += f'`{PREFIX}{value1}` - {name1}\n'
         embed_var.add_field(name=f"\u200b\n{name}", value=command_list, inline=False)
     embed_var.set_footer(text="Komendy mają też nazwy zastępcze. "
                               "Jeśli chcesz dodać nazwę zastępczą lub stworzyć nową komendę, "
@@ -40,7 +40,7 @@ async def fetch_sv_data(ctx):
         text_names.append(f'{str(channel)} => {channel.id}')
     for channel in ctx.message.guild.voice_channels:
         voice_names.append(f'{str(channel)} => {channel.id}')
-    with open(f"{sv_dir}/{ctx.message.guild}.json", "w+") as fn:
+    with open(f"{SV_PATH}/{ctx.message.guild}.json", "w+") as fn:
         fn.write(json.dumps({"text": text_names, "voice": voice_names}))
     await ctx.send("Zapisałem pomyślnie")
 
@@ -48,7 +48,7 @@ async def fetch_sv_data(ctx):
 # Local functions:
 
 async def build_link_list(ctx, embed_var, fname, message):
-    with open(f'{res_dir}/{fname}.json', encoding='utf-8') as rd:
+    with open(f'{RES_PATH}/{fname}.json', encoding='utf-8') as rd:
         link_dict = json.loads(rd.read())
     for name, value in {**link_dict[message], **link_dict["all"]}.items():
         embed_var.add_field(name=f'**{name}**', value=value, inline=False)
@@ -56,21 +56,21 @@ async def build_link_list(ctx, embed_var, fname, message):
 
 
 async def set_sv_config(ctx, value, key):
-    if os.path.exists(f'{sv_dir}/{ctx.message.guild.name}_config.json'):
-        with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', 'r', encoding='utf-8') as r:
+    if os.path.exists(f'{SV_PATH}/{ctx.message.guild.name}_config.json'):
+        with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'r', encoding='utf-8') as r:
             config_content = json.loads(r.read())
         config_content[key] = value
-        with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', 'w') as wr:
+        with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'w') as wr:
             wr.write(json.dumps(config_content))
     else:
         temp_json = json.dumps({key: value})
-        with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', 'w+') as cr:
+        with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'w+') as cr:
             cr.write(temp_json)
     await ctx.send(f"{key} channel set to {value}")
 
 
 def get_valid_text_channel_id(ctx, type_of_data):
-    with open(f'{sv_dir}/{ctx.message.guild.name}_config.json', encoding='utf-8') as rd:
+    with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', encoding='utf-8') as rd:
         message_channel = json.loads(rd.read())[type_of_data]
     return get_text_channel_id_from_name(ctx.message.guild.name, message_channel)
 
@@ -79,7 +79,7 @@ def get_text_channel_id_from_name(server_name, message_channel):
     sv_text_channel_dict = {}
     keys = []
     values = []
-    with open(f"{sv_dir}/{server_name}.json", encoding='utf-8') as rd:
+    with open(f"{SV_PATH}/{server_name}.json", encoding='utf-8') as rd:
         sv_data = json.loads(rd.read())["text"]
     for elem in sv_data:
         keys.append(elem.split(" => ")[0])
@@ -99,11 +99,11 @@ def get_random_number_unless_specified(question):
 
 async def send_pic_or_txt_on_choice(ctx, choice):
     if choice == '1':
-        await ctx.send(file=discord.File(random.choice(glob.glob(f"{pic_dir}/*.jpg"))))
+        await ctx.send(file=discord.File(random.choice(glob.glob(f"{PIC_PATH}/*.jpg"))))
     elif choice == '2':
-        await ctx.send(file=discord.File(random.choice(glob.glob(f"{pic_dir}/*.png"))))
+        await ctx.send(file=discord.File(random.choice(glob.glob(f"{PIC_PATH}/*.png"))))
     else:
-        responses = read_lines(f'{res_dir}/responses')
+        responses = read_lines(f'{RES_PATH}/responses')
         await ctx.send(f'{random.choice(responses)}')
 
 
@@ -145,11 +145,11 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
         loop = loop or asyncio.get_event_loop()
         data = await loop.run_in_executor(
-            None, lambda: youtube_dl.YoutubeDL(ytdl_options).extract_info(url, download=not stream))
+            None, lambda: youtube_dl.YoutubeDL(YTDL_OPTIONS).extract_info(url, download=not stream))
 
         if 'entries' in data:
             # take first item from a playlist
             data = data['entries'][0]
 
-        filename = data['url'] if stream else youtube_dl.YoutubeDL(ytdl_options).prepare_filename(data)
-        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
+        filename = data['url'] if stream else youtube_dl.YoutubeDL(YTDL_OPTIONS).prepare_filename(data)
+        return cls(discord.FFmpegPCMAudio(filename, **FFMPEG_OPTIONS), data=data)

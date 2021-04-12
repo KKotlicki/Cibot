@@ -7,7 +7,7 @@ import discord
 import datetime
 from discord.ext import commands, tasks
 import random
-from config import sv_dir, chess_options, prefix
+from config import SV_PATH, CHESS_OPTIONS, PREFIX
 import json
 import os.path
 from helpers import sort_dict_by_value, set_sv_config, get_valid_text_channel_id
@@ -31,24 +31,24 @@ class ChessCog(commands.Cog):
             "standard": 60,
             "long": 120,
         }
-        if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
-            open(f"{sv_dir}/chess_queue.txt", "a").close()
+        if not os.path.isfile(f"{SV_PATH}/chess_queue.txt"):
+            open(f"{SV_PATH}/chess_queue.txt", "a").close()
 
     @commands.command(aliases=['challenge', 'Chess', 'kill', 'ch'])
     async def chess(self, ctx, user: discord.User, time_mode="standard"):
         await ctx.channel.purge(limit=1)
-        if not os.path.exists(f'{sv_dir}/{ctx.message.guild.name}_config.json'):
+        if not os.path.exists(f'{SV_PATH}/{ctx.message.guild.name}_config.json'):
             await set_sv_config(ctx, ctx.message.channel.name, 'game')
-        if not os.path.exists(f"{sv_dir}/{ctx.message.guild}_chess.json"):
-            with open(f"{sv_dir}/{ctx.message.guild}_chess.json", "w+") as fn:
+        if not os.path.exists(f"{SV_PATH}/{ctx.message.guild}_chess.json"):
+            with open(f"{SV_PATH}/{ctx.message.guild}_chess.json", "w+") as fn:
                 fn.write("{}")
-        if not os.path.exists(f"{sv_dir}/chess_queue.txt"):
-            with open(f"{sv_dir}/chess_queue.txt", "w+") as fn:
+        if not os.path.exists(f"{SV_PATH}/chess_queue.txt"):
+            with open(f"{SV_PATH}/chess_queue.txt", "w+") as fn:
                 fn.write("")
         """Start a chess game with someone!"""
         if time_mode not in self.time_modes:
             embed = discord.Embed(title=f"Nie ma takiego trybu gry!",
-                                  description=f"Poprawne użycie komendy to: {prefix}chess <@użytkownik> [tryb]\n"
+                                  description=f"Poprawne użycie komendy to: {PREFIX}chess <@użytkownik> [tryb]\n"
                                               f"Dostępne tryby to:\n",
                                   color=discord.Color.red())
             for key, value in self.time_modes.items():
@@ -79,7 +79,7 @@ class ChessCog(commands.Cog):
                 embed = discord.Embed(title=f"Dodano do kolejki!",
                                       description=f":crossed_swords: Gracz {ctx.author.mention} "
                                                   f"wyzwał gracza {user.mention} na grę w szachy.\n\n"
-                                                  f"Wpisz *{prefix}chq* aby wyświetlić koljekę.",
+                                                  f"Wpisz *{PREFIX}chq* aby wyświetlić koljekę.",
                                       color=discord.Color.blue())
                 await ctx.send(embed=embed)
 
@@ -108,7 +108,7 @@ class ChessCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def chqc(self, ctx):
         await ctx.channel.purge(limit=1)
-        with open(f'{sv_dir}/chess_queue.txt', 'w+') as fn:
+        with open(f'{SV_PATH}/chess_queue.txt', 'w+') as fn:
             fn.write('')
             await ctx.send('Kolejka usunięta')
 
@@ -154,7 +154,7 @@ class ChessCog(commands.Cog):
     async def top(self, ctx):
         await ctx.channel.purge(limit=1)
         ranking = {}
-        with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+        with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
             chess_history = json.loads(rd.read())
         for key in chess_history:
             ranking[key[:-5]] = get_elo(ctx, key, self.bot)
@@ -485,19 +485,19 @@ async def board_move(player, board, ctx, self, is_draw_offered):
 def get_elo(ctx, user, bot):
     if str(user) == str(bot.user):
         return 9000
-    with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+    with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
         chess_history = json.loads(rd.read())
     if str(user) in chess_history.keys():
         player_chess_history = chess_history[str(user)]
-        elo_rating = player_chess_history[0] + chess_options['K'] * (player_chess_history[2] - 1 / (
+        elo_rating = player_chess_history[0] + CHESS_OPTIONS['K'] * (player_chess_history[2] - 1 / (
                 1 + 10 ** ((player_chess_history[1] - player_chess_history[0]) / 400)))
         return round(elo_rating)
     else:
-        return chess_options['starting_elo']
+        return CHESS_OPTIONS['starting_elo']
 
 
 def update_match_history(ctx, winner, looser, is_victory, bot):
-    with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+    with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
         match_history = json.loads(rd.read())
     if winner not in match_history.keys():
         match_history[str(winner)] = []
@@ -513,14 +513,14 @@ def update_match_history(ctx, winner, looser, is_victory, bot):
         loss = 0.5
     match_history[str(winner)] = [elo_winner, elo_looser, win]
     match_history[str(looser)] = [elo_looser, elo_winner, loss]
-    with open(f'{sv_dir}/{ctx.message.guild.name}_chess.json', "w+", encoding='utf-8') as fn:
+    with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', "w+", encoding='utf-8') as fn:
         fn.write(json.dumps(match_history))
 
 
 def get_chess_queue():
     chess_queue_lines = []
     chess_queue = []
-    with open(f'{sv_dir}/chess_queue.txt', encoding='utf-8') as rd:
+    with open(f'{SV_PATH}/chess_queue.txt', encoding='utf-8') as rd:
         for line in rd:
             chess_queue_lines.append(line[:-1])
     for elem in chess_queue_lines:
@@ -534,14 +534,14 @@ def get_chess_queue():
 
 
 def add_to_chess_queue(challenger, challenged, time_mode):
-    with open(f'{sv_dir}/chess_queue.txt', 'a', encoding='utf-8') as fn:
+    with open(f'{SV_PATH}/chess_queue.txt', 'a', encoding='utf-8') as fn:
         fn.write(f'{challenger}/id/{challenger.id}/vs/{challenged}/id/{challenged.id}/time/{time_mode}\n')
 
 
 def remove_from_chess_queue():
-    with open(f'{sv_dir}/chess_queue.txt', 'r') as fin:
+    with open(f'{SV_PATH}/chess_queue.txt', 'r') as fin:
         data = fin.read().splitlines(True)
-    with open(f'{sv_dir}/chess_queue.txt', 'w') as fout:
+    with open(f'{SV_PATH}/chess_queue.txt', 'w') as fout:
         fout.writelines(data[1:])
 
 
