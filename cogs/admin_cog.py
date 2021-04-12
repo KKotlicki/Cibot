@@ -13,9 +13,9 @@ class AdminCog(commands.Cog):
         await ctx.channel.purge(limit=1)
         await open_help(ctx, "adm_help")
 
-    @commands.command(aliases=['exit'])
+    @commands.command(pass_context=True, aliases=['exit'])
     @commands.has_permissions(administrator=True)
-    async def shutdown(self):
+    async def shutdown(self, ctx):
         await self.bot.close()
 
     @commands.command(pass_context=True, aliases=["c"])
@@ -34,6 +34,7 @@ class AdminCog(commands.Cog):
     async def set_answ(self, ctx, *, message=''):
         if message == '':
             message = ctx.channel.name
+        print(type(message))
         await ctx.channel.purge(limit=1)
         await set_sv_config(ctx, message, 'answ')
 
