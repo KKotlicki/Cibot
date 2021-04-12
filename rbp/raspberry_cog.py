@@ -3,7 +3,7 @@ from discord.ext import commands, tasks
 import os
 from config import LOGS_PATH
 from loguru import logger
-from rasp_config import *
+from .rasp_config import *
 
 
 class RaspberryCog(commands.Cog):
