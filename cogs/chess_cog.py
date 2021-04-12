@@ -25,13 +25,6 @@ class ChessCog(commands.Cog):
         self.time_black = 60 * 60
         self.current_turn = "white"
         """chess time modes. Values in minutes."""
-        self.time_modes = {
-            "bullet": 3,
-            "blitz": 7,
-            "quick": 30,
-            "standard": 60,
-            "long": 120,
-        }
         if not os.path.isfile(f"{SV_PATH}/chess_queue.txt"):
             open(f"{SV_PATH}/chess_queue.txt", "a").close()
 
@@ -47,12 +40,12 @@ class ChessCog(commands.Cog):
             with open(f"{SV_PATH}/chess_queue.txt", "w+") as fn:
                 fn.write("")
         """Start a chess game with someone!"""
-        if time_mode not in self.time_modes:
+        if time_mode not in CHESS_OPTIONS['time_modes']:
             embed = discord.Embed(title=f"Nie ma takiego trybu gry!",
                                   description=f"Poprawne użycie komendy to: {PREFIX}chess <@użytkownik> [tryb]\n"
                                               f"Dostępne tryby to:\n",
                                   color=discord.Color.red())
-            for key, value in self.time_modes.items():
+            for key, value in CHESS_OPTIONS['time_modes'].items():
                 if value == 1:
                     lang_genitive_numeral = "minuta"
                 elif type(value) == float or value < 5:
@@ -84,7 +77,7 @@ class ChessCog(commands.Cog):
                                       color=discord.Color.blue())
                 await ctx.send(embed=embed)
 
-    @commands.command(aliases=['cht', 'chess_time', 'chesstime', 'game_time'])
+    @commands.command(aliases=['chtime', 'ctime', 'ct', 'cht', 'chess_time', 'chesstime', 'game_time'])
     async def chesst(self, ctx):
         await ctx.channel.purge(limit=1)
         if self.switch_timer.is_running():
@@ -190,8 +183,8 @@ class ChessCog(commands.Cog):
 
 
 async def chess_loop(challenger, challenged, ctx, self, time_mode):
-    self.time_white = self.time_modes[time_mode] * 60
-    self.time_black = self.time_modes[time_mode] * 60
+    self.time_white = CHESS_OPTIONS['time_modes'][time_mode] * 60
+    self.time_black = CHESS_OPTIONS['time_modes'][time_mode] * 60
     if bool(random.getrandbits(1)):
         user_white = challenger
         user_black = challenged

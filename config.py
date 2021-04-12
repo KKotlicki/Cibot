@@ -10,7 +10,14 @@ BUFFERED_MP3_FILENAME = 'yt_audio.mp3'
 RPI_PATH = 'rbp'
 CHESS_OPTIONS = {
     'starting_elo': 1200,
-    'K': 50
+    'K': 50,
+    'time_modes': {
+            "bullet": 3,
+            "blitz": 7,
+            "quick": 30,
+            "standard": 60,
+            "long": 120,
+        }
 }
 YTDL_OPTIONS = {
     'format': 'bestaudio/best',
