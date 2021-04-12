@@ -10,7 +10,7 @@ BUFFERED_MP3_FILENAME = 'yt_audio.mp3'
 RPI_PATH = 'rbp'
 CHESS_OPTIONS = {
     'starting_elo': 1200,
-    'K': 50,
+    'elo_change_constant': 50,
     'time_modes': {
             "bullet": 3,
             "blitz": 7,

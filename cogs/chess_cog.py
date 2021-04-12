@@ -484,7 +484,7 @@ def get_elo(ctx, user, bot):
         chess_history = json.loads(rd.read())
     if str(user) in chess_history.keys():
         player_chess_history = chess_history[str(user)]
-        elo_rating = player_chess_history[0] + CHESS_OPTIONS['K'] * (player_chess_history[2] - 1 / (
+        elo_rating = player_chess_history[0] + CHESS_OPTIONS['elo_change_constant'] * (player_chess_history[2] - 1 / (
                 1 + 10 ** ((player_chess_history[1] - player_chess_history[0]) / 400)))
         return round(elo_rating)
     else:
