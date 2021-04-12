@@ -54,6 +54,7 @@ python -m pip install loguru
 python -m pip install -U discord.py[voice]
 python -m pip install youtube-search-python
 python -m pip install chess
+python -m pip install termcolor
 python -m pip install pycairo
 python -m pip install CairoSVG
 
