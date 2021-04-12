@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from loguru import logger
 from helpers import fetch_sv_data, open_help, set_sv_config, get_valid_text_channel_id
 
 
@@ -16,27 +17,30 @@ class AdminCog(commands.Cog):
     @commands.command(pass_context=True, aliases=['exit'])
     @commands.has_permissions(administrator=True)
     async def shutdown(self, ctx):
+        logger.info(f"@{ctx.author.name} closed the process.")
         await self.bot.close()
 
     @commands.command(pass_context=True, aliases=["c"])
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, amount=5):
         await ctx.channel.purge(limit=amount + 1)
+        logger.info(f"@{ctx.author.name} cleared {amount} messages")
 
     @commands.command(pass_context=True, aliases=["save"])
     @commands.has_permissions(administrator=True)
     async def sv(self, ctx):
         await ctx.channel.purge(limit=1)
         await fetch_sv_data(ctx)
+        logger.info(f"@{ctx.author.name} in {ctx.guild.name} saved server data")
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def set_answ(self, ctx, *, message=''):
         if message == '':
             message = ctx.channel.name
-        print(type(message))
         await ctx.channel.purge(limit=1)
         await set_sv_config(ctx, message, 'answ')
+        logger.info(f"@{ctx.author.name} in {ctx.guild.name} set answer channel to #{message}")
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
@@ -45,6 +49,7 @@ class AdminCog(commands.Cog):
             message = ctx.channel.name
         await ctx.channel.purge(limit=1)
         await set_sv_config(ctx, message, 'game')
+        logger.info(f"@{ctx.author.name} in {ctx.guild.name} set game channel to #{message}")
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
@@ -53,6 +58,7 @@ class AdminCog(commands.Cog):
             message = ctx.channel.name
         await ctx.channel.purge(limit=1)
         await set_sv_config(ctx, message, 'role')
+        logger.info(f"@{ctx.author.name} in {ctx.guild.name} set role channel to #{message}")
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
@@ -62,6 +68,7 @@ class AdminCog(commands.Cog):
         channel = self.bot.get_channel(channel_id)
         embed_var = discord.Embed(title=f"{message}", color=0x00ff00)
         await channel.send(embed=embed_var)
+        logger.info(f"@{ctx.author.name} in {ctx.guild.name} used bot to speak")
 
 
 def setup(bot):

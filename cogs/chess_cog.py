@@ -7,6 +7,7 @@ import discord
 import datetime
 from discord.ext import commands, tasks
 import random
+from loguru import logger
 from config import SV_PATH, CHESS_OPTIONS, PREFIX
 import json
 import os.path
@@ -111,6 +112,7 @@ class ChessCog(commands.Cog):
         with open(f'{SV_PATH}/chess_queue.txt', 'w+') as fn:
             fn.write('')
             await ctx.send('Kolejka usunięta')
+        logger.info(f"@{ctx.author.name} in {ctx.guild.name} removed chess queue.")
 
     @commands.command()
     async def elo(self, ctx, *, user: discord.User = None):
