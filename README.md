@@ -38,20 +38,24 @@ sudo apt-get install python3-pip
 
 ```
 
-Then, install [ffmpeg](https://www.ffmpeg.org/) video converter.
+To use youtube commands, install [ffmpeg](https://www.ffmpeg.org/) video converter.
+To use chess commands, install [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) runtime.
+Otherwise, remove `yt_cog.py` or `chess_cog.py` from `cogs/` directory.
 
-To install all the libraries and modules, run the following script in terminal:
+To install all the libraries and modules, run the following script in terminal ():
+
+WARNING! - make sure `python` is the alias for python version 3, not 2. To check the version of the python used, type in `python -V`. If you have both version 2 and 3 installed on your system, replace all `python` in code below with appropriate command. 
 
 ```
-python3 -m pip install discord.py
-python3 -m pip install python.dotenv
-python3 -m pip install youtube-dl
-python3 -m pip install loguru
-python3 -m pip install -U discord.py[voice]
-python3 -m pip install youtube-search-python
-python3 -m pip install chesspip
-python3 -m pip install pycairo
-python3 -m pip install CairoSVG
+python -m pip install discord.py
+python -m pip install python.dotenv
+python -m pip install youtube-dl
+python -m pip install loguru
+python -m pip install -U discord.py[voice]
+python -m pip install youtube-search-python
+python -m pip install chess
+python -m pip install pycairo
+python -m pip install CairoSVG
 
 ```
 
