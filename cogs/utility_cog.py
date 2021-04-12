@@ -5,6 +5,7 @@ from helpers import fetch_sv_data
 from loguru import logger
 from config import LOGS_PATH, RES_PATH
 import os
+import wikipedia
 from urllib.request import urlopen
 from urllib.error import URLError
 from dotenv import load_dotenv
@@ -53,9 +54,10 @@ class UtilityCog(commands.Cog):
             logger.exception("Missing required argument.")
             logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
             await ctx.send("Komenda wymaga argumentu.")
-        else:
+        elif not isinstance(err, wikipedia.DisambiguationError):
             logger.error(err)
             logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
+
 
     @tasks.loop(minutes=2.0)
     async def connection_timeout(self):

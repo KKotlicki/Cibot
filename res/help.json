@@ -2,7 +2,9 @@
     ":scroll: Linki": {
         "Oficjalne linki": "oflinki <semestr>",
         "Nieoficjalne linki": "linki [semestr]",
-        "Znajdź link do przedmiotu na yt": "link <semestr> <przedmiot>"
+        "Znajdź link do przedmiotu na yt": "link <semestr> <przedmiot>",
+        "Wyszukaj w wikipedii po polsku": "wiki",
+        "Wyszukaj w wikipedii po angielsku": "enwiki"
         },
     ":musical_note: Muzyka": {
         "Dodaj utwór do kolejki": "p <tytuł/link>",

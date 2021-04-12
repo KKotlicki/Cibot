@@ -1,5 +1,6 @@
 import discord
 import json
+import wikipedia
 from discord.ext import commands
 from helpers import build_link_list
 from config import RES_PATH
@@ -36,6 +37,30 @@ class LinkCog(commands.Cog):
             link = json.loads(rd.read())[sem][subject]
         embed_var = discord.Embed(title=subject, description=link, color=0xff770f)
         await ctx.send(embed=embed_var)
+
+    @commands.command(aliases=['w', 'search', 'wiki_search', 'wiki-search', 'wikipedia'])
+    async def wiki(self, ctx, *, message="Military University of Technology"):
+        await wiki_search(ctx, message, "pl")
+
+    @commands.command(aliases=['enw', 'en_search', 'en_wiki_search', 'en_wiki-search', 'en_wikipedia'])
+    async def enwiki(self, ctx, *, message="Military University of Technology"):
+        await wiki_search(ctx, message, "en")
+
+
+async def wiki_search(ctx, message, lang):
+    wikipedia.set_lang(lang)
+    try:
+        definition = wikipedia.summary(message, sentences=3, chars=1000)
+    except wikipedia.DisambiguationError as err:
+        definition = err
+    except wikipedia.PageError:
+        definition = f"Nie znaleziono wyników dla zapytania: {message}"
+    except wikipedia.BeautifulSoup.NO_PARSER_SPECIFIED_WARNING:
+        pass
+    embed = discord.Embed(title="***Wyniki wyszukiwania:***", description=definition)
+    embed.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/en/"
+                            "thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png")
+    await ctx.send(embed=embed)
 
 
 def setup(bot):

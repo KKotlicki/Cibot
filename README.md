@@ -55,6 +55,7 @@ python -m pip install -U discord.py[voice]
 python -m pip install youtube-search-python
 python -m pip install chess
 python -m pip install termcolor
+python -m pip install wikipedia
 python -m pip install pycairo
 python -m pip install CairoSVG
 
@@ -258,7 +259,6 @@ In helpers.py add your local methods.
 5. Leaderboard of drive files contributions / "Hall of fame"
 6. Points to grade converter by subject
 7. Akinator
-8. Wikipedia lookup
 ```
 
  - [Fix]
