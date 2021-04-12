@@ -67,8 +67,8 @@ class MainCog(commands.Cog):
                         pass
 
     @commands.Cog.listener()
-    async def on_reaction_add(self, reaction, user):
-        if not user.bot:
+    async def on_reaction_add(self, reaction, member):
+        if not member.bot:
             channels_list = []
             for file in os.listdir(f"{SV_PATH}/"):
                 if file.endswith("_config.json"):
@@ -88,14 +88,19 @@ class MainCog(commands.Cog):
                             pass
             with open(f'{RES_PATH}/roles.json', encoding='utf-8') as rd:
                 roles_json = json.loads(rd.read())
+            role = ''
             for key, value in roles_json.items():
                 if reaction.message.channel.id in channels_list and reaction.emoji == value:
                     try:
                         role = discord.utils.get(reaction.message.guild.roles, name=key)
-                        await user.add_roles(role)
+                        if role in member.roles:
+                            await member.remove_roles(role)
+                        else:
+                            await member.add_roles(role)
                     except AttributeError:
                         print("Server doesn't have this role configured.")
-                    return
+                    break
+
 
 
 def setup(bot):
