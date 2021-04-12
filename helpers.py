@@ -1,6 +1,7 @@
 import random
 import discord
 from config import *
+from termcolor import colored
 import glob
 import json
 import youtube_dl
@@ -107,9 +108,13 @@ async def send_pic_or_txt_on_choice(ctx, choice):
 
 
 def env_config():
-    token = input("Bot Token:\n\n")
-    raspberry_pi_check = input("\n\nIs host raspberry pi:\n\n(Y/N): ")
-    python_prefix_check = input("\n\nOS python 3 call command (usually is python3):\n\n")
+    token = input(colored("Bot Token: ", "cyan"))
+    python_prefix_check = input(colored("OS python 3 cmd command (usually is \"python\"): ", "cyan"))
+    raspberry_pi_check = input(colored("Is host raspberry pi (Y/N): ", "cyan")).capitalize()
+    while raspberry_pi_check not in ["Y", "N"]:
+        raspberry_pi_check = input(
+            colored("No such option. Choose ", "cyan") + colored("\"Y\"", "red", attrs=["bold"]) + " or " + colored(
+                "\"N\"", "red", attrs=["bold"]) + ":").capitalize()
     with open(f'.env', 'w') as wr:
         wr.write(f"TOKEN=\'{token}\'\nRASPBERRY_PI=\'{raspberry_pi_check}\'\n"
                  f"OS_PYTHON_PREFIX=\'{python_prefix_check}\'")
