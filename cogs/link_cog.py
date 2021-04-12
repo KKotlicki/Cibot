@@ -50,7 +50,7 @@ class LinkCog(commands.Cog):
 async def wiki_search(ctx, message, lang):
     wikipedia.set_lang(lang)
     try:
-        definition = wikipedia.summary(message, sentences=3, chars=1000)
+        definition = wikipedia.summary(message, sentences=WIKI_OPTIONS, chars=WIKI_OPTIONS)
     except wikipedia.DisambiguationError as err:
         definition = err
     except wikipedia.PageError:

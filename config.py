@@ -41,3 +41,7 @@ AI_RECEPTORS = [
 FFMPEG_OPTIONS = {
     'options': '-vn'
 }
+WIKI_OPTIONS = {
+    'sentences': '5',
+    'chars': '1500'
+}
