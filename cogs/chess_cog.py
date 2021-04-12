@@ -38,11 +38,11 @@ class ChessCog(commands.Cog):
     async def chess(self, ctx, user: discord.User, time_mode="standard"):
         await ctx.channel.purge(limit=1)
         if not os.path.exists(f'{sv_dir}/{ctx.message.guild.name}_config.json'):
-            await set_sv_config(ctx, ctx.message.channel, 'game')
-        if not os.path.isfile(f"{sv_dir}/{ctx.message.guild}_chess.json"):
+            await set_sv_config(ctx, ctx.message.channel.name, 'game')
+        if not os.path.exists(f"{sv_dir}/{ctx.message.guild}_chess.json"):
             with open(f"{sv_dir}/{ctx.message.guild}_chess.json", "w+") as fn:
                 fn.write("{}")
-        if not os.path.isfile(f"{sv_dir}/chess_queue.txt"):
+        if not os.path.exists(f"{sv_dir}/chess_queue.txt"):
             with open(f"{sv_dir}/chess_queue.txt", "w+") as fn:
                 fn.write("")
         """Start a chess game with someone!"""
@@ -53,12 +53,12 @@ class ChessCog(commands.Cog):
                                   color=discord.Color.red())
             for key, value in self.time_modes.items():
                 if value == 1:
-                    lang_genitive_numerals = "minuta"
+                    lang_genitive_numeral = "minuta"
                 elif type(value) == float or value < 5:
-                    lang_genitive_numerals = "minuty"
+                    lang_genitive_numeral = "minuty"
                 else:
-                    lang_genitive_numerals = "minut"
-                embed.description += f"\n**{key}**: {value} {lang_genitive_numerals}"
+                    lang_genitive_numeral = "minut"
+                embed.description += f"\n**{key}**: {value} {lang_genitive_numeral}"
             await ctx.send(embed=embed)
         elif not get_chess_queue():
             add_to_chess_queue(ctx.author, user, time_mode)
