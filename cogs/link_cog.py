@@ -3,7 +3,7 @@ import json
 import wikipedia
 from discord.ext import commands
 from helpers import build_link_list
-from config import RES_PATH
+from config import RES_PATH, WIKI_OPTIONS
 
 
 class LinkCog(commands.Cog):
