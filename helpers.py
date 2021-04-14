@@ -45,9 +45,9 @@ async def fetch_sv_data(ctx):
     await ctx.send("Zapisałem pomyślnie")
 
 
-def remove_data(guild):
+def remove_data(ctx):
     for file in os.listdir(SV_PATH):
-        if file.startswith(guild.name):
+        if file.startswith(ctx.guild):
             os.remove(file)
 
 # Local functions:
