@@ -30,52 +30,57 @@ class ChessCog(commands.Cog):
 
     @commands.command(aliases=['challenge', 'Chess', 'kill', 'ch'])
     async def chess(self, ctx, user: discord.User, time_mode="standard"):
-        await ctx.channel.purge(limit=1)
-        if not os.path.exists(f'{SV_PATH}/{ctx.message.guild.name}_config.json'):
-            await set_sv_config(ctx, ctx.message.channel.name, 'game')
-        if not os.path.exists(f"{SV_PATH}/{ctx.message.guild}_chess.json"):
-            with open(f"{SV_PATH}/{ctx.message.guild}_chess.json", "w+") as fn:
-                fn.write("{}")
-        if not os.path.exists(f"{SV_PATH}/chess_queue.txt"):
-            with open(f"{SV_PATH}/chess_queue.txt", "w+") as fn:
-                fn.write("")
-        """Start a chess game with someone!"""
-        if time_mode not in CHESS_OPTIONS['time_modes']:
-            embed = discord.Embed(title=f"Nie ma takiego trybu gry!",
-                                  description=f"Poprawne użycie komendy to: {PREFIX}chess <@użytkownik> [tryb]\n"
-                                              f"Dostępne tryby to:\n",
-                                  color=discord.Color.red())
-            for key, value in CHESS_OPTIONS['time_modes'].items():
-                if value == 1:
-                    lang_genitive_numeral = "minuta"
-                elif type(value) == float or value < 5:
-                    lang_genitive_numeral = "minuty"
-                else:
-                    lang_genitive_numeral = "minut"
-                embed.description += f"\n**{key}**: {value} {lang_genitive_numeral}"
-            await ctx.send(embed=embed)
-        elif not get_chess_queue():
-            add_to_chess_queue(ctx.author, user, time_mode)
-            await chess_loop(ctx.author, user, ctx, self, time_mode)  # Load the loop
+        if user == self.bot.user:
+            await ctx.send('Nie umiem grać w szachy')
+        elif user.bot:
+            await ctx.send('Boty nie potrafią grać w szachy')
         else:
-            is_in_queue = False
-            for elem in get_chess_queue():
-                if elem[0].split("/id/")[0] == str(ctx.author):
-                    is_in_queue = True
-                    embed = discord.Embed(title=f"Już wyzwałeś gracza!",
-                                          description=f"Zakończ swoją grę z **{elem[1].split('/id/')[0][:-5]}**, "
-                                                      f"aby móc wywzać do gry znowu.",
-                                          color=discord.Color.red())
-                    await ctx.send(embed=embed)
-                    break
-            if not is_in_queue:
-                add_to_chess_queue(ctx.author, user, time_mode)
-                embed = discord.Embed(title=f"Dodano do kolejki!",
-                                      description=f"⚔ Gracz {ctx.author.mention} "
-                                                  f"wyzwał gracza {user.mention} na grę w szachy.\n\n"
-                                                  f"Wpisz *{PREFIX}chq* aby wyświetlić koljekę.",
-                                      color=discord.Color.blue())
+            await ctx.channel.purge(limit=1)
+            if not os.path.exists(f'{SV_PATH}/{ctx.message.guild.name}_config.json'):
+                await set_sv_config(ctx, ctx.message.channel.name, 'game')
+            if not os.path.exists(f"{SV_PATH}/{ctx.message.guild}_chess.json"):
+                with open(f"{SV_PATH}/{ctx.message.guild}_chess.json", "w+") as fn:
+                    fn.write("{}")
+            if not os.path.exists(f"{SV_PATH}/chess_queue.txt"):
+                with open(f"{SV_PATH}/chess_queue.txt", "w+") as fn:
+                    fn.write("")
+            """Start a chess game with someone!"""
+            if time_mode not in CHESS_OPTIONS['time_modes']:
+                embed = discord.Embed(title=f"Nie ma takiego trybu gry!",
+                                      description=f"Poprawne użycie komendy to: {PREFIX}chess <@użytkownik> [tryb]\n"
+                                                  f"Dostępne tryby to:\n",
+                                      color=discord.Color.red())
+                for key, value in CHESS_OPTIONS['time_modes'].items():
+                    if value == 1:
+                        lang_genitive_numeral = "minuta"
+                    elif type(value) == float or value < 5:
+                        lang_genitive_numeral = "minuty"
+                    else:
+                        lang_genitive_numeral = "minut"
+                    embed.description += f"\n**{key}**: {value} {lang_genitive_numeral}"
                 await ctx.send(embed=embed)
+            elif not get_chess_queue():
+                add_to_chess_queue(ctx.author, user, time_mode)
+                await chess_loop(ctx.author, user, ctx, self, time_mode)  # Load the loop
+            else:
+                is_in_queue = False
+                for elem in get_chess_queue():
+                    if elem[0].split("/id/")[0] == str(ctx.author):
+                        is_in_queue = True
+                        embed = discord.Embed(title=f"Już wyzwałeś gracza!",
+                                              description=f"Zakończ swoją grę z **{elem[1].split('/id/')[0][:-5]}**, "
+                                                          f"aby móc wywzać do gry znowu.",
+                                              color=discord.Color.red())
+                        await ctx.send(embed=embed)
+                        break
+                if not is_in_queue:
+                    add_to_chess_queue(ctx.author, user, time_mode)
+                    embed = discord.Embed(title=f"Dodano do kolejki!",
+                                          description=f"⚔ Gracz {ctx.author.mention} "
+                                                      f"wyzwał gracza {user.mention} na grę w szachy.\n\n"
+                                                      f"Wpisz *{PREFIX}chq* aby wyświetlić koljekę.",
+                                          color=discord.Color.blue())
+                    await ctx.send(embed=embed)
 
     @commands.command(aliases=['chtime', 'ctime', 'ct', 'cht', 'chess_time', 'chesstime', 'game_time'])
     async def chesst(self, ctx):
