@@ -31,15 +31,16 @@ class AdminCog(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def sv(self, ctx):
         await ctx.channel.purge(limit=1)
-        await fetch_sv_data(ctx)
-        logger.info(f"@{ctx.author.name} in {ctx.guild.name} saved server data")
+        await fetch_sv_data(ctx.guild)
+        logger.info(f"@{ctx.author.name} in *{ctx.guild.name}* saved server data")
+        await ctx.send("Zapisałem pomyślnie")
 
     @commands.command(pass_context=True, aliases=["rmv", "rem", "del"])
     @commands.has_permissions(administrator=True)
     async def remove(self, ctx):
         await ctx.channel.purge(limit=1)
         remove_data(ctx.guild)
-        logger.info(f"@{ctx.author.name} in {ctx.guild.name} removed server data")
+        logger.info(f"@{ctx.author.name} in *{ctx.guild.name}* removed server data")
 
     @commands.command(pass_context=True, aliases=['set_answer', 'set_ans'])
     @commands.has_permissions(administrator=True)

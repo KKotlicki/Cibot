@@ -33,14 +33,14 @@ class UtilityCog(commands.Cog):
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 
     @commands.Cog.listener()
-    async def on_guild_join(self, ctx):
-        await fetch_sv_data(ctx)
-        logger.info(f"Invited by {ctx.author} to *{ctx.guild.name}* guild")
+    async def on_guild_join(self, guild):
+        await fetch_sv_data(guild)
+        logger.info(f"Joined *{guild.name}* guild")
 
     @commands.Cog.listener()
-    async def on_guild_remove(self, ctx):
-        remove_data(ctx.guild)
-        logger.info(f"Removed by {ctx.author} from *{ctx.guild}* guild")
+    async def on_guild_remove(self, guild):
+        remove_data(guild)
+        logger.info(f"Removed from *{guild.name}* guild")
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, err):

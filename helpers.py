@@ -33,22 +33,22 @@ async def open_help(ctx, file_name):
     await ctx.send(embed=embed_var)
 
 
-async def fetch_sv_data(ctx):
+async def fetch_sv_data(guild):
     text_names = []
     voice_names = []
-    for channel in ctx.guild.text_channels:
+    for channel in guild.text_channels:
         text_names.append(f'{str(channel)} => {channel.id}')
-    for channel in ctx.guild.voice_channels:
+    for channel in guild.voice_channels:
         voice_names.append(f'{str(channel)} => {channel.id}')
-    with open(f"{SV_PATH}/{ctx.guild}.json", "w+") as fn:
+    with open(f"{SV_PATH}/{guild.name}.json", "w+") as fn:
         fn.write(json.dumps({"text": text_names, "voice": voice_names}))
-    await ctx.send("Zapisałem pomyślnie")
+
 
 
 def remove_data(guild):
     for file in os.listdir(SV_PATH):
-        if file.startswith(guild):
-            os.remove(file)
+        if file.startswith(guild.name):
+            os.remove(f'{SV_PATH}/{file}')
 
 # Local functions:
 
