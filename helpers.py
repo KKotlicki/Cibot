@@ -45,7 +45,13 @@ async def fetch_sv_data(ctx):
     await ctx.send("Zapisałem pomyślnie")
 
 
+def remove_data(guild):
+    for file in os.listdir(SV_PATH):
+        if file.startswith(guild.name):
+            os.remove(file)
+
 # Local functions:
+
 
 async def build_link_list(ctx, embed_var, fname, message):
     with open(f'{RES_PATH}/{fname}.json', encoding='utf-8') as rd:

@@ -1,9 +1,9 @@
 import discord
 from datetime import datetime
 from discord.ext import commands, tasks
-from helpers import fetch_sv_data
+from helpers import fetch_sv_data, remove_data
 from loguru import logger
-from config import LOGS_PATH, RES_PATH
+from config import LOGS_PATH, RES_PATH, SV_PATH
 import os
 import wikipedia
 from urllib.request import urlopen
@@ -35,6 +35,12 @@ class UtilityCog(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_join(self, ctx):
         await fetch_sv_data(ctx)
+        logger.info(f"Invited by {ctx.author} to *{ctx.guild.name}* guild")
+
+    @commands.Cog.listener()
+    async def on_guild_remove(self, ctx):
+        remove_data(ctx.guild)
+        logger.info(f"Removed by {ctx.author} from *{ctx.guild}* guild")
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, err):
