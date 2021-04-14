@@ -36,11 +36,11 @@ async def open_help(ctx, file_name):
 async def fetch_sv_data(ctx):
     text_names = []
     voice_names = []
-    for channel in ctx.message.guild.text_channels:
+    for channel in ctx.guild.text_channels:
         text_names.append(f'{str(channel)} => {channel.id}')
-    for channel in ctx.message.guild.voice_channels:
+    for channel in ctx.guild.voice_channels:
         voice_names.append(f'{str(channel)} => {channel.id}')
-    with open(f"{SV_PATH}/{ctx.message.guild}.json", "w+") as fn:
+    with open(f"{SV_PATH}/{ctx.guild}.json", "w+") as fn:
         fn.write(json.dumps({"text": text_names, "voice": voice_names}))
     await ctx.send("Zapisałem pomyślnie")
 
@@ -62,8 +62,8 @@ async def build_link_list(ctx, embed_var, fname, message):
 
 
 async def set_sv_config(ctx, value, key):
-    if os.path.exists(f'{SV_PATH}/{ctx.message.guild.name}_config.json'):
-        with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'r', encoding='utf-8') as r:
+    if os.path.exists(f'{SV_PATH}/{ctx.guild.name}_config.json'):
+        with open(f'{SV_PATH}/{ctx.guild.name}_config.json', 'r', encoding='utf-8') as r:
             sv_config = json.loads(r.read())
         if type(value) == dict:
             if key in sv_config:
@@ -72,18 +72,18 @@ async def set_sv_config(ctx, value, key):
                 sv_config.update({key: value})
         else:
             sv_config[key] = value
-        with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'w') as wr:
+        with open(f'{SV_PATH}/{ctx.guild.name}_config.json', 'w') as wr:
             wr.write(json.dumps(sv_config))
     else:
         temp_json = json.dumps({key: value})
-        with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'w+') as cr:
+        with open(f'{SV_PATH}/{ctx.guild.name}_config.json', 'w+') as cr:
             cr.write(temp_json)
 
 
 def get_valid_text_channel_id(ctx, type_of_data):
-    with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', encoding='utf-8') as rd:
+    with open(f'{SV_PATH}/{ctx.guild.name}_config.json', encoding='utf-8') as rd:
         message_channel = json.loads(rd.read())[type_of_data]
-    return get_text_channel_id_from_name(ctx.message.guild.name, message_channel)
+    return get_text_channel_id_from_name(ctx.guild.name, message_channel)
 
 
 def get_text_channel_id_from_name(server_name, message_channel):
