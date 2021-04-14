@@ -41,7 +41,6 @@ class AdminCog(commands.Cog):
         remove_data(ctx.guild)
         logger.info(f"@{ctx.author.name} in {ctx.guild.name} removed server data")
 
-
     @commands.command(pass_context=True, aliases=['set_answer', 'set_ans'])
     @commands.has_permissions(administrator=True)
     async def set_answ(self, ctx, *, message=''):
