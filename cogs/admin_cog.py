@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 from loguru import logger
-from helpers import fetch_sv_data, open_help, set_sv_config, get_valid_text_channel_id, get_text_channel_id_from_name
+from helpers import fetch_sv_data, open_help, set_sv_config, get_valid_text_channel_id, \
+    get_text_channel_id_from_name, remove_data
 
 
 class AdminCog(commands.Cog):
@@ -32,6 +33,14 @@ class AdminCog(commands.Cog):
         await ctx.channel.purge(limit=1)
         await fetch_sv_data(ctx)
         logger.info(f"@{ctx.author.name} in {ctx.guild.name} saved server data")
+
+    @commands.command(pass_context=True, aliases=["rmv", "rem", "del"])
+    @commands.has_permissions(administrator=True)
+    async def remove(self, ctx):
+        await ctx.channel.purge(limit=1)
+        remove_data(ctx.guild)
+        logger.info(f"@{ctx.author.name} in {ctx.guild.name} removed server data")
+
 
     @commands.command(pass_context=True, aliases=['set_answer', 'set_ans'])
     @commands.has_permissions(administrator=True)
