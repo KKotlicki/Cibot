@@ -14,7 +14,7 @@ Bot uses exclusively python, with heavy dependence on [discord.py](https://disco
 
 ### Installing
 
-To use the bot, you need [Python (3.7+)](https://www.python.org/), [git](https://git-scm.com/) and [ffmpeg](https://www.ffmpeg.org/) dependencies installed on your system.
+To use the bot, you need [Python (3.7+)](https://www.python.org/), [git](https://git-scm.com/), [ffmpeg](https://www.ffmpeg.org/) and [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) dependencies installed on your system.
 
 To download current version of bot, open destination directory, then run terminal and enter following commands:
 
