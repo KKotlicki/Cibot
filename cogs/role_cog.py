@@ -50,7 +50,7 @@ class RoleCog(commands.Cog):
             await ctx.channel.purge(limit=1)
             await set_sv_config(ctx, message, 'role')
             logger.info(f"@{ctx.author.name} in {ctx.guild.name} set role channel to #{message}")
-            await ctx.send(f"Kanał na role ustawiony na #{message}")
+            await ctx.send(f"✅ Kanał na role ustawiony na #{message}")
             await self.send_reaction_role_message()
 
     @commands.command(pass_context=True, aliases=['add_roles'])

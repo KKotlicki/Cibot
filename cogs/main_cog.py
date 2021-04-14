@@ -13,8 +13,7 @@ class MainCog(commands.Cog):
 
     @commands.command()
     async def thx(self, ctx):
-        embed_var = discord.Embed(title=":evergreen_tree: Contributed to Cibot:", description="https://github.com"
-                                                                                              "/KKotlicki/Cibot",
+        embed_var = discord.Embed(title="🌲 Contributed to Cibot:", description="https://github.com/KKotlicki/Cibot",
                                   color=0xff770f)
         with open(f'{RES_PATH}/credits.json', encoding='utf-8') as rd:
             link_dict = json.loads(rd.read())

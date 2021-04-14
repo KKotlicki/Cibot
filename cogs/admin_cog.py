@@ -46,7 +46,7 @@ class AdminCog(commands.Cog):
             await ctx.channel.purge(limit=1)
             await set_sv_config(ctx, message, 'answ')
             logger.info(f"@{ctx.author.name} in {ctx.guild.name} set answer channel to #{message}")
-            await ctx.send(f"Kanał na ogłoszenia ustawiony na #{message}")
+            await ctx.send(f"✅ Kanał na ogłoszenia ustawiony na #{message}")
 
     @commands.command(pass_context=True, aliases=['set_games'])
     @commands.has_permissions(administrator=True)
@@ -61,7 +61,7 @@ class AdminCog(commands.Cog):
             await ctx.channel.purge(limit=1)
             await set_sv_config(ctx, message, 'game')
             logger.info(f"@{ctx.author.name} in {ctx.guild.name} set game channel to #{message}")
-            await ctx.send(f"Kanał na gry ustawiony na #{message}")
+            await ctx.send(f"✅ Kanał na gry ustawiony na #{message}")
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)

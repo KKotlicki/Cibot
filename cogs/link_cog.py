@@ -13,14 +13,14 @@ class LinkCog(commands.Cog):
     @commands.command()
     async def linki(self, ctx, message="all"):
         await ctx.channel.purge(limit=1)
-        embed_var = discord.Embed(title=":shushing_face: Nieoficjalne linki:", description="semestr "+message,
+        embed_var = discord.Embed(title="🤫 Nieoficjalne linki:", description="semestr "+message,
                                   color=0xff770f)
         await build_link_list(ctx, embed_var, "linki", message)
 
     @commands.command()
     async def oflinki(self, ctx, message="all"):
         await ctx.channel.purge(limit=1)
-        embed_var = discord.Embed(title=":mortar_board: Oficjalne linki:", color=0xff770f)
+        embed_var = discord.Embed(title="🎓 Oficjalne linki:", color=0xff770f)
         await build_link_list(ctx, embed_var, "oflinki", message)
 
     @commands.command()

@@ -71,7 +71,7 @@ class ChessCog(commands.Cog):
             if not is_in_queue:
                 add_to_chess_queue(ctx.author, user, time_mode)
                 embed = discord.Embed(title=f"Dodano do kolejki!",
-                                      description=f":crossed_swords: Gracz {ctx.author.mention} "
+                                      description=f"⚔ Gracz {ctx.author.mention} "
                                                   f"wyzwał gracza {user.mention} na grę w szachy.\n\n"
                                                   f"Wpisz *{PREFIX}chq* aby wyświetlić koljekę.",
                                       color=discord.Color.blue())
@@ -84,10 +84,10 @@ class ChessCog(commands.Cog):
             white_turn = ""
             black_turn = ""
             if self.current_turn == "white":
-                white_turn = ":arrow_left: "
+                white_turn = "⬅ "
             else:
-                black_turn = ":arrow_left: "
-            embed = discord.Embed(title=f":stopwatch: Pozostały czas:",
+                black_turn = "⬅ "
+            embed = discord.Embed(title=f"⏱ Pozostały czas:",
                                   description=f"Białe - {datetime.timedelta(seconds=self.time_white)} {white_turn}\n"
                                               f"Czarne - {datetime.timedelta(seconds=self.time_black)} {black_turn}",
                                   color=discord.Color.blue())
@@ -128,13 +128,13 @@ class ChessCog(commands.Cog):
         queue = get_chess_queue()
         if not queue:
             embed = discord.Embed(title=f"Kolej gier:",
-                                  description=f":crescent_moon: Kolejka jest pusta...\n",
+                                  description=f"🌙 Kolejka jest pusta...\n",
                                   color=discord.Color.dark_blue())
         else:
             embed = discord.Embed(title=f"Kolej gier:",
-                                  description=f":crossed_swords: Teraz gra: ***{queue[0][0].split('/id/')[0][:-5]}***"
+                                  description=f"⚔ Teraz gra: ***{queue[0][0].split('/id/')[0][:-5]}***"
                                               f"  vs  "
-                                              f"***{queue[0][1].split('/id/')[0][:-5]}*** :crossed_swords:"
+                                              f"***{queue[0][1].split('/id/')[0][:-5]}*** ⚔"
                                               f" - ({queue[0][2]})\n...",
                                   color=discord.Color.blue())
             temp = 1
@@ -158,7 +158,7 @@ class ChessCog(commands.Cog):
         temp = 1
         for key, value in ranking.items():
             if temp == 1:
-                embed.add_field(name=f':crown:  **{key}**', value=f'**`{value}`**', inline=False)
+                embed.add_field(name=f'👑  **{key}**', value=f'**`{value}`**', inline=False)
             else:
                 embed.add_field(name=f'{temp}. {key}', value=f'`{value}`', inline=False)
             temp += 1
@@ -168,14 +168,14 @@ class ChessCog(commands.Cog):
     async def switch_timer(self, ctx):
         if self.current_turn == "black" and self.time_black:
             if self.time_black == 1:
-                embed = discord.Embed(title=":hourglass: Czas się skończył!",
+                embed = discord.Embed(title="⌛ Czas się skończył!",
                                       description="Dokończ swój ostatni ruch.",
                                       color=discord.Color.blue())
                 await ctx.send(embed=embed)
             self.time_black -= 1
         elif self.current_turn == "white" and self.time_white:
             if self.time_black == 1:
-                embed = discord.Embed(title=":hourglass: Czas się skończył!",
+                embed = discord.Embed(title="⌛ Czas się skończył!",
                                       description="Dokończ swój ostatni ruch.",
                                       color=discord.Color.blue())
                 await ctx.send(embed=embed)
@@ -219,7 +219,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
         result = board.result(claim_draw=True)
         if cancel == "yes":
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f":handshake: Remis między {user_white.mention} i {user_black.mention}.",
+                                  description=f"🤝 Remis między {user_white.mention} i {user_black.mention}.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             self.switch_timer.stop()
@@ -240,7 +240,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
         elif cancel == "surrender" or cancel == "timeout":
             # Check if a user canceled
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f":tada: {user_black.mention} wygrał! {user_white.mention} poddał się.",
+                                  description=f"🎉 {user_black.mention} wygrał! {user_white.mention} poddał się.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             self.switch_timer.stop()
@@ -251,7 +251,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
             print(result)
             if result == "1-0":
                 embed = discord.Embed(title=f"Gra Zakończona!",
-                                      description=f":tada: {user_white.mention} wygrał! GG",
+                                      description=f"🎉 {user_white.mention} wygrał! GG",
                                       color=discord.Color.green())
                 await ctx.send(embed=embed)
                 self.switch_timer.stop()
@@ -266,7 +266,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
             break
         elif self.time_white == 0:
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f":tada: {user_black.mention} wygrał! "
+                                  description=f"🎉 {user_black.mention} wygrał! "
                                               f"Graczowi {user_white.mention} skończył się czas",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
@@ -283,7 +283,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
         result = board.result(claim_draw=True)
         if cancel == "yes":
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f":handshake: Remis między {user_black.mention} i {user_white.mention}.",
+                                  description=f"🤝 Remis między {user_black.mention} i {user_white.mention}.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             self.switch_timer.stop()
@@ -304,7 +304,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
         elif cancel == "surrender" or cancel == "timeout":
             # Check if a user canceled
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f":tada: {user_white.mention} wygrał! {user_black.mention} poddał się.",
+                                  description=f"🎉 {user_white.mention} wygrał! {user_black.mention} poddał się.",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
             self.switch_timer.stop()
@@ -315,7 +315,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
             # Check if game is over
             if result == "0-1":
                 embed = discord.Embed(title=f"Gra Zakończona!",
-                                      description=f":tada: {user_black.mention} wygrał! GG",
+                                      description=f"🎉 {user_black.mention} wygrał! GG",
                                       color=discord.Color.green())
                 await ctx.send(embed=embed)
                 self.switch_timer.stop()
@@ -330,7 +330,7 @@ async def chess_loop(challenger, challenged, ctx, self, time_mode):
             break
         elif self.time_black == 0:
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f":tada: {user_white.mention} wygrał! "
+                                  description=f"🎉 {user_white.mention} wygrał! "
                                               f"Graczowi {user_black.mention} skończył się czas",
                                   color=discord.Color.green())
             await ctx.send(embed=embed)
@@ -362,7 +362,7 @@ async def board_move(player, board, ctx, self, is_draw_offered):
             # That awkward moment they leave you on read (You left them speechless!)
             # Basically we want to cancel the game tbf
             embed = discord.Embed(title=f"Gra Zakończona!",
-                                  description=f":skull_crossbones: {player.mention} nie odpowiadał za długo.",
+                                  description=f"☠ {player.mention} nie odpowiadał za długo.",
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
             return "timeout"
@@ -389,13 +389,6 @@ async def board_move(player, board, ctx, self, is_draw_offered):
                 return "no"
         else:
             if message.content.lower() == "surrender":
-                # If the message was cancel, then cancel...
-                # embed = discord.Embed(title=f"Gra Zakończona!",
-                #                       description=f"{player.mention} poddał się.",
-                #                       color=discord.Color.red())
-                # await ctx.send(embed=embed)
-                # # Delete their messages to make it a little nicer
-                # delete_array = [message]
                 try:
                     delete_array = [message]
                     await ctx.channel.delete_messages(delete_array)
@@ -459,7 +452,7 @@ async def board_move(player, board, ctx, self, is_draw_offered):
                         else:
                             # If the move wasn't valid
                             embed = discord.Embed(title=f"Error",
-                                                  description=f"Niedozwolony ruch :no_entry: "
+                                                  description=f"Niedozwolony ruch ⛔ "
                                                               f"Spróbuj jeszcze raz.",
                                                   color=discord.Color.red())
                             await ctx.send(embed=embed)

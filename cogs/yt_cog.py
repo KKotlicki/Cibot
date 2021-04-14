@@ -60,7 +60,7 @@ class Music(commands.Cog):
                 song_duration = video_data['duration']
                 self.queue_list.append([url, song_title])
                 self.queue_size = len(self.queue_list)
-            embed = discord.Embed(title=f":notes: Dodałem do kolejki:  {song_title}",
+            embed = discord.Embed(title=f"🎶 Dodałem do kolejki:  {song_title}",
                                   description=f"Długość:  {song_duration} minut",
                                   color=discord.Color.dark_green())
             await ctx.send(embed=embed)
@@ -126,10 +126,10 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['q', 'kolejka'])
     async def queue(self, ctx):
-        embed_var = discord.Embed(title=":roll_of_paper: Kolejka:", color=0xff770f)
+        embed_var = discord.Embed(title="🧻 Kolejka:", color=0xff770f)
         for song in self.queue_list:
             if self.queue_list.index(song) == 0:
-                embed_var.add_field(name=f':notes: Teraz gra:', value=f'**{song[1]}**', inline=False)
+                embed_var.add_field(name=f'🎶 Teraz gra:', value=f'**{song[1]}**', inline=False)
             else:
                 embed_var.add_field(name=f'nr. {self.queue_list.index(song)}:', value=f'**{song[1]}**', inline=False)
         await ctx.send(embed=embed_var)
