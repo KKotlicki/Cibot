@@ -2,14 +2,18 @@
     "Zapis Danych": {
         "Załaduj kanały serwera": "sv",
         "Ustaw kanał na ogłoszenia bota": "set_answ [kanał]",
-        "Ustaw kanał na gry": "set_game [kanał]",
-        "Ustaw kanał na wybór roli": "set_role [kanał]"
+        "Ustaw kanał na gry": "set_game [kanał]"
         },
     "Moderacja": {
         "Przekaż ogłoszenie przez bota": "say <wiadomość>",
         "Usuń [ilość] wiadomości (domyślnie 5)": "clear [ilość]",
         "Wyczyść kolejkę szachową": "chqc"
         },
+    "Role": {
+        "Ustaw kanał na wybór roli": "set_role [kanał]",
+        "Dodaj rolę do wyboru": "add_role <rola> <emoji>",
+        "Usuń rolę do wyboru": "rem_role <rola>"
+    },
     "Maszyna": {
     "Aktualizuj": "update",
     "Wyłącz": "shutdown",

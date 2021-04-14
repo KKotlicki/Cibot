@@ -58,15 +58,20 @@ async def build_link_list(ctx, embed_var, fname, message):
 async def set_sv_config(ctx, value, key):
     if os.path.exists(f'{SV_PATH}/{ctx.message.guild.name}_config.json'):
         with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'r', encoding='utf-8') as r:
-            config_content = json.loads(r.read())
-        config_content[key] = value
+            sv_config = json.loads(r.read())
+        if type(value) == dict:
+            if key in sv_config:
+                sv_config[key].update(value)
+            else:
+                sv_config.update({key: value})
+        else:
+            sv_config[key] = value
         with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'w') as wr:
-            wr.write(json.dumps(config_content))
+            wr.write(json.dumps(sv_config))
     else:
         temp_json = json.dumps({key: value})
         with open(f'{SV_PATH}/{ctx.message.guild.name}_config.json', 'w+') as cr:
             cr.write(temp_json)
-    await ctx.send(f"{key} channel set to {value}")
 
 
 def get_valid_text_channel_id(ctx, type_of_data):

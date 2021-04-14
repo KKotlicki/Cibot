@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from loguru import logger
-from helpers import fetch_sv_data, open_help, set_sv_config, get_valid_text_channel_id
+from helpers import fetch_sv_data, open_help, set_sv_config, get_valid_text_channel_id, get_text_channel_id_from_name
 
 
 class AdminCog(commands.Cog):
@@ -33,32 +33,35 @@ class AdminCog(commands.Cog):
         await fetch_sv_data(ctx)
         logger.info(f"@{ctx.author.name} in {ctx.guild.name} saved server data")
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=['set_answer', 'set_ans'])
     @commands.has_permissions(administrator=True)
     async def set_answ(self, ctx, *, message=''):
         if message == '':
             message = ctx.channel.name
-        await ctx.channel.purge(limit=1)
-        await set_sv_config(ctx, message, 'answ')
-        logger.info(f"@{ctx.author.name} in {ctx.guild.name} set answer channel to #{message}")
+        try:
+            get_text_channel_id_from_name(ctx.guild.name, message)
+        except KeyError:
+            await ctx.send("Nie znam takiego kanału.")
+        else:
+            await ctx.channel.purge(limit=1)
+            await set_sv_config(ctx, message, 'answ')
+            logger.info(f"@{ctx.author.name} in {ctx.guild.name} set answer channel to #{message}")
+            await ctx.send(f"Kanał na ogłoszenia ustawiony na #{message}")
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=['set_games'])
     @commands.has_permissions(administrator=True)
     async def set_game(self, ctx, *, message=''):
         if message == '':
             message = ctx.channel.name
-        await ctx.channel.purge(limit=1)
-        await set_sv_config(ctx, message, 'game')
-        logger.info(f"@{ctx.author.name} in {ctx.guild.name} set game channel to #{message}")
-
-    @commands.command(pass_context=True)
-    @commands.has_permissions(administrator=True)
-    async def set_role(self, ctx, *, message=''):
-        if message == '':
-            message = ctx.channel.name
-        await ctx.channel.purge(limit=1)
-        await set_sv_config(ctx, message, 'role')
-        logger.info(f"@{ctx.author.name} in {ctx.guild.name} set role channel to #{message}")
+        try:
+            get_text_channel_id_from_name(ctx.guild.name, message)
+        except KeyError:
+            await ctx.send("Nie znam takiego kanału.")
+        else:
+            await ctx.channel.purge(limit=1)
+            await set_sv_config(ctx, message, 'game')
+            logger.info(f"@{ctx.author.name} in {ctx.guild.name} set game channel to #{message}")
+            await ctx.send(f"Kanał na gry ustawiony na #{message}")
 
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
