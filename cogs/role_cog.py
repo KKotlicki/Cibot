@@ -100,7 +100,7 @@ class RoleCog(commands.Cog):
                     roles_list = ""
                     for key, value in roles_dict.items():
                         roles_list += f"\n\n{value}: {key}"
-                    text = f"**Wybór Roli: Grupy**\nZareaguj aby wybrać grupę:{roles_list}"
+                    text = f"**Wybór Roli:**\n*Zareaguj aby wybrać grupę*{roles_list}"
                     message = await channel.send(text)
                     for key, value in roles_dict.items():
                         await message.add_reaction(value)
