@@ -24,7 +24,7 @@
     ":wrench: Ogólne": {
         "Ping bota": "ping",
         "Komendy dla adminów": "adm",
-        "Nie wiem": "co",
+        "co?": "co",
         "Złgoś błąd": "bug",
         "Credits": "thx"
         }
