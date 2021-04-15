@@ -14,52 +14,28 @@ Bot uses exclusively python, with heavy dependence on [discord.py](https://disco
 
 ### Installing
 
-To use the bot, you need [Python (3.7+)](https://www.python.org/), [git](https://git-scm.com/), [ffmpeg](https://www.ffmpeg.org/) and [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) dependencies installed on your system.
+The bot uses [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.com/) dependencies installed on your system.
 
-To download current version of bot, open destination directory, then run terminal and enter following commands:
+To install, follow the steps below:
 
-```
-git clone https://github.com/KKotlicki/Cibot.git
+1. Download the latest release: https://github.com/KKotlicki/Cibot/releases/latest
 
-```
+2. (optional) install and add to the system's `path` enviroment variables the following modules:
+    - If you're running server on Debian or derived system (eg. Ubuntu, Raspbian), first install pip using `sudo apt-get install python3-pip`.
+    - To use youtube commands, install [ffmpeg](https://www.ffmpeg.org/) video converter.
+    - To use chess commands, install [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) runtime.
+    - Otherwise, remove `yt_cog.py` or `chess_cog.py` from `cogs/` directory.
+
+3. To install all the python libraries and modules, run `pip install -r /path/to/Cibot/requirements.txt` in terminal. 
+    (replace `/path/to/` with path of Cibot)
+
+    **WARNING!** - make sure `python` is the alias for python version 3, not 2. To check the version of the python used, type in `python -V`. If you have both version 2 and 3 installed on your system, replace all `python` in code below with appropriate command. 
 
 
 ### Bot setup
 
-**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 call command (usually python3 or py - you can check which one is it by running it in cmd)**
+**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 command (usually python3 or py - you can check which one is it by running it in cmd)**
 
-
-### Required modules
-
-If you're running server on Debian or derived system (eg. Ubuntu, Raspbian), first install pip using the following commands:
-
-```
-sudo apt-get install python3-pip
-
-```
-
-To use youtube commands, install [ffmpeg](https://www.ffmpeg.org/) video converter.
-To use chess commands, install [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) runtime.
-Otherwise, remove `yt_cog.py` or `chess_cog.py` from `cogs/` directory.
-
-To install all the libraries and modules, run the following script in terminal ():
-
-WARNING! - make sure `python` is the alias for python version 3, not 2. To check the version of the python used, type in `python -V`. If you have both version 2 and 3 installed on your system, replace all `python` in code below with appropriate command. 
-
-```
-python -m pip install discord.py
-python -m pip install python.dotenv
-python -m pip install youtube-dl
-python -m pip install loguru
-python -m pip install -U discord.py[voice]
-python -m pip install youtube-search-python
-python -m pip install chess
-python -m pip install termcolor
-python -m pip install wikipedia
-python -m pip install pycairo
-python -m pip install CairoSVG
-
-```
 
 ### Folder structure
 
@@ -158,7 +134,7 @@ Here is one that defines three methods:
 
 ```
 from discord.ext import commands           # necessary function - loads cog structure commands
-import random                              # the library used by 3rd example method
+import random                              # the library used by "dice" example method
 
 
 class ExampleCog(commands.Cog):            # the class containing cogs functions; inherits from commands.Cog class
@@ -214,12 +190,13 @@ In helpers.py add your local methods.
 
 
 **Development Rules:**
-1.  name variables by PEP8 standard
-2.  do not create subfolders or add any non-cog files in cogs/
+1.  name variables by PEP 8 standard
+2.  do not create subfolders or add any non-cog files in `cogs/`
 3.  if you want to create directory for new features, do so in the main directory
-4.  unless you have a good reason, do not change cibot.py script
+4.  unless you have a good reason, do not change `cibot.py` script
 5.  make sure to test your code before uploading
 6. remember not to break asynchronicity
+7. for every new library or module you add, update `requirements.txt` with them
 7. do not duplicate function names, command aliases, or features
 8. do not duplicate function names, command aliases, or features
 
