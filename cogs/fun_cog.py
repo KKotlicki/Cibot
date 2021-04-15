@@ -17,7 +17,7 @@ class Fun(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if random.randint(1, 10) == 1 and not message.author.bot and not message.content.startswith(PREFIX):
+        if random.randint(1, 16) == 1 and not message.author.bot and not message.content.startswith(PREFIX):
             emoji_dict = {
                 1: "👍",
                 2: "❤",
