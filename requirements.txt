@@ -1,0 +1,11 @@
+discord.py
+python.dotenv
+youtube-dl
+loguru
+discord.py[voice]
+youtube-search-python
+chess
+termcolor
+wikipedia
+pycairo
+CairoSVG
