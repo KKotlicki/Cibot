@@ -5,6 +5,7 @@ from helpers import YTDLSource
 from youtubesearchpython import VideosSearch
 from config import RES_PATH
 import json
+import os
 import asyncio
 
 # Suppress noise about console usage from errors
@@ -18,6 +19,7 @@ class Music(commands.Cog):
         self.queue_list = []
         self.skip_song = False
 
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command()
     async def join(self, ctx, *, channel: discord.VoiceChannel):
         """Joins a voice channel"""
@@ -35,20 +37,8 @@ class Music(commands.Cog):
     #
     #     await ctx.send(f'Now playing: {query}')
 
-    # @commands.command()
-    # async def qp(self, ctx, *, title):
-    #
-    #     for fname in os.listdir('.'):
-    #         if fname.endswith('.webm') or fname.endswith('.zip'):
-    #             os.remove(fname)
-    #
-    #     url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
-    #     async with ctx.typing():
-    #         player = await YTDLSource.from_url(url, loop=self.bot.loop)
-    #         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-    #
-    #     await ctx.send(f'Now playing: {player.title}')
 
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(aliases=['p', 'graj'])
     async def play(self, ctx, *, title):
         await ctx.channel.purge(limit=1)
@@ -72,6 +62,7 @@ class Music(commands.Cog):
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
 
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(aliases=['v', 'vol'])
     async def volume(self, ctx, volume: int):
 
@@ -81,6 +72,7 @@ class Music(commands.Cog):
         ctx.voice_client.source.volume = volume / 100
         await ctx.send("Zmieniłem głośność na {}%".format(volume))
 
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(aliases=['qc', 'clear_queue'])
     async def qclear(self, ctx):
         if ctx.voice_client is not None:
@@ -124,6 +116,49 @@ class Music(commands.Cog):
             ctx.voice_client.stop()
             self.voice_out_timer.start(ctx)
 
+    # @commands.command()
+    # async def qp(self, ctx, *, title):
+    #     await ctx.channel.purge(limit=1)
+    #     video_data = VideosSearch(str(title), limit=1).result()['result'][0]
+    #     if not [video_data['link'], video_data['title']] in self.queue_list:
+    #         async with ctx.typing():
+    #             url = video_data['link']
+    #             song_title = video_data['title']
+    #             song_duration = video_data['duration']
+    #             self.queue_list.append([url, song_title])
+    #             self.queue_size = len(self.queue_list)
+    #         embed = discord.Embed(title=f"🎶 Dodałem do kolejki:  {song_title}",
+    #                               description=f"Długość:  {song_duration} minut",
+    #                               color=discord.Color.dark_green())
+    #         await ctx.send(embed=embed)
+    #         if not ctx.voice_client.is_playing() and self.queue_size == 1:
+    #             await self.play_yt(ctx)
+    #     else:
+    #         embed = discord.Embed(title=f"{video_data['title']} już jest w kolejce!",
+    #                               description=f"Nie można znowu dodać do kolejki.",
+    #                               color=discord.Color.red())
+    #         await ctx.send(embed=embed)
+    #
+    #
+    #
+    #
+    #
+    #
+    #     await ctx.channel.purge(limit=1)
+    #     video_data = VideosSearch(str(title), limit=1).result()['result'][0]
+    #
+    #     for fname in os.listdir('/temp'):
+    #         if fname.endswith('.webm') or fname.endswith('.zip'):
+    #             os.remove(fname)
+    #
+    #     url = VideosSearch(str(title), limit=1).result()['result'][0]['link']
+    #     async with ctx.typing():
+    #         player = await YTDLSource.from_url(url, loop=self.bot.loop)
+    #         ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+    #
+    #     await ctx.send(f'Now playing: {player.title}')
+
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(aliases=['q', 'kolejka'])
     async def queue(self, ctx):
         embed_var = discord.Embed(title="🧻 Kolejka:", color=0xff770f)
