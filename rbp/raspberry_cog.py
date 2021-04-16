@@ -17,7 +17,7 @@ class RaspberryCog(commands.Cog):
         if discord.Client.is_ready(self.bot):
             temp = os.popen("vcgencmd measure_temp").readline()
             if float(temp.replace("temp=", "").replace("'C", "")) > TEMPERATURE_LIMIT:
-                logger.exception("Server overheated.")
+                logger.error("Server overheated.")
                 logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
                 await self.bot.close()
 

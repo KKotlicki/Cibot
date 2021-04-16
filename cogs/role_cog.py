@@ -37,6 +37,7 @@ class RoleCog(commands.Cog):
                                 print("Role doesn't exist on this server.")
                             break
 
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(pass_context=True, aliases=['set_roles'])
     @commands.has_permissions(administrator=True)
     async def set_role(self, ctx, *, message=''):
@@ -49,10 +50,11 @@ class RoleCog(commands.Cog):
         else:
             await ctx.channel.purge(limit=1)
             await set_sv_config(ctx, message, 'role')
-            logger.info(f"@{ctx.author.name} in {ctx.guild.name} set role channel to #{message}")
+            logger.success(f"@{ctx.author.name} in {ctx.guild.name} set role channel to #{message}")
             await ctx.send(f"✅ Kanał na role ustawiony na #{message}")
             await self.send_reaction_role_message()
 
+    @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.command(pass_context=True, aliases=['add_roles'])
     @commands.has_permissions(administrator=True)
     async def add_role(self, ctx, role, reaction):
@@ -65,7 +67,9 @@ class RoleCog(commands.Cog):
         await set_sv_config(ctx, {role: reaction}, 'roles_dict')
         await ctx.send(f"Dodałem *{role}* jako rolę do wyboru")
         await self.send_reaction_role_message()
+        logger.success(f"@{ctx.author.name} in *{ctx.guild.name}* added {role} role.")
 
+    @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.command(pass_context=True, aliases=['remove_role', 'del_role', 'delete_role', 'rmv_role'])
     @commands.has_permissions(administrator=True)
     async def rem_role(self, ctx, role):
@@ -85,6 +89,7 @@ class RoleCog(commands.Cog):
                         wr.write(json.dumps(sv_config))
                     await ctx.send(f"Usunąłem *{role}* z roli do wyboru")
                     await self.send_reaction_role_message()
+                    logger.success(f"@{ctx.author.name} in *{ctx.guild.name}* removed {role} role.")
 
     async def send_reaction_role_message(self):
         for file in os.listdir(f"{SV_PATH}/"):
