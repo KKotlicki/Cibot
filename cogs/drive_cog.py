@@ -7,7 +7,7 @@ import discord
 from datetime import datetime
 from utils.drive_oauth import service
 import json
-from config import RES_PATH, TEMP_PATH, LOGS_PATH
+from config import SV_PATH, TEMP_PATH, LOGS_PATH
 
 
 class DriveCog(commands.Cog):
@@ -73,7 +73,7 @@ class DriveCog(commands.Cog):
             message = str(message).upper()
             if message in ['M', 'MAG', 'MAGISTERSKIE', 'MASTERS', 'MGR']:
                 message = 'MASTERS'
-            with open(f'{RES_PATH}/drive_ids.json', encoding='utf-8') as rd:
+            with open(f'{SV_PATH}/drive_ids.json', encoding='utf-8') as rd:
                 directories_dict = json.loads(rd.read())
             attachment = ctx.message.attachments[0]
             if message not in directories_dict:
