@@ -48,16 +48,16 @@ class UtilityCog(commands.Cog):
             logger.error("Invalid command used.")
             await ctx.send("Nie znam tej komendy.")
         elif isinstance(err, commands.MissingPermissions):
-            logger.error("Permission error.")
+            logger.error("Permission warning.")
             await ctx.send("Komenda tylko dla adminów.")
         elif isinstance(err, commands.BotMissingPermissions):
-            logger.error("Bot permission error.")
+            logger.error("Bot permission warning.")
             await ctx.send("Nie mam odpowiednich uprawnień.")
         elif isinstance(err, commands.MissingRequiredArgument):
             logger.error("Missing required argument.")
             await ctx.send("Komenda wymaga argumentu.")
         elif isinstance(err, commands.CommandOnCooldown):
-            logger.error("Cooldown error")
+            logger.error("Cooldown warning")
             await ctx.send("Za szybko używasz komend.")
         elif not isinstance(err, wikipedia.DisambiguationError):
             logger.error(err)
