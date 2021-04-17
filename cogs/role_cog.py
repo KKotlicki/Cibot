@@ -37,7 +37,7 @@ class RoleCog(commands.Cog):
                                 print("Role doesn't exist on this server.")
                             break
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=['set_roles'])
     @commands.has_permissions(administrator=True)
     async def set_role(self, ctx, *, message=''):
@@ -54,7 +54,7 @@ class RoleCog(commands.Cog):
             await ctx.send(f"✅ Kanał na role ustawiony na #{message}")
             await self.send_reaction_role_message()
 
-    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.cooldown(1, 2, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=['add_roles'])
     @commands.has_permissions(administrator=True)
     async def add_role(self, ctx, role, reaction):
@@ -69,7 +69,7 @@ class RoleCog(commands.Cog):
         await self.send_reaction_role_message()
         logger.success(f"@{ctx.author.name} in *{ctx.guild.name}* added {role} role.")
 
-    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.cooldown(1, 2, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=['remove_role', 'del_role', 'delete_role', 'rmv_role'])
     @commands.has_permissions(administrator=True)
     async def rem_role(self, ctx, role):

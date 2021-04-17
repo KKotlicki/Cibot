@@ -9,7 +9,7 @@ class AdminCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=["adm_help", "admin_help"])
     @commands.has_permissions(administrator=True)
     async def adm(self, ctx):
@@ -29,7 +29,7 @@ class AdminCog(commands.Cog):
         await ctx.channel.purge(limit=amount + 1)
         logger.success(f"@{ctx.author.name} cleared {amount} messages")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=["save"])
     @commands.has_permissions(administrator=True)
     async def sv(self, ctx):
@@ -38,7 +38,7 @@ class AdminCog(commands.Cog):
         logger.success(f"@{ctx.author.name} in *{ctx.guild.name}* saved server data")
         await ctx.send("Zapisałem pomyślnie")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=["rmv", "rem", "del"])
     @commands.has_permissions(administrator=True)
     async def remove(self, ctx):
@@ -46,7 +46,7 @@ class AdminCog(commands.Cog):
         remove_data(ctx.guild)
         logger.success(f"@{ctx.author.name} in *{ctx.guild.name}* removed server data")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=['set_answer', 'set_ans'])
     @commands.has_permissions(administrator=True)
     async def set_answ(self, ctx, *, message=''):
@@ -62,7 +62,7 @@ class AdminCog(commands.Cog):
             logger.success(f"@{ctx.author.name} in {ctx.guild.name} set answer channel to #{message}")
             await ctx.send(f"✅ Kanał na ogłoszenia ustawiony na #{message}")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(pass_context=True, aliases=['set_games'])
     @commands.has_permissions(administrator=True)
     async def set_game(self, ctx, *, message=''):
@@ -78,7 +78,7 @@ class AdminCog(commands.Cog):
             logger.success(f"@{ctx.author.name} in {ctx.guild.name} set game channel to #{message}")
             await ctx.send(f"✅ Kanał na gry ustawiony na #{message}")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.command(pass_context=True)
     @commands.has_permissions(administrator=True)
     async def say(self, ctx, *, message):

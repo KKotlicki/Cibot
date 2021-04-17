@@ -10,6 +10,7 @@ class LinkCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command()
     async def linki(self, ctx, message="all"):
         await ctx.channel.purge(limit=1)
@@ -17,6 +18,7 @@ class LinkCog(commands.Cog):
                                   color=0xff770f)
         await build_link_list(ctx, embed_var, "linki", message)
 
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command()
     async def oflinki(self, ctx, message="all"):
         await ctx.channel.purge(limit=1)
@@ -38,10 +40,12 @@ class LinkCog(commands.Cog):
         embed_var = discord.Embed(title=subject, description=link, color=0xff770f)
         await ctx.send(embed=embed_var)
 
+    @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.command(aliases=['w', 'search', 'wiki_search', 'wiki-search', 'wikipedia'])
     async def wiki(self, ctx, *, message="Military University of Technology"):
         await wiki_search(ctx, message, "pl")
 
+    @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.command(aliases=['enw', 'en_search', 'en_wiki_search', 'en_wiki-search', 'en_wikipedia'])
     async def enwiki(self, ctx, *, message="Military University of Technology"):
         await wiki_search(ctx, message, "en")

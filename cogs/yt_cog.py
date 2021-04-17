@@ -19,7 +19,7 @@ class Music(commands.Cog):
         self.queue_list = []
         self.skip_song = False
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command()
     async def join(self, ctx, *, channel: discord.VoiceChannel):
         """Joins a voice channel"""
@@ -37,8 +37,7 @@ class Music(commands.Cog):
     #
     #     await ctx.send(f'Now playing: {query}')
 
-
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     @commands.command(aliases=['p', 'graj'])
     async def play(self, ctx, *, title):
         await ctx.channel.purge(limit=1)
@@ -62,7 +61,6 @@ class Music(commands.Cog):
                                   color=discord.Color.red())
             await ctx.send(embed=embed)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(aliases=['v', 'vol'])
     async def volume(self, ctx, volume: int):
 
@@ -158,7 +156,7 @@ class Music(commands.Cog):
     #
     #     await ctx.send(f'Now playing: {player.title}')
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(aliases=['q', 'kolejka'])
     async def queue(self, ctx):
         embed_var = discord.Embed(title="🧻 Kolejka:", color=0xff770f)

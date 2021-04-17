@@ -11,7 +11,7 @@ class MainCog(commands.Cog):
         self.bot = bot
         self.bot.remove_command('help')
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command()
     async def thx(self, ctx):
         embed_var = discord.Embed(title="🌲 Contributed to Cibot:", description="https://github.com/KKotlicki/Cibot",
@@ -26,13 +26,13 @@ class MainCog(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f'{round(self.bot.latency * 1000)}ms')
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command()
     async def help(self, ctx):
         await ctx.channel.purge(limit=1)
         await open_help(ctx, "help")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command()
     async def bug(self, ctx, *, message):
         await ctx.channel.purge(limit=1)

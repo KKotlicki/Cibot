@@ -28,7 +28,7 @@ class ChessCog(commands.Cog):
         if not os.path.isfile(f"{SV_PATH}/chess_queue.txt"):
             open(f"{SV_PATH}/chess_queue.txt", "a").close()
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 60, commands.BucketType.user)
     @commands.command(aliases=['challenge', 'Chess', 'kill', 'ch'])
     async def chess(self, ctx, user: discord.User, time_mode="standard"):
         if user == self.bot.user:
@@ -104,7 +104,7 @@ class ChessCog(commands.Cog):
                                   color=discord.Color.blue())
             await ctx.send(embed=embed)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(pass_context=True,
                       aliases=['cqc', 'chess_queue_clear', "clear_chess_queue", "clear_game_queue", "gqc"])
     @commands.has_permissions(administrator=True)
@@ -131,7 +131,7 @@ class ChessCog(commands.Cog):
         # except:
         # print("elo error")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(aliases=['chq', 'chess_queue', 'queuechess', 'game_queue'])
     async def chessq(self, ctx):
         await ctx.channel.purge(limit=1)
@@ -155,7 +155,7 @@ class ChessCog(commands.Cog):
                     temp += 1
         await ctx.send(embed=embed)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(aliases=['leaderboard', 'ranking', '10'])
     async def top(self, ctx):
         await ctx.channel.purge(limit=1)
