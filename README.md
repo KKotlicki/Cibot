@@ -57,6 +57,8 @@ res/                # text, .json, .xml, Lua and CMS resources
 |- status           # custom status descriptions of bot
 |- subject_aliases  # alternative call names for <"unofficial" links> command
 servers/            # server's data and logs
+temp/               # temporary and cached bot files
+utils/              # utility scripts
 .gitattributes      # Git repo configuration
 .gitignore          # ^
 cibot.py            # ! - the main bot script
@@ -214,8 +216,10 @@ In helpers.py add your local methods.
 
 ```
 1. yt_cog - save queue, load queue, additional queue handling
-2. Finish documentation and setup manual
-3. chess_cog - takeback offer
+2. yt_cog change music to pre-bufforing
+3. Finish documentation and setup manual
+4. chess_cog - takeback offer
+5. move chess_cog temporary files location from main to temp/
 ```
 
  - **[Major Feature]**
@@ -232,17 +236,15 @@ In helpers.py add your local methods.
 1. Calendar of exams
 2. Countdown to final exams
 3. Send documents (such as subject statues, MUT anthem, magnet links)
-4. Recive and upload text, image, word and .pdf to google drive
-5. Leaderboard of drive files contributions / "Hall of fame"
-6. Points to grade converter by subject
-7. Akinator
+4. Points to grade converter by subject
+5. Akinator
 ```
 
  - [Fix]
 
 ```
 1. Logging systems
-2. yt_cog change music to pre-bufforing
+2. Shutdown commands
 ```
 
 
