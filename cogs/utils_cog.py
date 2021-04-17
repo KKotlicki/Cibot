@@ -70,7 +70,7 @@ class UtilityCog(commands.Cog):
         except URLError:
             logger.error("Disconnected")
             logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
-            os.system(f'cd utility\n{os.getenv("OS_PYTHON_PREFIX")} server_down.py\n')
+            os.system(f'cd utils\n{os.getenv("OS_PYTHON_PREFIX")} server_down.py\n')
             print('shutting down')
             await self.bot.close()
 
