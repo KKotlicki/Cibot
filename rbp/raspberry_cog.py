@@ -21,8 +21,7 @@ class RaspberryCog(commands.Cog):
                 logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
                 await self.bot.close()
 
-    @commands.command(pass_context=True)
-    @commands.has_permissions(administrator=True)
+    @commands.command()
     async def temp(self, ctx):
         await ctx.channel.purge(limit=1)
         await ctx.send(os.popen("vcgencmd measure_temp").readline().replace("temp=", ""))
