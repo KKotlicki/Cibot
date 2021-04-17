@@ -148,5 +148,6 @@ logs/*
 !logs/.gitkeep
 temp/*
 !temp/.gitkeep
+!temp/drive_cache
 temp/drive_cache/*
 !temp/drive_cache/.gitkeep
