@@ -1,12 +1,17 @@
 {
-    ":scroll: Linki": {
+    "📜 Linki": {
         "Oficjalne linki": "oflinki <semestr>",
         "Nieoficjalne linki": "linki [semestr]",
         "Znajdź link do przedmiotu na yt": "link <semestr> <przedmiot>",
         "Wyszukaj w wikipedii po polsku": "wiki",
         "Wyszukaj w wikipedii po angielsku": "enwiki"
         },
-    ":musical_note: Muzyka": {
+    "🎓 Szkolne": {
+        "Prześlij plik na dysk kierunku": "upl <semestr> <<plik>>" ,
+        "Przekaż anon. plik na dysk kierunku": "anupl <semestr> <<plik>>",
+        "Ranking kontrybucji": "contr"
+    },
+    "🎵 Muzyka": {
         "Dodaj utwór do kolejki": "p <tytuł/link>",
         "Przewiń utwór do następnego": "skip",
         "Wyczyść kolejkę i zakończ utwór": "qclear",
@@ -14,17 +19,17 @@
         "Ustaw głośność": "volume",
         "Dołącz bota na kanał głosowy": "join <kanał>"
         },
-    ":tada: Szachy": {
+    "🎉 Szachy": {
         "Wyzwij gracza": "chess <@gracz> [tryb gry]",
         "Pozostały czas gry": "chtime",
         "Kolejka do szachów": "chqueue",
         "Ranking szachowy": "top",
         "Ranking Elo gracza": "elo [@gracz]"
         },
-    ":wrench: Ogólne": {
+    "🔧 Ogólne": {
         "Ping bota": "ping",
-        "Komendy dla adminów": "adm",
-        "co?": "co",
+        "Komendy moderatorów": "adm",
+        "Nie wiem": "co",
         "Złgoś błąd": "bug",
         "Credits": "thx"
         }
