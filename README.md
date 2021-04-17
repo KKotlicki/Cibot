@@ -210,6 +210,7 @@ In helpers.py add your local methods.
 ```
 1. Specific commands' error and exception handling, send info on required arguments on command misuse
 2. chess_cog - one board at a time
+3. change database from json based to sql
 ```
 
  - [Rewrite]
