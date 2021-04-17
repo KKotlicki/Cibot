@@ -124,8 +124,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Bot's hidden files
+# Private
 credentials.json
+token.json
 .idea
 cibot.bat
 cibot.sh
@@ -138,7 +139,6 @@ chess_board.png
 /*.webm
 /*.m4a
 
-
 # Empty directories
 servers/*
 !servers/.gitkeep
@@ -146,3 +146,7 @@ ai/*
 !ai/.gitkeep
 logs/*
 !logs/.gitkeep
+temp/*
+!temp/.gitkeep
+temp/drive_cache/*
+!temp/drive_cache/.gitkeep
