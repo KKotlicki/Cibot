@@ -89,8 +89,13 @@ class DriveCog(commands.Cog):
                                                   color=discord.Color.gold())
                             await ctx.send(embed=embed)
                 else:
-                    await ctx.send('**Wybierz semestr z listy:**\n1, 2, 3, ')
-
+                    temp_string = "**Wybierz semestr z listy:**\n"
+                    for key in directories_dict:
+                        if key != "MASTERS":
+                            temp_string += f" {key},"
+                        else:
+                            temp_string += f" Mgr"
+                    await ctx.send(temp_string)
                 for fn in os.listdir(f'{TEMP_PATH}/drive_cache/'):
                     try:
                         os.remove(f'{TEMP_PATH}/drive_cache/{fn}')
