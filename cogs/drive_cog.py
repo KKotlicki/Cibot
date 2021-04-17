@@ -60,48 +60,51 @@ class DriveCog(commands.Cog):
             except PermissionError:
                 ctx.send("Poczekaj aż skończę wysyłać pliki")
             else:
-                message = str(message).upper()
-                if message in ['M', 'MAG', 'MAGISTERSKIE', 'MASTERS', 'MGR']:
-                    message = 'MASTERS'
-                with open(f'{RES_PATH}/drive_ids.json', encoding='utf-8') as rd:
-                    directories_dict = json.loads(rd.read())
-                attachment = ctx.message.attachments[0]
-                if message in directories_dict:
-                    async with ctx.typing():
-                        folder_id = directories_dict[message]
-                        attachment_url = attachment.url
-                        file_request = requests.get(attachment_url)
-                        with open(f'{LOGS_PATH}/upload_history.log', 'a+') as wr:
-                            wr.write(f'{datetime.now()} | {ctx.author} | '
-                                     f'{attachment.filename} | {message} | {is_hidden}\n')
-                        with open(f'{TEMP_PATH}/drive_cache/{attachment.filename}', "wb") as file:
-                            file.write(file_request.content)
-                        metadata = {'name': attachment.filename, 'mimetype': attachment.content_type,
-                                    'parents': [folder_id]}
-                        media = MediaFileUpload(f'{TEMP_PATH}/drive_cache/{attachment.filename}',
-                                                mimetype=attachment.content_type, resumable=True)
-                        with ThreadPoolExecutor() as pool:
-                            await self.bot.loop.run_in_executor(pool, upload_file, metadata, media)
-                        if is_hidden == "open":
-                            embed = discord.Embed(title=f"🎉 Nowe materiały!",
-                                                  description=f"{ctx.author.mention} wysłał na dysk grupy semestralnej "
-                                                              f"**{message}**:\n***{attachment.filename}***",
-                                                  color=discord.Color.gold())
-                            await ctx.send(embed=embed)
+                if ctx.message.attachments:
+                    message = str(message).upper()
+                    if message in ['M', 'MAG', 'MAGISTERSKIE', 'MASTERS', 'MGR']:
+                        message = 'MASTERS'
+                    with open(f'{RES_PATH}/drive_ids.json', encoding='utf-8') as rd:
+                        directories_dict = json.loads(rd.read())
+                    attachment = ctx.message.attachments[0]
+                    if message in directories_dict:
+                        async with ctx.typing():
+                            folder_id = directories_dict[message]
+                            attachment_url = attachment.url
+                            file_request = requests.get(attachment_url)
+                            with open(f'{LOGS_PATH}/upload_history.log', 'a+') as wr:
+                                wr.write(f'{datetime.now()} | {ctx.author} | '
+                                         f'{attachment.filename} | {message} | {is_hidden}\n')
+                            with open(f'{TEMP_PATH}/drive_cache/{attachment.filename}', "wb") as file:
+                                file.write(file_request.content)
+                            metadata = {'name': attachment.filename, 'mimetype': attachment.content_type,
+                                        'parents': [folder_id]}
+                            media = MediaFileUpload(f'{TEMP_PATH}/drive_cache/{attachment.filename}',
+                                                    mimetype=attachment.content_type, resumable=True)
+                            with ThreadPoolExecutor() as pool:
+                                await self.bot.loop.run_in_executor(pool, upload_file, metadata, media)
+                            if is_hidden == "open":
+                                embed = discord.Embed(title=f"🎉 Nowe materiały!",
+                                                      description=f"{ctx.author.mention} wysłał na dysk grupy semestralnej "
+                                                                  f"**{message}**:\n***{attachment.filename}***",
+                                                      color=discord.Color.gold())
+                                await ctx.send(embed=embed)
+                    else:
+                        temp_string = "**Wybierz semestr z listy:**\n"
+                        for key in directories_dict:
+                            if key != "MASTERS":
+                                temp_string += f" {key},"
+                            else:
+                                temp_string += f" Mgr"
+                        await ctx.send(temp_string)
+                    for fn in os.listdir(f'{TEMP_PATH}/drive_cache/'):
+                        try:
+                            os.remove(f'{TEMP_PATH}/drive_cache/{fn}')
+                        except PermissionError:
+                            pass
+                    self.is_running = False
                 else:
-                    temp_string = "**Wybierz semestr z listy:**\n"
-                    for key in directories_dict:
-                        if key != "MASTERS":
-                            temp_string += f" {key},"
-                        else:
-                            temp_string += f" Mgr"
-                    await ctx.send(temp_string)
-                for fn in os.listdir(f'{TEMP_PATH}/drive_cache/'):
-                    try:
-                        os.remove(f'{TEMP_PATH}/drive_cache/{fn}')
-                    except PermissionError:
-                        pass
-                self.is_running = False
+                    await ctx.send('Załącz do komendy plik do wysłania')
         else:
             await ctx.send('Poczekaj aż skończę wysyłać pliki')
 
