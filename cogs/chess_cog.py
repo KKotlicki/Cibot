@@ -35,6 +35,8 @@ class ChessCog(commands.Cog):
             await ctx.send('Nie umiem grać w szachy')
         elif user.bot:
             await ctx.send('Boty nie potrafią grać w szachy')
+        elif user == ctx.author:
+            await ctx.send('Nie możesz grać sam ze sobą')
         else:
             await ctx.channel.purge(limit=1)
             if not os.path.exists(f'{SV_PATH}/{ctx.message.guild.name}_config.json'):
@@ -160,19 +162,24 @@ class ChessCog(commands.Cog):
     async def top(self, ctx):
         await ctx.channel.purge(limit=1)
         ranking = {}
-        with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
-            chess_history = json.loads(rd.read())
+        try:
+            with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+                chess_history = json.loads(rd.read())
+        except FileNotFoundError:
+            ctx.send('Nie rozegrano jeszcze żadnych partii szachowych.')
+            return
         for key in chess_history:
             ranking[key[:-5]] = get_elo(ctx, key, self.bot)
         ranking = sort_dict_by_value(ranking)
-        embed = discord.Embed(title='Leaderboard:', color=discord.Color.gold())
         temp = 1
+        ranking_list = ''
         for key, value in ranking.items():
             if temp == 1:
-                embed.add_field(name=f'👑  **{key}**', value=f'**`{value}`**', inline=False)
+                ranking_list += f'👑  **{key}** - **`{value}`**\n'
             else:
-                embed.add_field(name=f'{temp}. {key}', value=f'`{value}`', inline=False)
+                ranking_list += f'\n{temp}. {key} - `{value}`'
             temp += 1
+        embed = discord.Embed(title='Ranking szachowy:', description=ranking_list, color=discord.Color.gold())
         await ctx.send(embed=embed)
 
     @tasks.loop(seconds=1)
