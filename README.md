@@ -18,7 +18,7 @@ The bot uses [Python (3.7+)](https://www.python.org/) and [git](https://git-scm.
 
 To install, follow the steps below:
 
-1. Download the latest release: https://github.com/KKotlicki/Cibot/releases/latest
+1. Download the [latest release](https://github.com/KKotlicki/Cibot/releases/latest) of Cibot
 
 2. (optional) install and add to the system's `path` enviroment variables the following modules:
     - If you're running server on Debian or derived system (eg. Ubuntu, Raspbian), first install pip using `sudo apt-get install python3-pip`.
@@ -29,13 +29,32 @@ To install, follow the steps below:
 3. To install all the python libraries and modules, run `pip install -r /path/to/Cibot/requirements.txt` in terminal. 
     (replace `/path/to/` with path of Cibot)
 
-    **WARNING!** - make sure `python` is the alias for python version 3, not 2. To check the version of the python used, type in `python -V`. If you have both version 2 and 3 installed on your system, replace all `python` in code below with appropriate command. 
+    **WARNING!** - make sure `python` is the alias for python version 3, not 2. To check the version of the python used, type in `python -V`. If you have both version 2 and 3 installed on your s, replace all `python` in code below with appropriate command. 
 
 
 ### Bot setup
 
-**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 command (usually python3 or py - you can check which one is it by running it in cmd)**
+**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 command (usually python3, python or py - you can check which one is it by running it in cmd)**
 
+#### Google drive setup (optional)
+
+To use `drive_cog.py` commands for uploading files to cloud, you need to [create a google application with access to drive api.](https://developers.google.com/drive/api/v3/quickstart/python) (Remember when choosing application type to select "desktop application")
+Once you get the `credentials.json` file, place it in main directory. 
+If you've already received a `token.json` for your google aplication, place it in main directory too - otherwise bot will open authentication page in browser and create the token once confirmed.
+
+**Warning!** - if system doesn't have a browser (for example `raspbian lite` or any other os without GUI), you may need to first run the bot on system which does to generate `token.json` in bot's main directory, then copy the token file to the selected machine's main Cibot directory.
+
+On top of that, you need to create a `drive_ids.json` file in `servers/` directory containing the drive folder ids as `values` and the aliases for them as `keys` to use, when using Cibot to upload file to specific drive folder.
+
+Example `drive_ids.json` file:
+
+```
+{
+    "1": "1biD376aaPsDlDZjyg99SBzOXf5Jg8bV-",
+    "Directory 2": "1jjsCQ2ds0I8Eu-w1wcf1d2f76QrO3lsW",
+    "Music": "43VyiOx5-kGddrzWrIDvg6M-OCN7DLbdv"
+}
+```
 
 ### Folder structure
 
@@ -165,31 +184,6 @@ def setup(client):                         # necessary function - allows cibot.p
 
 ----------------------WiP------------------------
 
-## Support
-
-### Common Problems
-
- - synchronicity        
-
-
-Contents:
-cibot.py - Bot's exec script. Do not edit the code unless you know what you're doing. Anyway, keep the code here minimal.
-config.py - Script containing setup variables. It contains relative paths and general bot settings (you can add your own).
-helpers.py - Script stores local and global functions, that repeat across different modules or are too long to be used in cogs under @commands.command.
-cogs/ - Place here cogs with your own commands.
-res/ - Place here your text, json, xml, CMS files or special images. Do not create any folders in this directory. Create in main instead.
-pics/ - Place here your pictures.
-README.md - this documentation.
-MANUAL.txt - instructions for creating new bot with this code.
-
-
-hidden files:
- - .env - contains bot TOKEN, OS python 3 prefix and information if your machine is raspberry pi. this information is hidden and will not be shared.
-
-Main bot script is cibot.py. Keep it tidy!
-In config.py save data such as relative paths, server settings, etc.
-In helpers.py add your local methods.
-
 
 **Development Rules:**
 1.  name variables by PEP 8 standard
@@ -201,6 +195,11 @@ In helpers.py add your local methods.
 7. for every new library or module you add, update `requirements.txt` with them
 7. do not duplicate function names, command aliases, or features
 8. do not duplicate function names, command aliases, or features
+
+Main bot script is cibot.py. Keep it tidy!
+In config.py save data such as relative paths, server settings, etc.
+In helpers.py add your local methods.
+
 
 
 **ToDo:**
