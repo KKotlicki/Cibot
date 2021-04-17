@@ -3,7 +3,7 @@ from datetime import datetime
 from discord.ext import commands, tasks
 from helpers import fetch_sv_data, remove_data
 from loguru import logger
-from config import LOGS_PATH, RES_PATH, SV_PATH
+from config import LOGS_PATH, RES_PATH
 import os
 import wikipedia
 import asyncio
@@ -61,7 +61,6 @@ class UtilityCog(commands.Cog):
             await ctx.send("Za szybko używasz komend.")
         elif not isinstance(err, wikipedia.DisambiguationError):
             logger.error(err)
-
 
     @tasks.loop(minutes=2.0)
     async def connection_timeout(self):
