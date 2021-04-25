@@ -18,8 +18,8 @@ class RoleCog(commands.Cog):
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, member):
         if not member.bot:
-            if os.path.isfile(f'{SV_PATH}/{member.guild.name+"_config.json"}'):
-                with open(f'{SV_PATH}/{member.guild.name+"_config.json"}', encoding='utf-8') as rd:
+            if os.path.isfile(f'{SV_PATH}/{member.guild.name}_config.json'):
+                with open(f'{SV_PATH}/{member.guild.name}_config.json', encoding='utf-8') as rd:
                     sv_config = json.loads(rd.read())
                 if 'role' in sv_config and 'roles_dict' in sv_config:
                     message_channel = sv_config['role']
