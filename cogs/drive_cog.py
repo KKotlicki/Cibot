@@ -133,7 +133,7 @@ class DriveCog(commands.Cog):
             logger.success(f"@{ctx.author.name} in {ctx.guild.name} set drive channel to #{message}")
             await ctx.send(f"✅ Kanał na aktualizacje dysku ustawiony na #{message}")
 
-    @tasks.loop(seconds=30)
+    @tasks.loop(minutes=5)
     async def check_for_drive_updates(self):
         for fn in os.listdir(f"{SV_PATH}/"):
             if fn.endswith("_drive_ids.json"):
