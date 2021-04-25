@@ -146,5 +146,7 @@ ai/*
 !ai/.gitkeep
 logs/*
 !logs/.gitkeep
+temp/
+!temp/drive_cache
 temp/drive_cache/*
 !temp/drive_cache/.gitkeep
