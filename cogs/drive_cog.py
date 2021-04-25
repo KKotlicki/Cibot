@@ -133,7 +133,7 @@ class DriveCog(commands.Cog):
             logger.success(f"@{ctx.author.name} in {ctx.guild.name} set drive channel to #{message}")
             await ctx.send(f"✅ Kanał na aktualizacje dysku ustawiony na #{message}")
 
-    @tasks.loop(minutes=5.0)
+    @tasks.loop(seconds=30)
     async def check_for_drive_updates(self):
         for fn in os.listdir(f"{SV_PATH}/"):
             if fn.endswith("_drive_ids.json"):
@@ -161,7 +161,7 @@ class DriveCog(commands.Cog):
                                                 list_of_new_files = ""
                                                 for new_file in list(set(item_list) - set(old_items)):
                                                     list_of_new_files += f"\n{new_file[:-38]}"
-                                                embed = discord.Embed(title=f"Na dysku w grupie {folder_name} "
+                                                embed = discord.Embed(title=f"Na dysku w folderze *{folder_name}* "
                                                                             f"pojawiły się nowe pliki:",
                                                                       description=list_of_new_files,
                                                                       color=discord.Color.orange())
