@@ -164,7 +164,7 @@ class DriveCog(commands.Cog):
                                                 embed = discord.Embed(title=f"Na dysku w folderze *{folder_name}* "
                                                                             f"pojawiły się nowe pliki:",
                                                                       description=list_of_new_files,
-                                                                      color=discord.Color.orange())
+                                                                      color=discord.Color.magenta())
                                                 await channel.send(embed=embed)
 
 
