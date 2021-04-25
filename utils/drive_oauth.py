@@ -8,6 +8,7 @@ from google.oauth2.credentials import Credentials
 SCOPES = ['https://www.googleapis.com/auth/drive']
 global service
 
+
 def build_oauth_service():
     creds = None
     if os.path.exists('token.json'):
