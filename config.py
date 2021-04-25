@@ -13,8 +13,8 @@ CHESS_OPTIONS = {
     'elo_change_constant': 50,
     'time_modes': {
             "bullet": 3,
-            "blitz": 7,
-            "quick": 30,
+            "blitz": 10,
+            "quick": 20,
             "standard": 60,
             "long": 120,
         }
