@@ -22,7 +22,7 @@ class ChessCog(commands.Cog):
         self.bot = bot
         self.channel = ''
         self.time_white = 60 * 60
-        self.time_black = 60 * 60
+        self.time_black = self.time_white
         self.current_turn = "white"
         """chess time modes. Values in minutes."""
         if not os.path.isfile(f"{SV_PATH}/chess_queue.txt"):
