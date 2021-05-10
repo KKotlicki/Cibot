@@ -21,9 +21,9 @@ To install, follow the steps below:
 1. Download the [latest release](https://github.com/KKotlicki/Cibot/releases/latest) of Cibot
 
 2. (optional) install and add to the system's `path` enviroment variables the following modules:
-    - If you're running server on Debian or derived system (eg. Ubuntu, Raspbian), first install pip using `sudo apt-get install python3-pip`.
+    - If you are running server on Debian or derived system (eg. Ubuntu, Raspbian), first install pip using `sudo apt-get install python3-pip`.
     - To use youtube commands, install [ffmpeg](https://www.ffmpeg.org/) video converter.
-    - To use chess commands, install [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) runtime.
+    - If you are running bot on Windows, to use chess commands, install [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) runtime.
     - Otherwise, remove `yt_cog.py` or `chess_cog.py` from `cogs/` directory.
 
 3. To install all the python libraries and modules, run `pip install -r /path/to/Cibot/requirements.txt` in terminal. 
