@@ -9,6 +9,7 @@ termcolor
 wikipedia
 pycairo
 CairoSVG
+PyNaCl
 pydrive
 requests
 google-api-python-client
