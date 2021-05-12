@@ -133,6 +133,7 @@ cibot.sh
 updater.sh
 update.bat
 rbp/rb_config.txt
+dev/
 chess_board.svg
 chess_board.png
 /*.zip
