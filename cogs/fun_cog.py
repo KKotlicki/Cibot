@@ -1,6 +1,7 @@
 import random
+import emoji
 from discord.ext import commands
-from config import *
+from config import RES_PATH, PREFIX, BAN_EMOJIS
 from helpers import get_random_number_unless_specified, send_pic_or_txt_on_choice, read_lines
 
 
@@ -17,7 +18,27 @@ class Fun(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if random.randint(1, 16) == 1 and not message.author.bot and not message.content.startswith(PREFIX):
+        if BAN_EMOJIS == 'yes' and emoji.emoji_count(message.content) \
+                and not message.author.bot and not message.content.startswith(PREFIX):
+            ban_emoji_dict = {
+                1: '🛑',
+                2: '⛔',
+                3: '🚫',
+                4: '❌',
+                5: '😡',
+                6: '🤮',
+                7: '☠️'
+            }
+            await message.add_reaction(ban_emoji_dict[random.randint(1, 7)])
+            await message.author.send('**W ramach prawnych Konwencji Genewskiej z dnia 15/05/2021 używanie emoji jest '
+                                      'zabronione!**\nHttps://www.icrc.org/en / war-and-law / treaties-customary-law /'
+                                      ' geneva-conventions / ban-on-emojis\n\n*Zgodnie z ww. dyrektywą i prawem '
+                                      'precedensu de iure wykroczenie zostało zgłoszone jako zbrodnia wojenna i '
+                                      'przekazana sygnitariuszom wymienionej rady.*\n***Jeżeli winny powtórzy '
+                                      'precedens, oskarżenie zostanie przekazana do rewizji i egzekucji z pominięciem '
+                                      'walidacji przez Międzynarodowy '
+                                      'Trybunał Karny w Hadze.***')
+        elif random.randint(1, 16) == 1 and not message.author.bot and not message.content.startswith(PREFIX):
             emoji_dict = {
                 1: "👍",
                 2: "❤",
@@ -46,6 +67,7 @@ class Fun(commands.Cog):
                 25: "😲"
             }
             await message.add_reaction(emoji_dict[random.randint(1, 16)])
+
 
 
 def setup(bot):

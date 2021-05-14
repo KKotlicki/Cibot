@@ -8,6 +8,7 @@ COGS_PATH = 'cogs'
 AI_PATH = 'ai'
 BUFFERED_MP3_FILENAME = 'yt_audio.mp3'
 RPI_PATH = 'rbp'
+BAN_EMOJIS = 'no'
 CHESS_OPTIONS = {
     'starting_elo': 1200,
     'elo_change_constant': 50,
