@@ -120,7 +120,12 @@ class ChessCog(commands.Cog):
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.command()
     async def elo(self, ctx, *, user: discord.User = None):
-        # try:
+        try:
+            with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
+                json.loads(rd.read())
+        except FileNotFoundError:
+            await ctx.send('Nie rozegrano jeszcze żadnych partii szachowych.')
+            return
         if user is None:
             user = ctx.author
         elo_rating = get_elo(ctx, user, self.bot)
@@ -130,8 +135,6 @@ class ChessCog(commands.Cog):
                               description=f"{user.mention}: {elo_rating}",
                               color=discord.Color.dark_blue())
         await ctx.send(embed=embed)
-        # except:
-        # print("elo error")
 
     @commands.cooldown(1, 5, commands.BucketType.guild)
     @commands.command(aliases=['chq', 'chess_queue', 'queuechess', 'game_queue'])
@@ -166,7 +169,7 @@ class ChessCog(commands.Cog):
             with open(f'{SV_PATH}/{ctx.message.guild.name}_chess.json', encoding='utf-8') as rd:
                 chess_history = json.loads(rd.read())
         except FileNotFoundError:
-            ctx.send('Nie rozegrano jeszcze żadnych partii szachowych.')
+            await ctx.send('Nie rozegrano jeszcze żadnych partii szachowych.')
             return
         for key in chess_history:
             ranking[key[:-5]] = get_elo(ctx, key, self.bot)
