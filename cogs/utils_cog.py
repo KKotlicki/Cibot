@@ -65,7 +65,7 @@ class UtilityCog(commands.Cog):
     @tasks.loop(minutes=2.0)
     async def connection_timeout(self):
         try:
-            urlopen('http://216.58.192.142', timeout=20)
+            urlopen('https://www.google.com/', timeout=20)
         except URLError:
             logger.error("Disconnected")
             logger.add(f'{LOGS_PATH}/errors.log', rotation="10 MB")
