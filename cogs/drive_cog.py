@@ -165,6 +165,8 @@ class DriveCog(commands.Cog):
                                                                             f"pojawiły się nowe pliki:",
                                                                       description=list_of_new_files,
                                                                       color=discord.Color.magenta())
+                                                embed.set_thumbnail(
+                                                    url="https://repo.pw.edu.pl/docstore/download/WUT39b00dcaf097475ab239a25e30a576a2/WGiK.jpg")
                                                 await channel.send(embed=embed)
 
 

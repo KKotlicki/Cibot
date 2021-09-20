@@ -16,6 +16,8 @@ class MainCog(commands.Cog):
     async def thx(self, ctx):
         embed_var = discord.Embed(title="🌲 Contributed to Cibot:", description="https://github.com/KKotlicki/Cibot",
                                   color=0xff770f)
+        embed_var.set_thumbnail(
+            url="https://repo.pw.edu.pl/docstore/download/WUT39b00dcaf097475ab239a25e30a576a2/WGiK.jpg")
         with open(f'{RES_PATH}/credits.json', encoding='utf-8') as rd:
             link_dict = json.loads(rd.read())
         for name, cont in link_dict.items():

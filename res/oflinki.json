@@ -1,14 +1,11 @@
 {
     "all": {
         "USOS": "https://usosweb.usos.pw.edu.pl/",
-        "ELKA": "https://studia.elka.pw.edu.pl/pl/20Z/",
         "GITLAB": "https://gitlab-stud.elka.pw.edu.pl/",
         "Bot": "https://github.com/KKotlicki/Cibot"
     },
     
     "1": {
-        "Gabryś": "http://pages.mini.pw.edu.pl/~pietrzkowskig/www/dydaktyka/20z/anl1t-wyklad/",
-        "PELP Lab": "http://pelp.ise.pw.edu.pl/",
         "MATLAB": "https://drive.matlab.com/sharing/",
         "COLAB": "https://colab.research.google.com/"
     },

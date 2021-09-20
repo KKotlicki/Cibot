@@ -19,7 +19,7 @@ async def open_help(ctx, file_name):
     if file_name == "adm_help":
         is_admin = " dla Moderatorów"
     embed_var = discord.Embed(title=f"📒 **Lista Komend{is_admin}**:", color=0xff770f)
-    embed_var.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/commons/c/c8/WEL_WAT.jpg")
+    embed_var.set_thumbnail(url="https://repo.pw.edu.pl/docstore/download/WUT39b00dcaf097475ab239a25e30a576a2/WGiK.jpg")
     with open(f'{RES_PATH}/{file_name}.json', encoding='utf-8') as rd:
         help_json = json.loads(rd.read())
     for name, value in help_json.items():
