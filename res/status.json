@@ -1,5 +1,5 @@
 {
-    "active": "Aktywny",
-    "voice": "W kanale głosowym",
+    "active": "$help",
+    "voice": "W kanale głosowym - $help",
     "update": "Aktualizuje"
 }
