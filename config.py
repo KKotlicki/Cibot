@@ -1,4 +1,4 @@
-PREFIX = '!'
+PREFIX = '$'
 PIC_PATH = 'pics'
 RES_PATH = 'res'
 LOGS_PATH = 'logs'
