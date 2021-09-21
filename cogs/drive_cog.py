@@ -41,7 +41,7 @@ class DriveCog(commands.Cog):
             else:
                 contributor_list += f'\n{temp}. {key} - `{value}`'
             temp += 1
-        embed = discord.Embed(title='Ranking kontrybutorów dysku:',
+        embed = discord.Embed(title='Ranking kontrybucji do dysku:',
                               description=contributor_list, color=discord.Color.gold())
         await ctx.send(embed=embed)
 
@@ -105,7 +105,7 @@ class DriveCog(commands.Cog):
                     await self.bot.loop.run_in_executor(pool, upload_file, metadata, media)
             if is_hidden == "open":
                 embed = discord.Embed(title=f"🎉 Nowe materiały!",
-                                      description=f"{ctx.author.mention} wysłał na dysk grupy semestralnej "
+                                      description=f"{ctx.author.mention} wysłał na dysk w folderze "
                                                   f"**{message}**:\n***{attachment.filename}***",
                                       color=discord.Color.gold())
                 await ctx.send(embed=embed)
