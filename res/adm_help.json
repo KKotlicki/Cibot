@@ -2,7 +2,8 @@
     "Zapis Danych": {
         "Załaduj kanały serwera": "sv",
         "Ustaw kanał na ogłoszenia bota": "set_answ [kanał]",
-        "Ustaw kanał na gry": "set_game [kanał]"
+        "Ustaw kanał na gry": "set_game [kanał]",
+        "Ustaw kanał na ogłoszenia o nowych plikach na dysku": "set_drive [kanał]"
         },
     "Moderacja": {
         "Przekaż ogłoszenie przez bota": "say <wiadomość>",

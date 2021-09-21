@@ -3,20 +3,20 @@
         "Oficjalne linki": "oflinki <semestr>",
         "Nieoficjalne linki": "linki [semestr]",
         "Znajdź link do przedmiotu na yt": "link <semestr> <przedmiot>",
-        "Wyszukaj w wikipedii po polsku": "wiki",
-        "Wyszukaj w wikipedii po angielsku": "enwiki"
+        "Szukaj w wikipedii po polsku": "wiki <hasło>",
+        "Szukaj w wikipedii po angielsku": "enwiki <hasło>"
         },
     "🎓 Szkolne": {
-        "Prześlij plik na dysk kierunku": "upl <semestr> <<plik>>" ,
-        "Przekaż anon. plik na dysk kierunku": "anupl <semestr> <<plik>>",
-        "Ranking kontrybucji": "contr"
+        "Prześlij plik na dysk": "upl <przedmiot> <<plik>>" ,
+        "Przekaż anonimowo plik na dysk": "anupl <przedmiot> <<plik>>",
+        "Kontrybucje na dysku": "contr"
     },
     "🎵 Muzyka": {
         "Dodaj utwór do kolejki": "p <tytuł/link>",
-        "Przewiń utwór do następnego": "skip",
+        "Przewiń do następnego utworu": "skip",
         "Wyczyść kolejkę i zakończ utwór": "qclear",
         "Pokaż kolejkę": "queue",
-        "Ustaw głośność": "volume",
+        "Ustaw głośność": "volume <głośność 1-100>",
         "Dołącz bota na kanał głosowy": "join <kanał>"
         },
     "🎉 Szachy": {
@@ -24,13 +24,13 @@
         "Pozostały czas gry": "chtime",
         "Kolejka do szachów": "chqueue",
         "Ranking szachowy": "top",
-        "Ranking Elo gracza": "elo [@gracz]"
+        "Elo gracza": "elo [@gracz]"
         },
     "🔧 Ogólne": {
         "Ping bota": "ping",
-        "Komendy moderatorów": "adm",
+        "Komendy (dla moderatorów)": "adm",
         "Nie wiem": "co",
-        "Złgoś błąd": "bug",
+        "Złgoś błąd": "bug [wiadomość]",
         "Credits": "thx"
         }
 }
