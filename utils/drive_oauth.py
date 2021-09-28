@@ -14,9 +14,9 @@ def build_oauth_service():
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
+        try:
             creds.refresh(Request())
-        else:
+        except RefreshError:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
