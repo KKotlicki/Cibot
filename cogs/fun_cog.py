@@ -1,7 +1,7 @@
 import random
 import emoji
 from discord.ext import commands
-from config import RES_PATH, PREFIX, BAN_EMOJIS
+from config import RES_PATH, PREFIX, BAN_EMOJIS, REACT_AT_RANDOM
 from helpers import get_random_number_unless_specified, send_pic_or_txt_on_choice, read_lines
 
 
@@ -38,7 +38,8 @@ class Fun(commands.Cog):
                                       'precedens, oskarżenie zostanie przekazana do rewizji i egzekucji z pominięciem '
                                       'walidacji przez Międzynarodowy '
                                       'Trybunał Karny w Hadze.***')
-        elif random.randint(1, 16) == 1 and not message.author.bot and not message.content.startswith(PREFIX):
+        elif REACT_AT_RANDOM == 'yes' and random.randint(1, 16) == 1 and not message.author.bot \
+                and not message.content.startswith(PREFIX):
             emoji_dict = {
                 1: "👍",
                 2: "❤",
@@ -67,7 +68,6 @@ class Fun(commands.Cog):
                 25: "😲"
             }
             await message.add_reaction(emoji_dict[random.randint(1, 16)])
-
 
 
 def setup(bot):
