@@ -143,14 +143,14 @@ class DriveCog(commands.Cog):
                     if len(folder_id) == 2:
                         if not os.path.isfile(f"{TEMP_PATH}/{folder_id[0]}.txt"):
                             item_list = get_drive_folder_file_names(folder_id)
-                            with open(f"{TEMP_PATH}/{folder_id[0]}.txt", "w+") as wr:
+                            with open(f"{TEMP_PATH}/{folder_id[0]}.txt", "w+", encoding="utf-8") as wr:
                                 wr.writelines(item_list)
                         else:
                             with open(f"{TEMP_PATH}/{folder_id[0]}.txt") as rd:
                                 old_items = rd.readlines()
                             item_list = get_drive_folder_file_names(folder_id)
                             if list(set(item_list) - set(old_items)):
-                                with open(f"{TEMP_PATH}/{folder_id[0]}.txt", "w") as wr:
+                                with open(f"{TEMP_PATH}/{folder_id[0]}.txt", "w", encoding="utf-8") as wr:
                                     wr.writelines(item_list)
                                 for guild in self.bot.guilds:
                                     if guild.name == fn[:-15]:
