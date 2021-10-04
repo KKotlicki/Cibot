@@ -68,9 +68,9 @@ class Fun(commands.Cog):
                 25: "😲"
             }
             await message.add_reaction(emoji_dict[random.randint(1, 16)])
-        elif message.content.lower() in REACT_TO_MESSAGE_CONTENT:
+        elif message.content.lower() in REACT_TO_MESSAGE_CONTENT and not message.author.bot:
             ctx = await self.bot.get_context(message)
-            await ctx.send("A co to K*rwa jest?!")
+            await ctx.send("A co to k*rwa jest?!")
 
 
 def setup(bot):
