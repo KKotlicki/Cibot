@@ -61,7 +61,6 @@ Example `drive_ids.json` file:
 Here is current folder structure for Cibot:
 
 ```
-ai/                 # (future) ai module resources
 cogs/               # command scripts
 logs/               # log files
 pics/               # pictures and image type resources
