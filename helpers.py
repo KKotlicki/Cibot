@@ -44,7 +44,6 @@ async def fetch_sv_data(guild):
         fn.write(json.dumps({"text": text_names, "voice": voice_names}))
 
 
-
 def remove_data(guild):
     for file in os.listdir(SV_PATH):
         if file.startswith(guild.name):
