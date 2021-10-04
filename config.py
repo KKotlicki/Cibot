@@ -34,11 +34,11 @@ YTDL_OPTIONS = {
     'default_search': 'auto',
     'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
 }
-AI_RECEPTORS = [
-    "Docenc",
-    "Docent",
-    "docenc",
-    "docent",
+REACT_TO_MESSAGE_CONTENT = [
+    "geodezja",
+    "geodezji",
+    "geodeci",
+    "gik",
 ]
 FFMPEG_OPTIONS = {
     'options': '-vn'

@@ -1,7 +1,7 @@
 import random
 import emoji
 from discord.ext import commands
-from config import RES_PATH, PREFIX, BAN_EMOJIS, REACT_AT_RANDOM
+from config import RES_PATH, PREFIX, BAN_EMOJIS, REACT_AT_RANDOM, REACT_TO_MESSAGE_CONTENT
 from helpers import get_random_number_unless_specified, send_pic_or_txt_on_choice, read_lines
 
 
@@ -68,6 +68,9 @@ class Fun(commands.Cog):
                 25: "😲"
             }
             await message.add_reaction(emoji_dict[random.randint(1, 16)])
+        elif message.content.lower() in REACT_TO_MESSAGE_CONTENT:
+            ctx = await self.bot.get_context(message)
+            await ctx.send("A co to K*rwa jest?!")
 
 
 def setup(bot):
