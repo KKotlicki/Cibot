@@ -39,6 +39,10 @@ REACT_TO_MESSAGE_CONTENT = [
     "geodezji",
     "geodeci",
     "gik",
+    "a co to kurwa jest",
+    "a co to kurwa jest?"
+    "a co to kurwa jest?!",
+    "a co to kurwa jest!?"
 ]
 FFMPEG_OPTIONS = {
     'options': '-vn'
