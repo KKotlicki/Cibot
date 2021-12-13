@@ -1,6 +1,7 @@
 import random
 import emoji
 import urllib.request
+import urllib.error
 import discord
 from discord.ext import commands
 from config import RES_PATH, TEMP_PATH,PREFIX, BAN_EMOJIS, REACT_AT_RANDOM, REACT_TO_MESSAGE_CONTENT
@@ -20,9 +21,14 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def cat(self, ctx, *, question='404'):
-        urllib.request.urlretrieve(
-            f'https://http.cat/{question}',
-            f"{TEMP_PATH}/cat.png")
+        try:
+            urllib.request.urlretrieve(
+                f'https://http.cat/{question}',
+                f"{TEMP_PATH}/cat.png")
+        except urllib.error.HTTPError:
+            urllib.request.urlretrieve(
+                f'https://http.cat/404',
+                f"{TEMP_PATH}/cat.png")
         await ctx.send(file=discord.File(f"{TEMP_PATH}/cat.png"))
 
     @commands.Cog.listener()
