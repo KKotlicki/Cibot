@@ -27,6 +27,7 @@
         "Elo gracza": "elo [@gracz]"
         },
     "🔧 Ogólne": {
+        "Kot": "cat [Kod Odpowiedzi HTTP]",
         "Ping bota": "ping",
         "Komendy (dla moderatorów)": "adm",
         "Nie wiem": "co",
