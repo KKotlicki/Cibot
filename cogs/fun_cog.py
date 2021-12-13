@@ -1,7 +1,9 @@
 import random
 import emoji
+import urllib.request
+import discord
 from discord.ext import commands
-from config import RES_PATH, PREFIX, BAN_EMOJIS, REACT_AT_RANDOM, REACT_TO_MESSAGE_CONTENT
+from config import RES_PATH, TEMP_PATH,PREFIX, BAN_EMOJIS, REACT_AT_RANDOM, REACT_TO_MESSAGE_CONTENT
 from helpers import get_random_number_unless_specified, send_pic_or_txt_on_choice, read_lines
 
 
@@ -15,6 +17,13 @@ class Fun(commands.Cog):
     async def co(self, ctx, *, question=''):
         choice = get_random_number_unless_specified(question)
         await send_pic_or_txt_on_choice(ctx, choice)
+
+    @commands.command()
+    async def cat(self, ctx, *, question='404'):
+        urllib.request.urlretrieve(
+            f'https://http.cat/{question}',
+            f"{TEMP_PATH}/cat.png")
+        await ctx.send(file=discord.File(f"{TEMP_PATH}/cat.png"))
 
     @commands.Cog.listener()
     async def on_message(self, message):
