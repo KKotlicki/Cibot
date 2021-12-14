@@ -10,7 +10,6 @@ if not os.path.exists('.env'):
     env_config()
 load_dotenv()
 
-global google_api
 is_drive = None
 if os.path.exists('credentials.json'):
     is_drive = build_oauth_service()
