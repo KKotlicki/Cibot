@@ -3,9 +3,8 @@
 ## Description
 
 This repository contains a code of discord bot for college utilities;
-The code is universal and cross-platform compatible **(not tested on macOS!)** with a few extra features on Raspberry Pi 4;
-The code is ready to be used as your own bot and no changes need to be applied (more on that in MANUAL.txt)
-
+The code is universal and cross-platform compatible **(not tested on macOS)** with a few extra features on Raspberry Pi 4;
+The code is ready to be used as your own bot and no script changes need to be applied.
 
 ## Setup
 
@@ -23,28 +22,28 @@ To install, follow the steps below:
 2. (optional) install and add to the system's `path` enviroment variables the following modules:
     - If you are running server on Debian or derived system (eg. Ubuntu, Raspbian), first install pip using `sudo apt-get install python3-pip`.
     - To use youtube commands, install [ffmpeg](https://www.ffmpeg.org/) video converter.
-    - If you are running bot on Windows, to use chess commands, install [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer) runtime.
+    - If you are running bot on Windows, to use chess commands, install [gtk3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer).
     - Otherwise, remove `yt_cog.py` or `chess_cog.py` from `cogs/` directory.
 
 3. To install all the python libraries and modules, run `pip install -r /path/to/Cibot/requirements.txt` in terminal. 
-    (replace `/path/to/` with path of Cibot)
-
-    **WARNING!** - make sure `python` is the alias for python version 3, not 2. To check the version of the python used, type in `python -V`. If you have both version 2 and 3 installed on your s, replace all `python` in code below with appropriate command. 
-
 
 ### Bot setup
 
-**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 command (usually python3, python or py - you can check which one is it by running it in cmd)**
+**Once you run cibot.py, you will be asked to provide Token (a special id of the discord bot) and OS python 3 command (usually python3, python or py)**
+
+To obtain Bot Token, go to your [bot's site](discord.com/developers/applications/), choose your bot or create a new one (remember to provide admin permission).
+
+Next go to Bot section and under "TOKEN" click button "Copy".
 
 #### Google drive setup (optional)
 
-To use `drive_cog.py` commands for uploading files to cloud, you need to [create a google application with access to drive api.](https://developers.google.com/drive/api/v3/quickstart/python) (Remember when choosing application type to select "desktop application")
+To use `drive_cog.py` commands for uploading files to cloud, you need to create a [google application with access to drive api](https://developers.google.com/drive/api/v3/quickstart/python). (Choose application type "desktop application")
 Once you get the `credentials.json` file, place it in main directory. 
-If you've already received a `token.json` for your google aplication, place it in main directory too - otherwise bot will open authentication page in browser and create the token once confirmed.
+If you've already received a `token.json` for your google aplication, place it in main directory too - otherwise bot will open authentication page in browser and create the token once authentication was completed.
 
-**Warning!** - if system doesn't have a browser (for example `raspbian lite` or any other os without GUI), you may need to first run the bot on system which does to generate `token.json` in bot's main directory, then copy the token file to the selected machine's main Cibot directory.
+**Warning!** - if system doesn't have a browser (for example any OS without GUI), you may need to first run the bot on system which does to generate `token.json` in bot's main directory, then copy the token file to the selected machine's main Cibot directory.
 
-On top of that, you need to create a `drive_ids.json` file in `servers/` directory containing the drive folder ids as `values` and the aliases for them as `keys` to use, when using Cibot to upload file to specific drive folder.
+If you want to use drive file upload command, you need to create a `drive_ids.json` file in `servers/` directory containing the drive folder ids as `values` and the aliases for them as `keys` to use, when using Cibot to upload file to specific drive folder.
 
 Example `drive_ids.json` file:
 
@@ -90,53 +89,26 @@ README.md           # documentation
 ## Development
 
 Cibot is an open-source project. Every contribution is welcome;
-To contribute, make your own branch and send Git pull request;
-First, connect to your GitHub account, then use the following Git code to create a new branch with your changes:
 
-
-```
-git init
-git remote https://github.com/KKotlicki/Cibot
-git checkout -b
-git add *
-git commit *
-git push
-
-```
-
-To commit changes to the main branch and publish your contribution, log in your GitHub account, and send a branch pull request.
 Every current command is described in res/help.json and res/adm_help.json
-
-
-### Language
-
-Here are some keywords concerning structure and code that are used in this manual and in-script comments
-
- - method                           # function inside class - general python lingua
- - global (data)                    # resources, configurations, variables, functions, that are used by bot in several unrelated functions
- - cogs                             # modules with special syntax containing one class with several bot commands or behavior methods
-      
-
-### Structure
 
 **Notice**:	Commits that do not keep to the structure will not be accepted.
 
 
-#### cibot.py
+### cibot.py
 
-The main bot script. It has only few functions:
+The main bot script:
 
- - creates personal environment file
+ - generates personal environment file (first time use only)
+ - generates drive token file (if drive credentials.json exists)
  - connects to bot's discord API
- - loads config.py file
- - set few of the global settings
- - loads all the cogs from directory
+ - loads the cogs from directory
 
 Main script should not define any other commands;
-Keep this code as clear and minimal as possible.
+Keep this code as clean and minimal as possible.
 
 
-#### module_name_cog.py
+### module_name_cog.py
 
 The most important element of the bot.
 Every cog file is an independent module containing one class in special syntax with several closely related methods.
@@ -144,13 +116,13 @@ They dictate bot's behavior, although bot should be able to work with or without
 To add new commands or functionalities, create a cog or add to existing cog.
 
 
-##### cog syntax
+#### cog syntax
 
 For reference, look at the cogs/ directory to find examples of a code.
 Here is one that defines three methods:
- - 1st is being automatically called when bot is going online
- - 2nd when user types in chat <!ping>
- - 3rd when user types in chat <!dice>
+ - on_ready() is being automatically called when bot is going online
+ - ping() when user types in chat <!ping>
+ - dice() when user types in chat <!dice>
 
 ```
 from discord.ext import commands           # necessary function - loads cog structure commands
@@ -181,22 +153,20 @@ def setup(client):                         # necessary function - allows cibot.p
 ```
 
 
-----------------------WiP------------------------
-
-
 **Development Rules:**
-1.  name variables by PEP 8 standard
+1.  adhere to PEP 8 standard
 2.  do not create subfolders or add any non-cog files in `cogs/`
 3.  if you want to create directory for new features, do so in the main directory
 4.  unless you have a good reason, do not change `cibot.py` script
 5.  make sure to test your code before uploading
-6. remember not to break asynchronicity
-7. for every new library or module you add, update `requirements.txt` with them
-7. do not duplicate function names, command aliases, or features
-8. do not duplicate function names, command aliases, or features
+6.  remember not to break asynchronicity
+7.  for every new library or module you add, update `requirements.txt` with them
+8.  for every new command you add, update help.json or adm_help.json respectively.
+9.  do not duplicate function names, command aliases, or features
+10.  do not duplicate function names, command aliases, or features
 
 Main bot script is cibot.py. Keep it tidy!
-In config.py save data such as relative paths, server settings, etc.
+In config.py save user specific data such as relative paths, server settings, etc.
 In helpers.py add your local methods.
 
 
@@ -215,8 +185,8 @@ In helpers.py add your local methods.
 
 ```
 1. yt_cog - save queue, load queue, additional queue handling
-2. yt_cog change music to pre-bufforing
-3. Finish documentation and setup manual
+2. yt_cog change $play to pre-bufforing (downloading, then streaming) by default, but leave direct streaming if query result is stream
+3. Finish documentation
 4. chess_cog - takeback offer
 5. move chess_cog temporary files location from main to temp/
 ```
