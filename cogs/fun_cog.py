@@ -31,6 +31,18 @@ class Fun(commands.Cog):
                 f"{TEMP_PATH}/cat.png")
         await ctx.send(file=discord.File(f"{TEMP_PATH}/cat.png"))
 
+    @commands.command()
+    async def doggo(self, ctx, *, question='404'):
+        try:
+            urllib.request.urlretrieve(
+                f'https://httpstatusdogs.com/img/{question}',
+                f"{TEMP_PATH}/cat.png")
+        except urllib.error.HTTPError:
+            urllib.request.urlretrieve(
+                f'https://httpstatusdogs.com/img/404',
+                f"{TEMP_PATH}/dog.png")
+        await ctx.send(file=discord.File(f"{TEMP_PATH}/dog.png"))
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if BAN_EMOJIS == 'yes' and emoji.emoji_count(message.content) \
