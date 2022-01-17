@@ -51,7 +51,7 @@ class Fun(commands.Cog):
                                       ' geneva-conventions / ban-on-emojis\n\n*Zgodnie z ww. dyrektywą i prawem '
                                       'precedensu de iure wykroczenie zostało zgłoszone jako zbrodnia wojenna i '
                                       'przekazana sygnitariuszom wymienionej rady.*\n***Jeżeli winny powtórzy '
-                                      'precedens, oskarżenie zostanie przekazana do rewizji i egzekucji z pominięciem '
+                                      'precedens, oskarżenie zostanie przekazane do rewizji i egzekucji z pominięciem '
                                       'walidacji przez Międzynarodowy '
                                       'Trybunał Karny w Hadze.***')
         elif REACT_AT_RANDOM == 'yes' and random.randint(1, 16) == 1 and not message.author.bot \
@@ -84,13 +84,15 @@ class Fun(commands.Cog):
                 25: "😲"
             }
             await message.add_reaction(emoji_dict[random.randint(1, 16)])
-        if message.content.lower() in REACT_TO_MESSAGE_CONTENT and not message.author.bot:
+
+        if bool(re.search(r"(?i)(?=(" + '|'.join(REACT_TO_MESSAGE_CONTENT) + r"))", message.content))\
+                and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("A co to k*rwa jest?!")
-        if bool(re.search('uwu', message.content.lower())) and not message.author.bot:
+        if bool(re.search(r'(?i)uwu', message.content)) and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("UwU")
-        if self.bot.user.mentioned_in(message) and bool(re.search('kc', message.content.lower()))\
+        if self.bot.user.mentioned_in(message) and bool(re.search(r'(?i)kc', message.content))\
                 and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("kc")
