@@ -86,13 +86,12 @@ class Fun(commands.Cog):
         if message.content.lower() in REACT_TO_MESSAGE_CONTENT and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("A co to k*rwa jest?!")
-        if message.content.lower() == "kc" and not message.author.bot:
-            ctx = await self.bot.get_context(message)
-            await ctx.send("kc")
         if message.content.lower() == "uwu" and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("UwU")
-
+        if self.bot.user.mentioned_in(message) and message.content.lower() == "kc" and not message.author.bot:
+            ctx = await self.bot.get_context(message)
+            await ctx.send("kc")
 
 
 def setup(bot):
