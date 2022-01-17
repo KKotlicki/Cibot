@@ -1,10 +1,11 @@
 import random
 import emoji
+import re
 import urllib.request
 import urllib.error
 import discord
 from discord.ext import commands
-from config import RES_PATH, TEMP_PATH,PREFIX, BAN_EMOJIS, REACT_AT_RANDOM, REACT_TO_MESSAGE_CONTENT
+from config import RES_PATH, TEMP_PATH, PREFIX, BAN_EMOJIS, REACT_AT_RANDOM, REACT_TO_MESSAGE_CONTENT
 from helpers import get_random_number_unless_specified, send_pic_or_txt_on_choice, read_lines
 
 
@@ -86,10 +87,11 @@ class Fun(commands.Cog):
         if message.content.lower() in REACT_TO_MESSAGE_CONTENT and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("A co to k*rwa jest?!")
-        if message.content.lower() == "uwu" and not message.author.bot:
+        if bool(re.search('uwu', message.content.lower())) and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("UwU")
-        if self.bot.user.mentioned_in(message) and message.content.lower() == "kc" and not message.author.bot:
+        if self.bot.user.mentioned_in(message) and bool(re.search('kc', message.content.lower()))\
+                and not message.author.bot:
             ctx = await self.bot.get_context(message)
             await ctx.send("kc")
 
