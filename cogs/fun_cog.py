@@ -91,7 +91,7 @@ class Fun(commands.Cog):
             await ctx.send("kc")
         if message.content.lower() == "uwu" and not message.author.bot:
             ctx = await self.bot.get_context(message)
-            await ctx.send("uwu")
+            await ctx.send("UwU")
 
 
 
