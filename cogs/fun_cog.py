@@ -95,7 +95,10 @@ class Fun(commands.Cog):
         if self.bot.user.mentioned_in(message) and bool(re.search(r'(?i)kc', message.content))\
                 and not message.author.bot:
             ctx = await self.bot.get_context(message)
-            await ctx.send("kc")
+            await ctx.send("kc też")
+        if bool(re.search(r'(?i)chryńska', message.content)) and not message.author.bot:
+            ctx = await self.bot.get_context(message)
+            await ctx.send(f"<@348578970129793026> chryńska chryńska uwu uwu")
 
 
 def setup(bot):
