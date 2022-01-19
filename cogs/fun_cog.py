@@ -97,7 +97,7 @@ class Fun(commands.Cog):
             ctx = await self.bot.get_context(message)
             await ctx.send("kc też")
         if bool(re.search(r'(?i)chryńska', message.content)) and not message.author.bot:
-            await message.delete(message)
+            await message.delete()
 
 
 def setup(bot):
