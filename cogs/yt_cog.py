@@ -190,10 +190,6 @@ class Music(commands.Cog):
             statuses = json.loads(rd.read())
         await self.bot.change_presence(status=discord.Status.idle, activity=discord.Game(statuses['active']))
 
-    # if bool(re.search(r'(?i)uwu', message.content)) and not message.author.bot:
-    #     ctx = await self.bot.get_context(message)
-    #     await ctx.send("UwU")
-
 
 def setup(bot):
     bot.add_cog(Music(bot))
